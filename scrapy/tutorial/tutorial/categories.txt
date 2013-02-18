@@ -1,0 +1,517 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+<TITLE>Browse Aisles</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<LINK rel="stylesheet" href="/masterppod.css" type="text/css" />
+<link rel="stylesheet" href="http://i4.peapod.com/styles/browseAisles_1.6.css" type="text/css">
+<style type="text/css">
+#BALeft h1 {
+background-image: url(http://i4.peapod.com/c/CH/CHCW3.gif);
+}
+#BALeft ul li a {
+background-image: url(http://i4.peapod.com/c/3Z/3ZGAM.gif);
+background-color: transparent !important;
+}
+#BALeft ul li a.BASelectedCategory {
+background-image: url(http://i4.peapod.com/c/PQ/PQPGJ.gif);
+background-color: #f0e8a4 !important;
+}
+#BALeft>ul>li>a:hover, {
+background-color: #f0e8a4;
+}
+#BALeft ul li ul li a, #BALeft_targetedLinks a {
+background-image: url(http://i4.peapod.com/c/CF/CFRK6.gif)
+}
+#BALeft a.selected {
+background-image: url(http://i4.peapod.com/c/VH/VHIQ3.gif);
+}
+#BADeptHeading, #BASpecialsHeading, #BASuggestionsHeading, #BARight .recHeading {
+background-image: url(http://i4.peapod.com/c/77/77FM8.gif);
+}
+#keywebController {
+list-style: none inside none;
+margin: 285px 0 0;
+padding: 0;
+position: absolute;
+width: 585px;
+z-index: 9999;
+}
+#keywebController li {
+display: inline;
+float: right;
+margin-left: 2px;
+}
+#keywebController li a {
+background-color: #552814;
+border: 1px solid #552814;
+color: #FFFFFF;
+display: block;
+font-size: 13px;
+font-weight: bold;
+height: 20px;
+line-height: 20px;
+text-align: center;
+width: 20px;
+text-decoration: none;
+}
+#keywebController li a.active {
+background-color: #F0860F;
+border: 1px solid #552814;
+}
+#keywebController li a:hover {
+background-color: #F0860F;
+border: 1px solid #552814;
+text-decoration: none;
+}
+</style>
+<SCRIPT language="javascript" type="text/javascript" src="http://i4.peapod.com/scripts/common/rotateContent_1.1.js"></SCRIPT>
+<SCRIPT language="javascript" type="text/javascript" src="http://i4.peapod.com/scripts/common/jquery-1.4.2.min.js"></SCRIPT>
+<script type="text/javascript" src="http://cdn.gigya.com/JS/socialize.js?apikey=2_zxZwBG-iWTDxRXbK85LRAFgp1FCuEpLGA8dA59Jy3Jl1DPSHIpatNXrr2VD3mq-R">
+{
+siteName: 'peapod.com'
+,enabledProviders: 'facebook,twitter,yahoo,google'
+,forceAuthentication: true
+}
+</script>
+<SCRIPT language="javascript" type="text/javascript" >
+function logoutFromGS() {
+gigya.services.socialize.logout(
+{
+forceProvidersLogout:true
+}); // logout from Gigya platform
+}
+</SCRIPT>
+<SCRIPT language="javascript" type="text/javascript" src="http://i4.peapod.com/scripts/common/common_1.19.js"></SCRIPT>
+<SCRIPT language="javascript" type="text/javascript" src="http://i4.peapod.com/scripts/common/buy_1.7.js"></SCRIPT>
+<SCRIPT language="javascript" type="text/javascript" src="http://i4.peapod.com/scripts/common/divUtility_1.6.js"></SCRIPT>
+<SCRIPT language="javascript" type="text/javascript" src="http://i4.peapod.com/checkout_1.6.1.js"></SCRIPT>
+<SCRIPT language="javascript" type="text/javascript" src="http://i4.peapod.com/scripts/common/homepage1000_1.3.js"></SCRIPT>
+<script type="text/javascript">
+var eventId = "3570";
+(function($) { 
+var advPlaceholder;
+var frame4;
+var alreadyRetrieved = 0;
+var baWrapper;
+function canShowAdvert() {
+return (frame4.width() > 1000);
+}
+function handleAdv(data, textStatus, jqXHR) {
+if (canShowAdvert()) {
+if (data.indexOf("Peapod Expired Session") > -1) {
+top.location.reload(true);
+} else {
+advPlaceholder.html(data);
+baWrapper.css("width", "980px");
+advPlaceholder.show();
+}
+}
+}
+function checkForDisplay() {
+if (canShowAdvert()) {
+if (alreadyRetrieved == 1) {
+advPlaceholder.show();
+baWrapper.css("width", "980px");
+} else {
+alreadyRetrieved = 1;
+$.ajax({url:"/frags/mwl/home-page-advert.jhtml", 
+data:(eventId ? {"eventId":eventId} : {}), 
+success:handleAdv, dataType:"html", cache:false});
+}
+} else {
+advPlaceholder.hide();
+baWrapper.css("width", "804px");
+}
+}
+function handleResize() {
+if(this.resizeTO) {
+clearTimeout(this.resizeTO);
+}
+this.resizeTO = setTimeout(
+function() { $(this).trigger('resizeEnd'); }, 500);
+}
+$(document).ready(function() {
+baWrapper = $("#BAWrapper");
+advPlaceholder = $("#adv-place");
+if (advPlaceholder.length == 0) { return; }
+frame4 = $(parent.frame4.window);
+if (screen.width > 1275) { 
+$(window).resize(handleResize);
+$(window).bind('resizeEnd', checkForDisplay);
+checkForDisplay();
+}
+});
+})(jQuery);
+</script>
+<SCRIPT language="JavaScript">
+<!-- Begin to hide script contents from old browsers.
+var bNow = new Date();
+var bNum = bNow.getTime();
+var unselectedImages;
+var selectedTabNo = 0;
+var preloadImagesFlag = false;
+var image_grocery_cart_visible;
+var image_grocery_cart_invisible;
+var image_grocery_cart_visible_src;
+var image_grocery_cart_invisible_src;
+function preloadImages2( images )
+{
+unselectedImages = images.split( ";" );
+}
+// detect double-click of down arrow
+function q4( prodId )
+{
+// for ie
+if ( document.all )
+{
+q3( prodId );
+}
+// for netscape 6, netscape 7
+if ( document.getElementById && !document.all )
+{
+// q3( prodId, clicks );
+}
+return;
+}
+// detected double-click of buy button or up arrow
+function buy2( prodId )
+{
+// for ie
+if ( document.all )
+{
+buy( prodId );
+}
+// for netscape 6, netscape 7
+if ( document.getElementById && !document.all )
+{
+// buy( prodId, clicks );
+}
+return;
+}
+// End the hiding here. -->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+var loaded = false;
+var bNow = new Date();
+var bNum = bNow.getTime();
+var savedID = 0;
+var savedQTY = 0;
+var timeOutEvent;
+var immediateEvent;
+var bNumItems = 0;
+var lastUpdateTime = 0;
+var now;
+var currentTime = 0;
+var elapsedMs = 0;
+var bQtyFldDirty = 0;
+var bEventScheduled = 0;
+var bOnBlur = 1;
+var bReviewOrderShelf = 0;
+var bCouponShelf = 'true';
+function shopCoupon(cpnSet, cpnNo, cpnKey )
+{
+var newLoc = 'processShowCouponShelfFromBrowseAisles.jhtml?CPNSET=' + cpnSet;
+newLoc += "&CPNNO=" + cpnNo;
+newLoc += "&CPNKEY=" + cpnKey;
+newLoc += "&event=" + "browseCatCpn";
+bNum = bNow.getTime();
+newLoc += "&NUM1=" + bNum;
+var options = 'resizable=yes,toolbar=no,directories=no,status=no,scrollbars=yes,menubar=no,width=750,height=550';
+var agent = navigator.userAgent;
+if ( agent.indexOf( 'Mozilla' ) != -1 )
+{
+top.couponWin = window.open( newLoc, 'PromotionSavings', options);
+if ( top.couponWin != null )
+top.couponWin.focus();
+}
+}
+function shopSpecialProdGrp( prodGrpId, prodDesc, salePrice )
+{
+prodDesc=prodDesc.replace(/\%/gi, "%25");
+prodDesc=prodDesc.replace(/\&/gi, "%26");
+salePrice=salePrice.replace(/\%/gi, "%25");
+salePrice=salePrice.replace(/\&/gi, "%26");
+var newLoc = 'processShowSpecialProdGrpFromBrowseAisles.jhtml?PRODGRP=' + prodGrpId;
+newLoc += "&PRODDESC=" + prodDesc;
+newLoc += "&SALEPRICE=" + salePrice;
+newLoc += "&event=" + "browseCatPromo";
+bNum = bNow.getTime();
+newLoc += "&NUM1=" + bNum;
+var options = 'resizable=yes,toolbar=no,directories=no,status=no,scrollbars=yes,menubar=no,width=750,height=550';
+var agent = navigator.userAgent;
+if ( agent.indexOf( 'Mozilla' ) != -1 )
+{
+top.specGrpWin = window.open( newLoc, 'WeeklySpecials', options);
+if ( top.specGrpWin != null )
+top.specGrpWin.focus();
+}
+}
+function shop( prodGrpId )
+{
+top.refreshCartItems = 'false';
+top.refreshCartTotals = 'false';
+top.szWeeklySpecialsStartedFrom = 'WeeklySpecialsPage';
+newLocation = 'browseAislesShowProdGrp.jhtml?prodGroupId=' + prodGrpId;
+newLocation += "&MenuTx=";
+newLocation += "&NewShelfType=26";
+self.location = newLocation;
+}
+function activateTab3()
+{
+var TabImgFld = eval("'tab1'");
+if ( top.frame1.document.images[TabImgFld] )
+{
+top.frame1.document.images[TabImgFld].src = top.tab_img3 ;
+}
+}
+activateTab3();
+window.onLoad=rotateContent("underCartAdvtContent.jhtml");
+</script>
+<SCRIPT language="javascript" type="text/javascript" src="http://i4.peapod.com/scripts/common/jquery-1.4.2.min.js"></SCRIPT>
+<script type="text/javascript">
+jQuery(document).ready(function()
+{
+// Attach click event to content elements 
+jQuery('.cnt-obj').bind("click", function(event){
+var item = jQuery(this);
+var itemId = item.attr('id');
+var parts = itemId.split("-");
+var contentId = parts[1]; 
+// fetch info for this content item
+lUrl = '/contentclick.jhtml?contentId=' + contentId;
+jQuery.ajax({url:lUrl,async:false,cache:false});
+});
+});
+</script>
+</HEAD>
+<!--[if lt IE 9]>
+<BODY class="ieLT9">
+<![endif]-->
+<!--[if !IE]>-->
+<BODY>
+<!--<![endif]-->
+<div id="BAWrapper">
+<div id="BALeft">
+<h1 class="top">Aisles/Departments</h1>
+<ul>
+<li>
+<a href="?cnid=2098" target="_self" class="mainCat">Produce
+</a>
+</li>
+<li>
+<a href="?cnid=1563" target="_self" class="mainCat">Meat &amp; Seafood
+</a>
+</li>
+<li>
+<a href="?cnid=921" target="_self" class="mainCat">Deli
+</a>
+</li>
+<li>
+<a href="?cnid=805" target="_self" class="mainCat">Dairy
+</a>
+</li>
+<li>
+<a href="?cnid=365" target="_self" class="mainCat">Beverages
+</a>
+</li>
+<li>
+<a href="?cnid=85" target="_self" class="mainCat">Bakery
+</a>
+</li>
+<li>
+<a href="?cnid=995" target="_self" class="mainCat">Frozen
+</a>
+</li>
+<li>
+<a href="?cnid=1066" target="_self" class="mainCat">Grains, Pasta &amp; Beans
+</a>
+</li>
+<li>
+<a href="?cnid=166" target="_self" class="mainCat">Baking &amp; Cooking Needs
+</a>
+</li>
+<li>
+<a href="?cnid=569" target="_self" class="mainCat">Condiments &amp; Sauces
+</a>
+</li>
+<li>
+<a href="?cnid=2708" target="_self" class="mainCat">Soups &amp; Canned Goods
+</a>
+</li>
+<li>
+<a href="?cnid=2543" target="_self" class="mainCat">Snacks
+</a>
+</li>
+<li>
+<a href="?cnid=530" target="_self" class="mainCat">Breakfast &amp; Cereal
+</a>
+</li>
+<li>
+<a href="?cnid=2" target="_self" class="mainCat">Alcoholic Beverages
+</a>
+</li>
+<li>
+<a href="?cnid=1448" target="_self" class="mainCat">Laundry, Paper &amp; Cleaning
+</a>
+</li>
+<li>
+<a href="?cnid=1675" target="_self" class="mainCat">Office, Home &amp; Garden
+</a>
+</li>
+<li>
+<a href="?cnid=1201" target="_self" class="mainCat">Health &amp; Beauty
+</a>
+</li>
+<li>
+<a href="?cnid=1370" target="_self" class="mainCat">Baby &amp; Childcare
+</a>
+</li>
+<li>
+<a href="?cnid=2057" target="_self" class="mainCat">Pet Store
+</a>
+</li>
+</ul>
+<br/>
+<h1>More</h1>
+<div id="BALeft_targetedLinks">
+<a id='cntid-27066' class="cnt-obj " href="/displayProdIdSearchResults.jhtml?searchTxt=organic&view=grid&linkid=b&sort=%2BconsumProdCategoryId,%2BitemLongName&cntId=27066">Organic</a>
+<a id='cntid-27116' class="cnt-obj " href="/displayProdIdSearchResults.jhtml?searchTxt=prep_foods&slabel=prepared%20foods&view=list&sort=%2BconsumProdCategoryId,%2BitemLongName&linkid=b&cntId=27116">Prepared Foods</a>
+<a id='cntid-27091' class="cnt-obj " href="/displayProdIdSearchResults.jhtml?searchTxt=STOREBRAND&slabel=store%20brands&view=list&sort=%2BconsumProdCategoryId,%2BitemLongName&linkid=b&cntId=27091">Store Brands</a>
+<a id='cntid-46560' class="cnt-obj " href="/displayProdIdSearchResults.jhtml?searchTxt=gltnfree%20bread&slabel=gluten%20free%20bread&view=grid&linkid=b&cntId=46560">Gluten Free Bread</a>
+</div>
+</div>
+<div id="BARight">
+<div id="BARightTop">
+<div id="BAKeyWeb">
+<ul id="keywebController">
+</ul>
+<div id="keyweb1" class="keywebMessage">
+<a id='cntid-57790' class="cnt-obj " href="/displayProdIdSearchResults.jhtml?searchTxt=Diet%20Pepsi&imgId=1560416&evntId=9430&cntId=57790">
+<img src="http://i4.peapod.com/c/UC/UCD90.jpg" title="Pepsi Offer" border="0"/>
+</a>
+</div>
+<div id="keyweb4" class="keywebMessage">
+<a id='cntid-58599' class="cnt-obj " href="/displayECIShelf.jhtml?imgId=1560971&eciId=120033026&cntId=58599">
+<img src="http://i4.peapod.com/c/Z4/Z46Q1.jpg" title="ConAgra" border="0"/>
+</a>
+</div>
+<div id="keyweb5" class="keywebMessage">
+<a id='cntid-58625' class="cnt-obj " href="/displayProdIdSearchResults.jhtml?searchTxt=Stop%20and%20Shop&catnode=1536&view=grid&imgId=1556182&cntId=58625">
+<img src="http://i4.peapod.com/c/GQ/GQTOT.jpg" title="New Peapod Paper Products" border="0"/>
+</a>
+</div>
+</div>
+</div>
+<div id="BASpecials">
+<form name="ShelfForm" action="/processShowBrowseAisles.jhtml?_DARGS=/browseAislesCategories.jhtml.6" method="post" Style="{margin:0;padding:0;border:0}">
+<div id="BASpecialsHeading">
+<h2>Specials</h2>
+<a id="viewAllSpecials" href="/weeklySpecialsTab.jhtml">view all specials</a>
+</div>
+<table border="0" cellspacing="0" cellpadding="0" id="BASpecialsTable">
+<tr>
+<td class="BASpecialsCell">
+<table width="100%" bgcolor="white" cellpadding=0 cellspacing=0 border=0>
+<tr>
+<td align="center"><A HREF="javascript:shopSpecialProdGrp(468735,'Red Bull Energy Drinks','$6.99','category');"><img src="http://i4.peapod.com/c/G4/G4P4N.jpg" border="0" title="Red Bull Energy Drinks"></a>
+</td>
+</tr>
+<tr>
+<td align="center" class="spcls_desc">Red Bull Energy Drinks <br />
+<span class="spcls_size">4 pk </span><br />
+<b><font color="red">$6.99 </font></b><br />
+<A HREF="javascript:shopSpecialProdGrp(468735,'Red Bull Energy Drinks','$6.99','Red Bull Energy Drinks');"><img src="http://i4.peapod.com/c/MN/MNFSL.gif" border="0" title="Red Bull Energy Drinks"></a></font>
+</td>
+</tr>
+</table>
+</td>
+<td class="BASpecialsCell">
+<table width="100%" bgcolor="white" cellpadding=0 cellspacing=0 border=0>
+<tr>
+<td align="center"><A HREF="javascript:shopSpecialProdGrp(468968,'Pirate Brands Snacks','2 for $5','category');"><img src="http://i4.peapod.com/c/T0/T0G7D.jpg" border="0" title="Pirate Brands Snacks"></a>
+</td>
+</tr>
+<tr>
+<td align="center" class="spcls_desc">Pirate Brands Snacks <br />
+<span class="spcls_size">4 - 6 oz </span><br />
+<b><font color="red">2 for $5 </font></b><br />
+<A HREF="javascript:shopSpecialProdGrp(468968,'Pirate Brands Snacks','2 for $5','Pirate Brands Snacks');"><img src="http://i4.peapod.com/c/MN/MNFSL.gif" border="0" title="Pirate Brands Snacks"></a></font>
+</td>
+</tr>
+</table>
+</td>
+<td class="BASpecialsCell">
+<table width="100%" bgcolor="white" cellpadding=0 cellspacing=0 border=0>
+<tr>
+<td align="center"><A HREF="javascript:shopSpecialProdGrp(468099,'popchips Potato Chips','2 for $5','category');"><img src="http://i4.peapod.com/c/NU/NU7LU.jpg" border="0" title="popchips Potato Chips"></a>
+</td>
+</tr>
+<tr>
+<td align="center" class="spcls_desc">popchips Potato Chips <br />
+<span class="spcls_size">3 oz </span><br />
+<b><font color="red">2 for $5 </font></b><br />
+<A HREF="javascript:shopSpecialProdGrp(468099,'popchips Potato Chips','2 for $5','popchips Potato Chips');"><img src="http://i4.peapod.com/c/MN/MNFSL.gif" border="0" title="popchips Potato Chips"></a></font>
+</td>
+</tr>
+</table>
+</td>
+<td class="BASpecialsCell">
+<table width="100%" bgcolor="white" cellpadding=0 cellspacing=0 border=0>
+<tr>
+<td align="center"><A HREF="javascript:shopSpecialProdGrp(468666,'Log Cabin Syrup','Save $.20','category');"><img src="http://i4.peapod.com/c/EG/EGM1L.jpg" border="0" title="Log Cabin Syrup"></a>
+</td>
+</tr>
+<tr>
+<td align="center" class="spcls_desc">Log Cabin Syrup <br />
+<span class="spcls_size">24 oz </span><br />
+<b><font color="red">Save $.20 </font></b><br />
+<A HREF="javascript:shopSpecialProdGrp(468666,'Log Cabin Syrup','Save $.20','Log Cabin Syrup');"><img src="http://i4.peapod.com/c/MN/MNFSL.gif" border="0" title="Log Cabin Syrup"></a></font>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<div id="category_rr"></div>
+</form>
+</div>
+</div> 
+<div id="adv-place" style="display:none; width:160px;height:600px;float:left;padding-left:5px;"></div>
+<!-- Resonance code resxclsa.js v2.x Copyright 2004-2010 Certona Corporation www.certona.com -->
+<script type="text/javascript">
+//variables for all pages
+var resx = new Object();
+resx.appid="peapod01";
+resx.top1=100000; 
+resx.top2=100000;
+resx.customerid="19512699"; 
+resx.event="category";
+resx.rrec=true; // Flag variable to turn Recommendations on.
+// resx.rrec="false"; // Until we start displaying recs - this value is set to false.
+resx.rrelem="category_rr"; // Unique Identifier for the Recommendation box (Scheme).
+resx.rrnum="3"; // The Number of products to return on recommendation requests.
+resx.rrqs="storeid=2";
+resx.cv12="=2"
+</script>
+<SCRIPT language="javascript" type="text/javascript" src="http://i4.peapod.com/scripts/common/resxclsa_1.3.js"></SCRIPT>
+<!-- Resonance --> 
+<SCRIPT language="javascript" type="text/javascript" src="http://i4.peapod.com/scripts/common/quantcast_1.0.js"></SCRIPT>
+<SCRIPT language="javascript" type="text/javascript" src="http://i4.peapod.com/scripts/common/google_analytics_1.0.js"></SCRIPT>
+<script type="text/javascript">
+try {
+<!-- Aggregator -->
+var aggregatePageTracker = _gat._getTracker("UA-6982854-1");
+aggregatePageTracker._initData();
+aggregatePageTracker._trackPageview();
+<!-- Client-Specific -->
+var clientPageTracker = _gat._getTracker("UA-6982854-3");
+clientPageTracker._initData();
+clientPageTracker._trackPageview();
+} catch(err) {}
+</script>
+</div>
+</BODY>
+</HTML>
+<!-- new browse aisles -->
