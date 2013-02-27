@@ -11,12 +11,10 @@ class ShopItem(Item):
     size = Field()
     unit_price = Field()
     productId = Field()
-
     cnid = Field()
-    pass
 
 class ShopCategory(Item):
-	name = Field()
-	level = Field()
-	cnid = Field()
-	
+    name = Field()
+    cnid = Field()
+    parent = Field()
+    
