@@ -60,7 +60,7 @@
 	tm_custom_9 : '',
 	tm_custom_10 : '',
 	tm_type_cd: 'C',
-	tm_user_id: '19512699',
+	tm_user_id: '19559992',
     tm_user_levl_cd: '',
 	
     
@@ -2303,7 +2303,7 @@ var sc_https=1;
         <input type="text" style="display: none;" disabled="disabled" size="1" />
     <![endif]-->
     
-        <input name="/peapod/handler/iditarod/ZipHandler.continueURL" type="hidden" value="/site/gateway/zip-entry/top/selectCity.jsp?NUM1=1361084085442"><input name="_D:/peapod/handler/iditarod/ZipHandler.continueURL" type="hidden" value=" ">
+        <input name="/peapod/handler/iditarod/ZipHandler.continueURL" type="hidden" value="/site/gateway/zip-entry/top/selectCity.jsp?NUM1=1361592220255"><input name="_D:/peapod/handler/iditarod/ZipHandler.continueURL" type="hidden" value=" ">
 
         
             
@@ -2321,8 +2321,8 @@ var sc_https=1;
                         
         
         
-        <input name="/peapod/handler/iditarod/ZipHandler.submitSuccessURL" type="hidden" value="/site/gateway/zip-entry/top/zipEntry_main.jsp?NUM1=1361084085442"><input name="_D:/peapod/handler/iditarod/ZipHandler.submitSuccessURL" type="hidden" value=" ">
-        <input name="/peapod/handler/iditarod/ZipHandler.submitFailureURL" type="hidden" value="/site/gateway/zip-entry/top/zipEntry_main.jsp?NUM1=1361084085442"><input name="_D:/peapod/handler/iditarod/ZipHandler.submitFailureURL" type="hidden" value=" ">
+        <input name="/peapod/handler/iditarod/ZipHandler.submitSuccessURL" type="hidden" value="/site/gateway/zip-entry/top/zipEntry_main.jsp?NUM1=1361592220255"><input name="_D:/peapod/handler/iditarod/ZipHandler.submitSuccessURL" type="hidden" value=" ">
+        <input name="/peapod/handler/iditarod/ZipHandler.submitFailureURL" type="hidden" value="/site/gateway/zip-entry/top/zipEntry_main.jsp?NUM1=1361592220255"><input name="_D:/peapod/handler/iditarod/ZipHandler.submitFailureURL" type="hidden" value=" ">
         
         <p>Please enter your zip code</p>
         <div id="topZipEntryContainer"><label for="zipCodeEntry" class="inputLabel">zip code</label>

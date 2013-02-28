@@ -397,11 +397,6 @@ jQuery.ajax({url:lUrl,async:false,cache:false});
 <img src="http://i4.peapod.com/c/Z4/Z46Q1.jpg" title="ConAgra" border="0"/>
 </a>
 </div>
-<div id="keyweb5" class="keywebMessage">
-<a id='cntid-58625' class="cnt-obj " href="/displayProdIdSearchResults.jhtml?searchTxt=Stop%20and%20Shop&catnode=1536&view=grid&imgId=1556182&cntId=58625">
-<img src="http://i4.peapod.com/c/GQ/GQTOT.jpg" title="New Peapod Paper Products" border="0"/>
-</a>
-</div>
 </div>
 </div>
 <div id="BASpecials">
@@ -415,59 +410,59 @@ jQuery.ajax({url:lUrl,async:false,cache:false});
 <td class="BASpecialsCell">
 <table width="100%" bgcolor="white" cellpadding=0 cellspacing=0 border=0>
 <tr>
-<td align="center"><A HREF="javascript:shopSpecialProdGrp(468735,'Red Bull Energy Drinks','$6.99','category');"><img src="http://i4.peapod.com/c/G4/G4P4N.jpg" border="0" title="Red Bull Energy Drinks"></a>
+<td align="center"><A HREF="javascript:shopSpecialProdGrp(470126,'Kraft Philadelphia Cooking Creme','Save $.20','category');"><img src="http://i4.peapod.com/c/VK/VK1ID.jpg" border="0" title="Kraft Philadelphia Cooking Creme"></a>
 </td>
 </tr>
 <tr>
-<td align="center" class="spcls_desc">Red Bull Energy Drinks <br />
-<span class="spcls_size">4 pk </span><br />
-<b><font color="red">$6.99 </font></b><br />
-<A HREF="javascript:shopSpecialProdGrp(468735,'Red Bull Energy Drinks','$6.99','Red Bull Energy Drinks');"><img src="http://i4.peapod.com/c/MN/MNFSL.gif" border="0" title="Red Bull Energy Drinks"></a></font>
-</td>
-</tr>
-</table>
-</td>
-<td class="BASpecialsCell">
-<table width="100%" bgcolor="white" cellpadding=0 cellspacing=0 border=0>
-<tr>
-<td align="center"><A HREF="javascript:shopSpecialProdGrp(468968,'Pirate Brands Snacks','2 for $5','category');"><img src="http://i4.peapod.com/c/T0/T0G7D.jpg" border="0" title="Pirate Brands Snacks"></a>
-</td>
-</tr>
-<tr>
-<td align="center" class="spcls_desc">Pirate Brands Snacks <br />
-<span class="spcls_size">4 - 6 oz </span><br />
-<b><font color="red">2 for $5 </font></b><br />
-<A HREF="javascript:shopSpecialProdGrp(468968,'Pirate Brands Snacks','2 for $5','Pirate Brands Snacks');"><img src="http://i4.peapod.com/c/MN/MNFSL.gif" border="0" title="Pirate Brands Snacks"></a></font>
-</td>
-</tr>
-</table>
-</td>
-<td class="BASpecialsCell">
-<table width="100%" bgcolor="white" cellpadding=0 cellspacing=0 border=0>
-<tr>
-<td align="center"><A HREF="javascript:shopSpecialProdGrp(468099,'popchips Potato Chips','2 for $5','category');"><img src="http://i4.peapod.com/c/NU/NU7LU.jpg" border="0" title="popchips Potato Chips"></a>
-</td>
-</tr>
-<tr>
-<td align="center" class="spcls_desc">popchips Potato Chips <br />
-<span class="spcls_size">3 oz </span><br />
-<b><font color="red">2 for $5 </font></b><br />
-<A HREF="javascript:shopSpecialProdGrp(468099,'popchips Potato Chips','2 for $5','popchips Potato Chips');"><img src="http://i4.peapod.com/c/MN/MNFSL.gif" border="0" title="popchips Potato Chips"></a></font>
-</td>
-</tr>
-</table>
-</td>
-<td class="BASpecialsCell">
-<table width="100%" bgcolor="white" cellpadding=0 cellspacing=0 border=0>
-<tr>
-<td align="center"><A HREF="javascript:shopSpecialProdGrp(468666,'Log Cabin Syrup','Save $.20','category');"><img src="http://i4.peapod.com/c/EG/EGM1L.jpg" border="0" title="Log Cabin Syrup"></a>
-</td>
-</tr>
-<tr>
-<td align="center" class="spcls_desc">Log Cabin Syrup <br />
-<span class="spcls_size">24 oz </span><br />
+<td align="center" class="spcls_desc">Kraft Philadelphia Cooking Creme <br />
+<span class="spcls_size">10 oz </span><br />
 <b><font color="red">Save $.20 </font></b><br />
-<A HREF="javascript:shopSpecialProdGrp(468666,'Log Cabin Syrup','Save $.20','Log Cabin Syrup');"><img src="http://i4.peapod.com/c/MN/MNFSL.gif" border="0" title="Log Cabin Syrup"></a></font>
+<A HREF="javascript:shopSpecialProdGrp(470126,'Kraft Philadelphia Cooking Creme','Save $.20','Kraft Philadelphia Cooking Creme');"><img src="http://i4.peapod.com/c/MN/MNFSL.gif" border="0" title="Kraft Philadelphia Cooking Creme"></a></font>
+</td>
+</tr>
+</table>
+</td>
+<td class="BASpecialsCell">
+<table width="100%" bgcolor="white" cellpadding=0 cellspacing=0 border=0>
+<tr>
+<td align="center"><A HREF="javascript:shopSpecialProdGrp(470346,'Simply Lemonade or Limeade','2 for $5','category');"><img src="http://i4.peapod.com/c/9O/9OX8W.jpg" border="0" title="Simply Lemonade or Limeade"></a>
+</td>
+</tr>
+<tr>
+<td align="center" class="spcls_desc">Simply Lemonade or Limeade <br />
+<span class="spcls_size">59 oz </span><br />
+<b><font color="red">2 for $5 </font></b><br />
+<A HREF="javascript:shopSpecialProdGrp(470346,'Simply Lemonade or Limeade','2 for $5','Simply Lemonade or Limeade');"><img src="http://i4.peapod.com/c/MN/MNFSL.gif" border="0" title="Simply Lemonade or Limeade"></a></font>
+</td>
+</tr>
+</table>
+</td>
+<td class="BASpecialsCell">
+<table width="100%" bgcolor="white" cellpadding=0 cellspacing=0 border=0>
+<tr>
+<td align="center"><A HREF="javascript:shopSpecialProdGrp(469172,'Aunt Jemima Pancakes or French Toast','2 for $4','category');"><img src="http://i4.peapod.com/c/VY/VY0GE.jpg" border="0" title="Aunt Jemima Pancakes or French Toast"></a>
+</td>
+</tr>
+<tr>
+<td align="center" class="spcls_desc">Aunt Jemima Pancakes or French Toast <br />
+<span class="spcls_size">6 - 40 ct </span><br />
+<b><font color="red">2 for $4 </font></b><br />
+<A HREF="javascript:shopSpecialProdGrp(469172,'Aunt Jemima Pancakes or French Toast','2 for $4','Aunt Jemima Pancakes or French Toast');"><img src="http://i4.peapod.com/c/MN/MNFSL.gif" border="0" title="Aunt Jemima Pancakes or French Toast"></a></font>
+</td>
+</tr>
+</table>
+</td>
+<td class="BASpecialsCell">
+<table width="100%" bgcolor="white" cellpadding=0 cellspacing=0 border=0>
+<tr>
+<td align="center"><A HREF="javascript:shopSpecialProdGrp(469391,'P.F. Chang\'s Home Menu Meals for 2','$5.99','category');"><img src="http://i4.peapod.com/c/VV/VV9LV.jpg" border="0" title="P.F. Chang's Home Menu Meals for 2"></a>
+</td>
+</tr>
+<tr>
+<td align="center" class="spcls_desc">P.F. Chang's Home Menu Meals for 2 <br />
+<span class="spcls_size">22 oz </span><br />
+<b><font color="red">$5.99 </font></b><br />
+<A HREF="javascript:shopSpecialProdGrp(469391,'P.F. Chang\'s Home Menu Meals for 2','$5.99','P.F. Chang\'s Home Menu Meals for 2');"><img src="http://i4.peapod.com/c/MN/MNFSL.gif" border="0" title="P.F. Chang's Home Menu Meals for 2"></a></font>
 </td>
 </tr>
 </table>
@@ -486,7 +481,7 @@ var resx = new Object();
 resx.appid="peapod01";
 resx.top1=100000; 
 resx.top2=100000;
-resx.customerid="19512699"; 
+resx.customerid="19559992"; 
 resx.event="category";
 resx.rrec=true; // Flag variable to turn Recommendations on.
 // resx.rrec="false"; // Until we start displaying recs - this value is set to false.
