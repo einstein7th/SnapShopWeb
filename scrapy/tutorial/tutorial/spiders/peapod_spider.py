@@ -10,11 +10,37 @@ from scrapy.selector import HtmlXPathSelector
 from tutorial.items import ShopItem
 from tutorial.items import ShopCategory
 
+from scrapy import signals
+from scrapy.xlib.pydispatch import dispatcher
+
 class PeaPodSpider(BaseSpider):
+
     name = "peapod"
     allowed_domains = ["peapod.com"]
     start_urls = ["http://www.peapod.com/processShowBrowseAisles.jhtml"]
     # start_urls = ["http://www.peapod.com/index.jhtml"]
+
+    all_items = []
+    all_categories = []
+
+    def __init__(self):
+        dispatcher.connect(self.spider_closed, signals.spider_closed)
+
+    def spider_closed(self, spider):
+        # now dump all items and cats out
+        file = open("all_items.txt", 'wb')
+        exporter = JsonItemExporter(file)
+        exporter.start_exporting()
+        for item in self.all_items:
+            exporter.export_item(item)
+        exporter.finish_exporting()
+
+        file2 = open("all_categories.txt", 'wb')
+        exporter2 = JsonItemExporter(file2)
+        exporter2.start_exporting()
+        for cat in self.all_categories:
+            exporter2.export_item(cat)
+        exporter2.finish_exporting()
 
     def start_requests(self):
         # [self.make_requests_from_url(url) for url in self.start_urls]
@@ -68,6 +94,7 @@ class PeaPodSpider(BaseSpider):
             new_cat = ShopCategory(name=name, cnid=cnid, parent='')
 
             big_category_objects.append(new_cat)
+            self.all_categories.append(new_cat)
 
             # unicodedata.normalize('NFKD', title).encode('ascii','ignore') turn the text fields to ascii
 
@@ -123,6 +150,7 @@ class PeaPodSpider(BaseSpider):
                 new_cat = ShopCategory(name=name, cnid=cnid, parent=response.meta['parent_cnid'])
 
                 category_objects.append(new_cat)
+                self.all_categories.append(new_cat)
 
             # print category_objects, '\n<<< Category objects\n\n\n'
 
@@ -161,7 +189,7 @@ class PeaPodSpider(BaseSpider):
         item_rows = items_table.select('tbody/tr')
         item_rows = item_rows[1:-1] # Remove first header row
 
-        print 'PARSING ITEMS YO'
+        # print 'PARSING ITEMS YO'
 
         for row in item_rows:
             # get item id
@@ -194,20 +222,12 @@ class PeaPodSpider(BaseSpider):
                 price = price.strip()
                 price = re.sub('\D', '', price)         # get rid of non digits: '399' is price.
 
-                item = ShopItem(name=name, size=size, unit_price=unit_price, productId=item_id, price=price, cnid=response.meta['parent_cnid'])
+                item = ShopItem(name=name, size=size, unit_price=unit_price, productId=item_id, price=price, thumb=img_url, cnid=response.meta['parent_cnid'])
 
                 parsed_items.append(item)
+                self.all_items.append(item)
 
-        print 'parsed items', parsed_items
-
-        file = open("items_flower.txt", 'wb')
-        exporter = JsonItemExporter(file)
-        exporter.start_exporting()
-
-        for item in parsed_items:
-            exporter.export_item(item)
-
-        exporter.finish_exporting()
+        #print 'parsed items', parsed_items
 
 
 
@@ -217,29 +237,5 @@ class PeaPodSpider(BaseSpider):
         # start parsing rest of start_urls
         # gg_request = Request(url="http://www.peapod.com/processShowBrowseAisles.jhtml", callback=self.category);
         return [self.make_requests_from_url(url) for url in self.start_urls]
-
-    def category(self, response):
-        pass
-
-"""
-    def parse(self, response):
-        return [FormRequest.from_response(response,
-            formdata={},
-            callback=self.after_login)]
-
-    def after_login(self, response):
-        print "COOL BEANS"
-
-
-"""
-
-"""
-    def parse(self, response):
-        print "getting filename"
-        filename = response.url.split("/")[-2]
-        print "filename: ", filename
-        print "response: ", response
-        open(filename, 'wb').write(response.body)
-        """
 
 
