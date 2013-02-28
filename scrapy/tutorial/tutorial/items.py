@@ -11,6 +11,7 @@ class ShopItem(Item):
     size = Field()
     unit_price = Field()
     productId = Field()
+    price = Field()
     cnid = Field()
 
 class ShopCategory(Item):
