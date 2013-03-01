@@ -5,7 +5,7 @@ function init() {
 	var parentHeight = $(element).parent().height();
 	
 	$(element).css("position","relative");
-	$(element).css("top",(parentHeight-targetHeight)/3)
+	$(element).css("top",(parentHeight-targetHeight)/2)
 		
     });
 }

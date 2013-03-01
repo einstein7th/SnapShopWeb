@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="splash">
+  <div class="container page">
+    <div class="page-header">
+      <h1>Snapshop <small>yayayayayaya</small></h1>
+    </div>
+    <div class="page-body">
+      <ul class="unstyled ingredient-list padded">
+	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
+	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
+	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
+	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
+	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
+	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
+	<li class="pull-right"><img class="half-height" src="{{STATIC_URL}}img/right-arrow.png" /></li>
+	<div class="clear"></div>
+      </ul>
+      <ul class="unstyled ingredient-list padded">
+	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
+	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
+	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
+	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
+	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
+	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
+	<li class="pull-right"><img class="half-height" src="{{STATIC_URL}}img/right-arrow.png" /></li>
+	<div class="clear"></div>
+      </ul>
+      <ul class="unstyled ingredient-list padded">
+	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
+	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
+	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
+	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
+	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
+	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
+	<li class="pull-right"><img class="half-height" src="{{STATIC_URL}}img/right-arrow.png" /></li>
+	<div class="clear"></div>
+      </ul>
+      <div class="row-fluid">
+	<div class="span6">
+	  <div class="cart-box">
+	    <div class="page-header">
+	      <h2>Ingredients Cart</h2>
+	    </div>
+	    <ul class="cart-list unstyled">
+	      <li>
+		<i class="icon-remove delete-cart-item"></i>
+		<img src="http://placekitten.com/64/64">
+		$8.99
+	      </li>
+	      <li>
+		<i class="icon-remove delete-cart-item"></i>
+		<img src="http://placekitten.com/64/64">
+		$8.99
+	      </li>
+	      <li>
+		<i class="icon-remove delete-cart-item"></i>
+		<img src="http://placekitten.com/64/64">
+		$8.99
+	      </li>
+	    </ul>
+	  </div>
+	</div>
+	<div class="span6">
+	  <div class="well">
+	    <div class="page-header">
+	      <h2>Purchase Form</h2>
+	    </div>
+	    <form id="purchase-form" class="form-horizontal">
+	      <div class="control-group">
+		<label class="control-label" for="inputEmail">Name</label>
+		<div class="controls">
+		  <input type="text" id="inputEmail" placeholder="Email">
+		</div>
+	      </div>
+	      <div class="control-group">
+		<label class="control-label" for="inputEmail">Street Address</label>
+		<div class="controls">
+		  <input type="text" id="inputEmail" placeholder="Email">
+		</div>
+	      </div>
+	      <div class="control-group">
+		<label class="control-label" for="inputEmail">Promo Code</label>
+		<div class="controls">
+		  <input type="text" id="inputEmail" placeholder="Email">
+		</div>
+	      </div>
+	      <div class="control-group">
+		<label class="control-label" for="inputEmail">Phone #</label>
+		<div class="controls">
+		  <input type="text" id="inputEmail" placeholder="Email">
+		</div>
+	      </div>
+	      <div class="form-actions">
+		<button type="submit" class="btn btn-large btn-primary">Order my Groceries</button>
+	      </div>
+	    </form>
+	  </div>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
