@@ -1,3 +1,6 @@
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+
 from django.http import HttpResponse
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
@@ -6,7 +9,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
 
 def home(request):
-    return HttpResponse('Hello World')
+    return render_to_response("index.html",{},RequestContext(request))
+
+def search(request):
+    return render_to_response("search.html",{},RequestContext(request))
 
 @csrf_exempt
 def api(request):
