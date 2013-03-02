@@ -6,6 +6,8 @@ function init() {
 	
 	$(element).css("position","relative");
 	$(element).css("top",(parentHeight-targetHeight)/2)
+	$(element).css("margin-top",0)
+	$(element).css("margin-bottom",0)
 		
     });
 }

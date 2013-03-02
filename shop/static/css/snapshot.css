@@ -1,19 +1,25 @@
 html, body {height:100%;}
 div.splash
 {
+    height:100%;
+    width:100%;
     background-image:url("/static/img/bg2.jpg");
     background-repeat:repeat-y;
 }
 .rob-box {
     margin-top:60px;
     box-shadow:0px 0px 10px #111;
+    min-width:325px;
     -webkit-box-shadow:0px 0px 10px #111;
     -moz-box-shadow:0px 0px 10px #111;
 }
 .rob-header 
 {
-    background-image:url("http://placekitten.com/440/120");
-    height:120px;
+    background-image:url("/static/img/logo.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 300px 60px;
+    height:90px;
 }
 
 .rob-body {padding-top:15px;}
@@ -23,7 +29,6 @@ div.splash
 #search-box.well {padding:0px;}
 .rob-box input[type=text] {width:80%;}
 .full-height {height:100%;}
-input.tall-input {height:35px; line-height:normal;font-size:22px;}
 .full-width {width:100%;}
 
 ul.ingredient-list li 
@@ -87,3 +92,19 @@ background-image: linear-gradient(to top left, #EEEEEE 0%, #FAFAFA 100%);
     -moz-box-shadow:0px 0px 10px #AAA;
 }
 .delete-cart-item {position:absolute;right:0;}
+
+.lightweight {font-weight:300;}
+
+.large-input[type="text"] {
+    font-weight:300;
+    height:25px;
+    font-size:150%;
+    line-height:normal;
+}
+
+.xlarge-input[type="text"] {
+    font-weight:300;
+    height:35px;
+    font-size:20px;
+    line-height:normal;
+}
