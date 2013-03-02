@@ -15,6 +15,23 @@ class ShopItem(Item):
     cnid = Field()
     thumb = Field()
 
+class DetailedShopItem(Item):
+    # define the fields for your item here like:
+    name = Field()
+    size = Field()
+    unit_price = Field()
+    productId = Field()
+    price = Field()
+    cnid = Field()
+
+    small_image = Field()
+    med_image = Field()
+    large_image = Field()
+    details = Field()
+    nutrition = Field()
+    ingredients = Field()
+
+
 class ShopCategory(Item):
     name = Field()
     cnid = Field()

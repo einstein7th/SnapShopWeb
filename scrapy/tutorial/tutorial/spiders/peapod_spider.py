@@ -9,6 +9,11 @@ from scrapy.selector import HtmlXPathSelector
 
 from tutorial.items import ShopItem
 from tutorial.items import ShopCategory
+from tutorial.items import DetailedShopItem
+import sys
+import logging
+import thread
+import time
 
 from scrapy import signals
 from scrapy.xlib.pydispatch import dispatcher
@@ -21,6 +26,7 @@ class PeaPodSpider(BaseSpider):
     # start_urls = ["http://www.peapod.com/index.jhtml"]
 
     all_items = []
+    all_items_detail = []
     all_categories = []
 
     def __init__(self):
@@ -32,6 +38,13 @@ class PeaPodSpider(BaseSpider):
         exporter = JsonItemExporter(file)
         exporter.start_exporting()
         for item in self.all_items:
+            exporter.export_item(item)
+        exporter.finish_exporting()
+
+        file3 = open("all_items_detail.txt", 'wb')
+        exporter = JsonItemExporter(file3)
+        exporter.start_exporting()
+        for item in self.all_items_detail:
             exporter.export_item(item)
         exporter.finish_exporting()
 
@@ -70,17 +83,14 @@ class PeaPodSpider(BaseSpider):
                         },
                     callback=self.logged_in)]
 
+    
     def parse(self, response):
+        # Only handles top-level categories: http://www.peapod.com/processShowBrowseAisles.jhtml Only one of these
+        # Then looks through each top-level category with new requests to find subcategories, which are processed by parse_category
 
-        # Very rudimentary switch: If the page title is the top level, then we process top-level categories
-        # Wait. we Can use different callbacks to process the subcategories.
-
-        # Find top-level categories from response and create objects.
-        # http://www.peapod.com/processShowBrowseAisles.jhtml Only one of these
-        hxs = HtmlXPathSelector(response)
         # Top level categories: Already in a list on the left with each link class 'mainCat'
+        hxs = HtmlXPathSelector(response)
         big_categories = hxs.select('//a[@class="mainCat"]')
-
         big_category_objects = []
 
         # Extract categories one-by-one. We are now in the scope of each <a>:
@@ -123,6 +133,7 @@ class PeaPodSpider(BaseSpider):
         return subcategory_requests
 
     def parse_category(self, response): # Parse middle level cateogries, 1 level beneath 
+        time.sleep(0.10)
         # first determine if we've been redirected to item view, ('')
         # or if we've found a subcategory with more subcategories ('Browse Aisles')
         hxs = HtmlXPathSelector(response)
@@ -161,8 +172,9 @@ class PeaPodSpider(BaseSpider):
                 url = "http://www.peapod.com/browseAisles_BVproductDisplay.jhtml?cnid=" + cat['cnid']
                 request = Request(url=url, callback=self.parse_items_table)
                 request.meta['parent_cnid'] = cat['cnid']
+                request.meta['referer'] = response.url
 
-                print 'found cnid=', cat['cnid']
+                # print 'found cnid=', cat['cnid']
 
                 # TODO debug for now: only parse this flower aisle
                 if cat['cnid'] == '2099':
@@ -179,6 +191,11 @@ class PeaPodSpider(BaseSpider):
 
     # Looks like http://www.peapod.com/browseAisles_BVproductDisplay.jhtml?cnid=393
     def parse_items_table(self, response):
+        if 'techerror' in response.url:
+            print 'somehow found tech error at url for parent cnid', response.meta['parent_cnid']
+
+        # time.sleep(0.10)
+
         hxs = HtmlXPathSelector(response)
         page_title = hxs.select('//title/text()').extract()[0]
 
@@ -191,6 +208,8 @@ class PeaPodSpider(BaseSpider):
 
         # print 'PARSING ITEMS YO'
 
+        itemDetailView_requests = []
+
         for row in item_rows:
             # get item id
             img = row.select('td/div/img')
@@ -202,7 +221,7 @@ class PeaPodSpider(BaseSpider):
             </tr>
             """
             if len(img) > 0:
-                print 'FOUND PROPER ROW'
+                # print 'FOUND PROPER ROW'
                 img = row.select('td/div/img')[0]          #19x19 GIF image URL
                 img_url = img.select('@src').extract()[0]
 
@@ -227,9 +246,85 @@ class PeaPodSpider(BaseSpider):
                 parsed_items.append(item)
                 self.all_items.append(item)
 
+                url = "http://www.peapod.com/itemDetailView.jhtml?productId=" + item_id
+                request = Request(url=url, callback=self.parse_itemDetailView)
+                request.meta['cnid'] = response.meta['parent_cnid']
+                request.meta['name'] = name
+                request.meta['size'] = size
+                request.meta['unit_price'] = unit_price
+                request.meta['productId'] = item_id
+                request.meta['price'] = price
+                request.meta['thumb'] = img_url
+
+                itemDetailView_requests.append(request)
+
+
         #print 'parsed items', parsed_items
+        # For each item, now go to individual item page to grab:
+        return itemDetailView_requests
 
+    def parse_itemDetailView(self, response):
+        if 'techerror' in response.url:
+            print 'somehow found tech error at url ', response.request.url
 
+        # logfun = logging.getLogger("logfun")
+        # time.sleep(0.10)
+        try:
+            hxs = HtmlXPathSelector(response)
+            page_title = hxs.select('//title/text()').extract()[0]
+
+            med_image = hxs.select('//input[@id="imageURL"]/@value')[0].extract() # 200x200 image
+
+            # Should probably do some form of exception, but lazy
+            large_image = ''
+            large_image_path = hxs.select('//input[@id="primaryImageURL"]/@value')
+            if len(large_image_path) > 0:
+                large_image = large_image_path[0].extract()
+            # large_image = hxs.select('//input[@id="primaryImageURL"]/@value')[0].extract() # 600x600 image
+
+            # Only take information in paragraphs, but preserve HTML & formatting: Combine all paragraphs for this entry
+            details_list = hxs.select('//div[@id="productDetails-details"]/p').extract()
+            details = ''.join(details_list)
+            cut_start = details.find('<a class="')
+            cut_end = details.rfind('</p>')
+
+            # Remove the disclaimer link at bottom
+            if cut_start > 0 and cut_end > 0:
+                details = details[0:cut_start] + details[cut_end:]
+
+            nutrition_path = hxs.select('//div[@id="productDetails-nutrition"]/table').extract()
+            nutrition = ''
+            if len(nutrition_path) > 0:
+                nutrition = nutrition_path[0]
+            
+            ingredients = ''
+            if len(hxs.select('//div[@id="ingredients"]').extract()) > 0:
+                ingredients = hxs.select('//div[@id="ingredients"]')[0].extract()
+
+            #ingredients = hxs.select('//div[@id="ingredients"]')[0].extract()
+
+            detailed_item = DetailedShopItem(name = response.meta['name'], size = 
+                response.meta['size'], unit_price = response.meta['unit_price'], 
+                productId = response.meta['productId'], price = 
+                response.meta['price'], cnid = response.meta['cnid'], small_image =
+                response.meta['thumb'], med_image = med_image, large_image = 
+                large_image, details = details, nutrition = nutrition, ingredients = ingredients)
+
+            self.all_items_detail.append(detailed_item)
+        # except:
+        #     e = sys.exc_info()[0]
+        #     print e.print_stack()
+        #     sys.exit("error has occurred")
+        except Exception, ex:
+            print 'gg exception'
+            print 'came from', response.request.url
+            raise
+            #raise KeyboardInterrupt
+            # logfun.exception("Bad gg")
+            # logfun.debug("figure this out")
+            thread.interrupt_main()
+
+        print 'so far all items: ', len(self.all_items), ' vs. detailed: ', len(self.all_items_detail)
 
     def logged_in(self, response):
         print "COOL BEANS"
