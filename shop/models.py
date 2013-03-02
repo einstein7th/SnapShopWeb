@@ -3,14 +3,19 @@ from django.contrib.auth.models import User
 
 class ShopItem(models.Model):
 	item_category = models.ForeignKey('Categories')
-	item_name = models.CharField(max_length = 50)
+	item_name = models.CharField(max_length = 200)
 	item_price = models.IntegerField(default = 99999)
 	item_size = models.CharField(max_length=50)
+	item_unit_price = models.CharField(max_length=50)
 	item_thumb_small = models.CharField(max_length=200)
+	item_thumb_medium = models.CharField(max_length=200)
 	item_thumb_large = models.CharField(max_length=200)
-	# item_nutrition_html = models.CharField()
-	# item_description_html
-	# item_ingredients_html
+	item_peapod_productid = models.CharField(max_length=50)
+	item_peapod_cnid = models.CharField(max_length=20)
+	item_nutrition_html = models.TextField()
+	item_description_html = models.TextField()
+	item_ingredients_html = models.TextField()
+	item_details_html = models.TextField()
 
 class ShippingLabel(models.Model):
 	address_first_line = models.CharField(max_length=50)
@@ -28,6 +33,8 @@ class CreditCard(models.Model):
 class Categories(models.Model):
 	category_thumb = models.CharField(max_length=200)
 	category_name = models.CharField(max_length=50)
+	category_cnid = models.CharField(max_length=50)
+	category_parent = models.ForeignKey('Categories', default=None, null=True)
 
 class CartItem(models.Model):
 	shop_item_ref = models.ForeignKey(ShopItem)
