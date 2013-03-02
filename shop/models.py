@@ -6,9 +6,11 @@ class ShopItem(models.Model):
 	item_name = models.CharField(max_length = 50)
 	item_price = models.IntegerField(default = 99999)
 	item_size = models.CharField(max_length=50)
-	item_qty = models.IntegerField(default=0)
 	item_thumb_small = models.CharField(max_length=200)
 	item_thumb_large = models.CharField(max_length=200)
+	# item_nutrition_html = models.CharField()
+	# item_description_html
+	# item_ingredients_html
 
 class ShippingLabel(models.Model):
 	address_first_line = models.CharField(max_length=50)
