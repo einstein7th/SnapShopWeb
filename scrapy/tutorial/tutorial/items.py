@@ -13,6 +13,7 @@ class ShopItem(Item):
     productId = Field()
     price = Field()
     cnid = Field()
+    thumb = Field()
 
 class ShopCategory(Item):
     name = Field()

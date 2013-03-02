@@ -1,10 +1,12 @@
 from django.conf.urls.defaults import patterns, include, url
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+    url(r'', include('snapshop.shop.urls')),
     url(r'^home/', 'snapshop.views.home', name='home'),
     url(r'^login', 'snapshop.views.login', name='login'),
     # url(r'^api/register', 'snapshop.views.api_register', name='api_register'),
@@ -19,3 +21,5 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
 )
+
+urlpatterns += staticfiles_urlpatterns()
