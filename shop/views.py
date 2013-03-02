@@ -8,4 +8,7 @@ def search(request):
     return render_to_response("search.html",{},RequestContext(request))
 
 def main(request):
-    return render_to_response("main.html",{},RequestContext(request))
+    query = request.GET.get("q","")
+    return render_to_response("main.html",
+                              {'query':query},
+                              RequestContext(request))
