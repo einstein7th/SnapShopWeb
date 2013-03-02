@@ -25,7 +25,7 @@ div.splash
 .rob-body {padding-top:15px;}
 #tos-section {margin-bottom:20px;}
 #tos-switch {margin-top:15px;}
-.rob-box.well {width:100%;padding:0px;}
+.rob-box.well {width:100%;padding:5px;}
 #search-box.well {padding:0px;}
 .rob-box input[type=text] {width:80%;}
 .full-height {height:100%;}
@@ -39,28 +39,31 @@ ul.ingredient-list li
 
 ul.ingredient-list li img.ingredient-thumbnail
 {
-   box-shadow:0px 0px 10px #AAA;
-   -webkit-box-shadow:0px 0px 10px #AAA;
-   -moz-box-shadow:0px 0px 10px #AAA;   
+   box-shadow:0px 0px 10px #CCC;
+   -webkit-box-shadow:0px 0px 10px #CCC;
+   -moz-box-shadow:0px 0px 10px #CCC;   
 }
 
 ul.ingredient-list 
 {
     padding:20px;
     border-bottom: solid 2px #333;
+    margin-bottom:0px;
 }
 
 .page {
     background:#FFF;
-    padding-top:20px;
     min-height:100%;
     box-shadow:0px 0px 10px #111;
     -webkit-box-shadow:0px 0px 10px #111;
     -moz-box-shadow:0px 0px 10px #111;
 }
-.page .page-header {padding-left:15px;padding-right:15px;}
-.page-body {
-background:#EEE;padding:20px;
+.page .page-header 
+{
+    background:#EEE;
+    padding:20px;
+    margin-top:0;
+    margin-bottom:0;
 /* IE10 Consumer Preview */ 
 background-image: -ms-linear-gradient(bottom right, #EEEEEE 0%, #FAFAFA 100%);
 
@@ -80,16 +83,38 @@ background-image: -webkit-linear-gradient(bottom right, #EEEEEE 0%, #FAFAFA 100%
 background-image: linear-gradient(to top left, #EEEEEE 0%, #FAFAFA 100%);
 }
 
-.cart-box {padding:20px;background:#FFF;min-height:400px;}
+.purchase-box {
+/* IE10 Consumer Preview */ 
+background-image: -ms-linear-gradient(bottom right, #EEEEEE 0%, #FAFAFA 100%);
+
+/* Mozilla Firefox */ 
+background-image: -moz-linear-gradient(bottom right, #EEEEEE 0%, #FAFAFA 100%);
+
+/* Opera */ 
+background-image: -o-linear-gradient(bottom right, #EEEEEE 0%, #FAFAFA 100%);
+
+/* Webkit (Safari/Chrome 10) */ 
+background-image: -webkit-gradient(linear, right bottom, left top, color-stop(0, #EEEEEE), color-stop(1, #FAFAFA));
+
+/* Webkit (Chrome 11+) */ 
+background-image: -webkit-linear-gradient(bottom right, #EEEEEE 0%, #FAFAFA 100%);
+
+/* W3C Markup, IE10 Release Preview */ 
+background-image: linear-gradient(to top left, #EEEEEE 0%, #FAFAFA 100%);
+
+}
+
+.cart-box {padding:20px;min-height:400px;border-right: solid thin #CCC;}
+.purchase-form-box {padding:20px;min-height:400px;}
 .cart-list li 
 {
     background:#FFF;
     font-size:200%;
     margin-bottom:10px;
     position:relative;
-    box-shadow:0px 0px 10px #AAA;
-    -webkit-box-shadow:0px 0px 10px #AAA;
-    -moz-box-shadow:0px 0px 10px #AAA;
+    box-shadow:0px 0px 10px #CCC;
+    -webkit-box-shadow:0px 0px 10px #CCC;
+    -moz-box-shadow:0px 0px 10px #CCC;
 }
 .delete-cart-item {position:absolute;right:0;}
 
@@ -107,4 +132,9 @@ background-image: linear-gradient(to top left, #EEEEEE 0%, #FAFAFA 100%);
     height:35px;
     font-size:20px;
     line-height:normal;
+}
+
+.subpage-header {
+    margin-bottom:20px;
+    padding-bottom:10px;
 }
