@@ -115,8 +115,6 @@ background-image: linear-gradient(to top left, #EEEEEE 0%, #FAFAFA 100%);
     -webkit-box-shadow:0px 0px 10px #CCC;
     -moz-box-shadow:0px 0px 10px #CCC;
 }
-.delete-cart-item {position:absolute;right:0;}
-
 .lightweight {font-weight:300;}
 
 .large-input[type="text"] {
@@ -137,3 +135,20 @@ background-image: linear-gradient(to top left, #EEEEEE 0%, #FAFAFA 100%);
     margin-bottom:20px;
     padding-bottom:10px;
 }
+
+.subpage-header h2 {
+    font-weight:300;
+    font-size:200%;
+}
+
+.rounded {
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+}
+
+#cart-table .cart-name {width:50%;}
+#cart-table .cart-quantity {width:10%;}
+#cart-table .cart-amount {width:20%;}
+#cart-table .cart-actions {width:20%;}
+#cart-table thead {background:#333; color:#FFF;}
