@@ -9,6 +9,8 @@ def search(request):
 
 def main(request):
     query = request.GET.get("q","")
+    keywords = query.split(" ") if query else None
     return render_to_response("main.html",
-                              {'query':query},
+                              {'query':query,
+                               'keywords':keywords},
                               RequestContext(request))

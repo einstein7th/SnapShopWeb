@@ -47,6 +47,7 @@ ul.ingredient-list li img.ingredient-thumbnail
 ul.ingredient-list 
 {
     padding:20px;
+    padding-top:5px;
     border-bottom: solid 2px #333;
     margin-bottom:0px;
 }
@@ -152,3 +153,5 @@ border-radius: 5px;
 #cart-table .cart-amount {width:20%;}
 #cart-table .cart-actions {width:20%;}
 #cart-table thead {background:#333; color:#FFF;}
+
+p.ingredient-list-title {margin-left:20px;margin-bottom:0px;margin-top:3px;padding:bottom:0px;}

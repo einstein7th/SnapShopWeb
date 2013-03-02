@@ -7,6 +7,9 @@
       <h1>Results for: <small>{{query}}</small></h1>
     </div>
     <div class="page-body">
+      {% if keywords %}
+      {% for keyword in keywords %}
+      <p class="muted ingredient-list-title">Matching: {{keyword}}</p>
       <ul class="unstyled ingredient-list">
 	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
 	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
@@ -17,16 +20,10 @@
 	<li class="pull-right"><img class="half-height" src="{{STATIC_URL}}img/right-arrow.png" /></li>
 	<div class="clearfix"></div>
       </ul>
-      <ul class="unstyled ingredient-list">
-	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
-	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
-	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
-	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
-	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
-	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
-	<li class="pull-right"><img class="half-height" src="{{STATIC_URL}}img/right-arrow.png" /></li>
-	<div class="clearfix"></div>
-      </ul>
+      {% endfor %}
+      {% else %}
+      <p class="muted">No matching keywords for query {{query}}</p>
+      {% endif %}
       <div class="purchase-box">
 	<div class="row-fluid">
 	  <div class="span6">
