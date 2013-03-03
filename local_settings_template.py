@@ -1,3 +1,4 @@
+# A local_settings.py file should be created on each local machine, based on this life
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.

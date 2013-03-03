@@ -69,35 +69,104 @@
       <div class="subpage-header">
 	<h2><img src="{{STATIC_URL}}img/purchase.png" /> Purchase Form</h2>
       </div>
+
       <form id="purchase-form" class="form-horizontal">
+
 	<div class="control-group">
 	  <label class="control-label" for="inputEmail">Name</label>
 	  <div class="controls">
-	    <input type="text" id="inputEmail" placeholder="Email">
+	    <input type="text" id="inputEmail" placeholder="Name"></input>
 	  </div>
 	</div>
+
 	<div class="control-group">
-	  <label class="control-label" for="inputEmail">Street Address</label>
+	  <label class="control-label" for="inputAddress">Shipping Address</label>
 	  <div class="controls">
-	    <input type="text" id="inputEmail" placeholder="Email">
+	    <select name="inputAddress">
+	      <option>Baker House</option>
+	      <option>MacGregor House</option>
+	      <option>East Campus</option>
+	    </select>
 	  </div>
 	</div>
+
 	<div class="control-group">
-	  <label class="control-label" for="inputEmail">Promo Code</label>
+	  <label class="control-label" for="inputCardNumber">Credit Card Number</label>
 	  <div class="controls">
-	    <input type="text" id="inputEmail" placeholder="Email">
+	    <input type="text" id="inputCardNumber" placeholder="Credit Card Number"></input>
 	  </div>
 	</div>
+
 	<div class="control-group">
-	  <label class="control-label" for="inputEmail">Phone #</label>
+	  <label class="control-label" for="inputCVC">CVC</label>
 	  <div class="controls">
-	    <input type="text" id="inputEmail" placeholder="Email">
+	    <input type="text" id="inputCVC" placeholder="999"></input>
 	  </div>
 	</div>
+
+	<div class="control-group">
+	  <label class="control-label" for="inputBillingZIP">Billing ZIP code</label>
+	  <div class="controls">
+	    <input type="text" id="inputBillingZIP" placeholder="02139"></input>
+	  </div>
+	</div>
+
+	<div class="control-group">
+	  <label class="control-label" for="inputExpirationMonth">Expiration Month</label>
+	  <div class="controls">
+	    <select name="inputExpirationMonth">
+	      <option value="01">01 - January</option>
+	      <option value="02">02 - February</option>
+	      <option value="03">03 - March</option>
+	      <option value="04">04 - April</option>
+	      <option value="05">05 - May</option>
+	      <option value="06">06 - June</option>
+	      <option value="07">07 - July</option>
+	      <option value="08">08 - August</option>
+	      <option value="09">09 - September</option>
+	      <option value="10">10 - October</option>
+	      <option value="11">11 - November</option>
+	      <option value="12">12 - December</option>
+	    </select>
+	  </div>
+	</div>
+
+	<div class="control-group">
+	  <label class="control-label" for="inputExpirationYear">Expiration Year</label>
+	  <div class="controls">
+	    <select name="inputExpirationYear">
+	      <option>2013</option>
+	      <option>2014</option>
+	      <option>2015</option>
+	      <option>2016</option>
+	      <option>2017</option>
+	      <option>2018</option>
+	      <option>2019</option>
+	      <option>2020</option>
+	    </select>
+	  </div>
+	</div>
+
+	<div class="control-group">
+	  <label class="control-label" for="inputPromo">Promo Code</label>
+	  <div class="controls">
+	    <input type="text" id="inputPromo" placeholder="Promo Code"></input>
+	  </div>
+	</div>
+
+	<!-- <div class="control-group">
+	     <label class="control-label" for="inputEmail">Phone #</label>
+	     <div class="controls">
+	       <input type="text" id="inputEmail" placeholder="617-888-0000"></input>
+	     </div>
+	</div> -->
+
 	<div class="form-actions">
 	  <button type="submit" class="btn btn-primary"><i class="icon-white icon-home"></i> Order my Groceries</button>
 	</div>
+
       </form>
+
     </div>
   </div>
 </div>
