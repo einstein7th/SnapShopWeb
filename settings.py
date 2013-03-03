@@ -139,7 +139,7 @@ LOGGING = {
 }
 
 try:
-    from local_settings_template import *
+    from local_settings import *
 except Exception:
     print "unable to import local settings"
     import sys

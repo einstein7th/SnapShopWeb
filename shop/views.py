@@ -10,6 +10,8 @@ def search(request):
 def main(request):
     query = request.GET.get("q","")
     keywords = query.split(" ") if query else None
+    keyword_item_map = {}
+
     return render_to_response("main.html",
                               {'query':query,
                                'keywords':keywords},
