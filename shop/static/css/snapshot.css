@@ -62,6 +62,7 @@ ul.ingredient-list
 {
     background:#EEE;
     padding:20px;
+    padding-bottom:10px;
     margin-top:0;
     margin-bottom:0;
 /* IE10 Consumer Preview */ 
@@ -133,7 +134,7 @@ background-image: linear-gradient(to top left, #EEEEEE 0%, #FAFAFA 100%);
 }
 
 .subpage-header {
-    margin-bottom:20px;
+    margin-bottom:10px;
     padding-bottom:10px;
 }
 
@@ -154,4 +155,4 @@ border-radius: 5px;
 #cart-table .cart-actions {width:20%;}
 #cart-table thead {background:#333; color:#FFF;}
 
-p.ingredient-list-title {margin-left:20px;margin-bottom:0px;margin-top:3px;padding:bottom:0px;}
+p.ingredient-list-title {margin-left:10px;margin-bottom:0px;margin-top:3px;padding:bottom:0px;}

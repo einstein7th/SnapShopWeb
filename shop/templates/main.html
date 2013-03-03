@@ -4,12 +4,12 @@
 <div class="splash">
   <div class="container page">
     <div class="page-header">
-      <h1>Results for: <small>{{query}}</small></h1>
+      <h1><img src="{{STATIC_URL}}img/search.png" /> Results for: <small>{{query}}</small></h1>
     </div>
     <div class="page-body">
       {% if keywords %}
       {% for keyword in keywords %}
-      <p class="muted ingredient-list-title">Matching: {{keyword}}</p>
+      <p class="ingredient-list-title"><span class="label">Matching: {{keyword}}</span></p>
       <ul class="unstyled ingredient-list">
 	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
 	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
@@ -29,7 +29,7 @@
 	  <div class="span6">
 	    <div class="cart-box">
 	      <div class="subpage-header">
-		<h2>Ingredients Cart</h2>
+		<h2><img src="{{STATIC_URL}}img/cart.png" /> Ingredients Cart</h2>
 	      </div>
 	      <table id="cart-table" class="table">
 		<thead>
@@ -69,6 +69,12 @@
 		      <i class="icon-chevron-up"></i>
 		    </td>
 		  </tr>
+		  <tr class="summary-row">
+		    <td><b>Total: </b></td>
+		    <td></td>
+		    <td><b>$10000</b></td>
+		    <td></td>
+		  </tr>
 		</tbody>
 	      </table>
 	    </div>
@@ -76,7 +82,7 @@
 	  <div class="span6">
 	    <div class="purchase-form-box">
 	      <div class="subpage-header">
-		<h2>Purchase Form</h2>
+		<h2><img src="{{STATIC_URL}}img/purchase.png" /> Purchase Form</h2>
 	      </div>
 	      <form id="purchase-form" class="form-horizontal">
 		<div class="control-group">
@@ -104,7 +110,7 @@
 		  </div>
 		</div>
 		<div class="form-actions">
-		  <button type="submit" class="btn btn-large btn-primary">Order my Groceries</button>
+		  <button type="submit" class="btn btn-primary"><i class="icon-white icon-home"></i> Order my Groceries</button>
 		</div>
 	      </form>
 	    </div>
