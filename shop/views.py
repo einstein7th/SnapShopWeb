@@ -1,18 +1,20 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from shop.models import ShopItem
 
-def index(request):
+def sign_up(request):
     return render_to_response("index.html",{},RequestContext(request))
 
 def search(request):
     return render_to_response("search.html",{},RequestContext(request))
 
-def main(request):
+def results(request):
     query = request.GET.get("q","")
-    keywords = query.split(" ") if query else None
     keyword_item_map = {}
+    for keyword in query.split(" "):
+        keyword_item_map[keyword] = ShopItem.objects.filter(item_name__icontains=keyword)[0:5]
 
     return render_to_response("main.html",
                               {'query':query,
-                               'keywords':keywords},
+                               'keyword_item_map':keyword_item_map},
                               RequestContext(request))

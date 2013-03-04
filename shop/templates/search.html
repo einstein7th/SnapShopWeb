@@ -11,10 +11,18 @@
 	  <div class="rob-header">
 	  </div>
 	  <div class="rob-body">
-	    <form action="/main/" method="GET">
+	    <form action="{% url results %}" method="GET">
 	    <center>
+	      <p class="muted">
+	      {% if user.is_authenticated %}
+	      Welcome {{user.username}}! How is your day? <a href="{% url logout %}">Logout</a>
+	      {% else %}
+	      Not logged in? <a href="{% url login %}">Login here</a>.  or no account? <a href="{% url sign_up %}">Sign up</a>
+	      {% endif %}
+	      </p>
 	      <div class="input-append full-width">
 		<input name="q" class="xlarge-input" placeholder="Get your groceries..." type="text">
+
 		<button class="btn btn-large btn-primary"><i class="icon-white icon-search"></i></button>
 	      </div>
 	    </center>

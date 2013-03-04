@@ -9,21 +9,17 @@
     </div>
     <div class="page-body">
       <div class="ingredient-box">
-	{% if keywords %}
-	{% for keyword in keywords %}
+	{% if keyword_item_map.keys %}
+	{% for keyword,shop_items in keyword_item_map.items %}
 	<p class="ingredient-list-title pull-right"><span class="label">Matching: {{keyword}}</span></p>
 	<div class="clearfix"></div>
 	<div class="ingredient-list">
 	  <div class="row-fluid">
+	    {% for item in shop_items %}
 	    <div class="span1 ingredient-item">
-	      <img class="ingredient-thumbnail" src="http://placekitten.com/100/100" />
+	      <img class="ingredient-thumbnail" src="{{item.item_thumb_medium}}" />
 	    </div>
-	    <div class="span1 ingredient-item">
-	      <img class="ingredient-thumbnail" src="http://placekitten.com/100/100" />
-	    </div>
-	    <div class="span1 ingredient-item">
-	      <img class="ingredient-thumbnail" src="http://placekitten.com/100/100" />
-	    </div>
+	    {% endfor %}
 	  </div>
 	</div>
 	{% endfor %}

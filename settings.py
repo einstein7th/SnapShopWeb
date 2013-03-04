@@ -138,6 +138,10 @@ LOGGING = {
     }
 }
 
+LOGIN_URL="/accounts/login/"
+LOGOUT_URL="/accounts/logout/"
+LOGIN_REDIRECT_URL="/"
+
 try:
     from local_settings import *
 except Exception:
