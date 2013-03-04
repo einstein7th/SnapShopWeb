@@ -1,5 +1,7 @@
 
 function init() {
+
+    $('.tooltipped').tooltip();
     $('.half-height').each(function(index,element) {
 	var targetHeight =  $(element).height();
 	var parentHeight = $(element).parent().height();
@@ -11,7 +13,7 @@ function init() {
 		
     });
 
-    $('.ingredient-list > div').click(function(event) {
+    $('.ingredient-list .ingredient-item').click(function(event) {
 	$(this).toggleClass("selected");
 	updateCart();
     });
@@ -23,18 +25,20 @@ function updateCart() {
 
     target$.html("");
 
-    $('.ingredient-list > div').each(function(index,element) {
+    $('.ingredient-list .ingredient-item.selected').each(function(index,element) {
 	var element$ = $(element);
 	var newRow$ = $('<tr>');
 
 	total+=element$.data("item-price");
 
 	newRow$.append("<td>" + element$.data("item-name")+"</td>");
-	newRow$.append("<td>" + element$.data("item-quantity")+ "</td>");
-	newRow$.append("<td>" + element$.data("item-price")+ "</td>");
+	newRow$.append("<td>1</td>")
+	newRow$.append("<td>$" + parseInt(element$.data("item-price"))/100.0+ "</td>");
 	newRow$.append("<td></td>")
 	target$.append(newRow$);
     });
 }
+
+
 
 $(document).ready(init);

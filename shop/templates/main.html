@@ -16,8 +16,8 @@
 	<div class="ingredient-list">
 	  <div class="row-fluid">
 	    {% for item in shop_items %}
-	    <div class="span1 ingredient-item">
-	      <img class="ingredient-thumbnail" src="{{item.item_thumb_medium}}" />
+	    <div class="span1 ingredient-item" data-item-name="{{item.item_name}}" data-item-price="{{item.item_price}}">
+	      <img class="ingredient-thumbnail tooltipped" data-title="{{item.item_name}}" src="{{item.item_thumb_medium}}" />
 	    </div>
 	    {% endfor %}
 	  </div>
