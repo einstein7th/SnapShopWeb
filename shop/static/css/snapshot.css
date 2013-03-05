@@ -27,7 +27,7 @@ div.splash
 #tos-switch {margin-top:15px;}
 .rob-box.well {width:100%;padding:5px;}
 #search-box.well {padding:0px;}
-.rob-box input[type=text] {width:80%;}
+.rob-box input[type=text], .rob-box input[type=password] {width:80%;}
 .full-height {height:100%;}
 .full-width {width:100%;}
 
@@ -119,14 +119,14 @@ background-image: linear-gradient(to top left, #EEEEEE 0%, #FAFAFA 100%);
 }
 .lightweight {font-weight:300;}
 
-.large-input[type="text"] {
+.large-input[type="text"], .large-input[type="password"] {
     font-weight:300;
     height:25px;
     font-size:150%;
     line-height:normal;
 }
 
-.xlarge-input[type="text"] {
+.xlarge-input[type="text"], .xlarge-input[type="password"] {
     font-weight:300;
     height:35px;
     font-size:20px;

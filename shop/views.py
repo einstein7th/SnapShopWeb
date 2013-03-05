@@ -3,13 +3,43 @@ from django.shortcuts import render
 from django.template import RequestContext
 from django.shortcuts import HttpResponseRedirect
 from snapshop.shop.models import PurchaseForm
+from snapshop.shop.models import RegisterForm
+from django.contrib.auth.models import User
+from django.forms.util import ErrorList
+
 import stripe
+
+from django.contrib.auth import *                                       # django.contrib.auth.login is internal method used to log in user
+from django.contrib.auth import login as authLogin
+from django.contrib.auth.views import login             # django.contrib.auth.views.login renders /accounts/login.html view
 
 stripe.api_key = 'sk_test_sdufAGHnjkSHOAO17JLy7mnT' # Test secret key
 # 'sk_live_rytd9V25kvaLa0THdVIlLwae' # Live secret key
 
 def index(request):
-    return render_to_response("index.html",{},RequestContext(request))
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            if not 'mit.edu' in username:
+                errors = form._errors.setdefault("username", ErrorList())
+                errors.append(username + u' is not a valid MIT email address')
+                # can also use in place of username:
+                # django.forms.forms.NON_FIELD_ERRORS
+            else:
+                new_user = form.save()
+                new_user = authenticate(username=form.cleaned_data['username'],
+                                    password=form.cleaned_data['password1'])
+
+                authLogin(request, new_user)
+                return HttpResponseRedirect("/search/")
+
+    else:
+        form = RegisterForm()
+
+    return render_to_response("index.html", {'form': form},
+        RequestContext(request))
 
 def search(request):
     return render_to_response("search.html",{},RequestContext(request))
@@ -39,9 +69,10 @@ def main(request):
                 description='SnapShop order for ' + form.cleaned_data['name'],
                 )
 
-            # Try only creating customer: 
+            # Try only creating customer:
             customer = stripe.Customer.create(
-                description="Customer " + form.cleaned_data['name'], # use SnapShop username? 
+                # use SnapShop username?
+                description="Customer " + form.cleaned_data['name'],
                 card=card_dictionary,
                 account_balance=1337,
                 )
@@ -56,7 +87,7 @@ def main(request):
             else:
                 form.errors = c.failure_message
 
-    else: 
+    else:
         form = PurchaseForm()
 
     query = request.GET.get("q","")

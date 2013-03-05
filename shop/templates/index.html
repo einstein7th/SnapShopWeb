@@ -7,45 +7,41 @@
       <div class="span4">
       </div>
       <div class="span4">
-	<div class="half-height">
-	  <form action="" method="POST">
-	    <div class="rob-box well">
-	      <div class="rob-header">
-	      </div>
-	      <div class="rob-body">
-		<center>
-		<fieldset>
-		  <div class="control-group">
-		    <input class="large-input" type="text" placeholder="Name" />
-		  </div>
-		  <div class="control-group">
-		    <input class="large-input" type="text" placeholder="Email" />
-		  </div>
-		  <div class="control-group">
-		    <input class="large-input" type="text" placeholder="Password" />
-		  </div>
-		  <div class="control-group">
-		    <input class="large-input" type="text" placeholder="Phone #" />		  
-		  </div>
-		</fieldset>
-		</center>
-		<div class="row-fluid" id="tos-section">
-		  <div class="offset1 span6">
-		    <i class="muted lightweight">
-		      Would you love to receive product updates and announcements from the snapshop team?
-		    </i>
-		  </div>
-		  <div class="offset1 span3">
-		    <div id="tos-switch" class="switch switch-large" data-on-label="LOVE" data-off-label="sad :(">
-		      <input checked type="checkbox">
-		    </div>
-		  </div>
-		</div>
-		<hr />
-		<button class="btn btn-large btn-block btn-primary" type="button">Sign up now!</button>
-	      </div>		
-	  </form>	  
-	  </div>
+  <div class="half-height">
+    <form action="/" method="POST">
+      <div class="rob-box well">
+        <div class="rob-header">
+        </div>
+        <div class="rob-body">
+          {{ form.non_field_errors }}
+          {% csrf_token %}
+          <center>
+          <fieldset>
+            {% for field in form %}
+            <div class="control-group">
+              {{ field.errors }}
+              {{ field }}
+            </div>
+            {% endfor %}
+          </fieldset>
+          </center>
+    <div class="row-fluid" id="tos-section">
+      <div class="offset1 span6">
+        <i class="muted lightweight">
+          Would you love to receive product updates and announcements from the snapshop team?
+        </i>
+      </div>
+      <div class="offset1 span3">
+        <div id="tos-switch" class="switch switch-large" data-on-label="LOVE" data-off-label="sad :(">
+          <input checked type="checkbox">
+        </div>
+      </div>
+    </div>
+    <hr />
+    <button class="btn btn-large btn-block btn-primary" type="submit">Sign up now!</button>
+        </div>    
+    </form>   
+    </div>
       </div>
       <div class="span4">
       </div>
