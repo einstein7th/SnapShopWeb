@@ -70,7 +70,7 @@
 	<h2><img src="{{STATIC_URL}}img/purchase.png" /> Purchase Form</h2>
       </div>
 
-	 <form id="purchase-form" class="form-horizontal" action="/main/" method="post">
+	 <form id="purchase-form" class="form-horizontal" action="{% url 'results' %}" method="post">
 	      	{% csrf_token %}
 	      	{{ form.non_field_errors }}
 
