@@ -1,1 +1,9 @@
 This is the readme
+
+Set up local_settings.py (copy local_settings_template.py) and put in your own
+database information
+
+Install stripe:
+sudo pip install --index-url https://code.stripe.com --upgrade stripe
+
+Import all items data

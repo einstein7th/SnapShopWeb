@@ -86,14 +86,14 @@ class PurchaseForm(forms.Form):
         ('2020', '2020'),
     )
 
-    name = forms.CharField(max_length=50)
+    name = forms.CharField(max_length=50, widget=forms.TextInput({'placeholder':'Alyssa P. Hacker'}))
     living_group = forms.ChoiceField(DORM_CHOICES)
     #address_2 = models.CharField(max_length=50)
     #city = models.CharField(max_length=50)
     #state = models.CharField(max_length=50)
     #zip_code = models.CharField(max_length=50)
-    card_number = forms.CharField(max_length=16)
-    card_cvc = forms.CharField(max_length=4)
+    card_number = forms.CharField(max_length=16, widget=forms.TextInput({'placeholder':'4012888888881881'}))
+    card_cvc = forms.CharField(max_length=4, widget=forms.TextInput({'placeholder':'626'}))
     card_zip = forms.CharField(max_length=5, widget=forms.TextInput({'placeholder':'02139'}))
     card_expiration_month = forms.ChoiceField(EXPIRATION_MONTH_CHOICES)
     card_expiration_year = forms.ChoiceField(EXPIRATION_YEAR_CHOICES)

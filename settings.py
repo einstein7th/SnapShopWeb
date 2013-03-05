@@ -7,7 +7,7 @@ ADMINS = (
     # ('Eddie Xue', 'drpizza.x@gmail.com'),
 )
 
-# allows us to build the customer, using the user profile.  
+# allows us to build the customer, using the user profile.
 AUTH_PROFILE_MODULE = 'accounts.customer'
 
 
@@ -109,9 +109,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.admindocs',
     'shop'
 )
 

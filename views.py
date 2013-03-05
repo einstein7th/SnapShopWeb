@@ -14,6 +14,7 @@ def home(request):
 def search(request):
     return render_to_response("search.html",{},RequestContext(request))
 
+# Not currently used: API functions only used for old iPhone App.
 @csrf_exempt
 def api(request):
     if request.method == 'GET':
@@ -66,8 +67,8 @@ def api_place_order(data):
     message_body = simplejson.dumps(j.get('order'))
 
     # Send email
-    send_mail('New SnapShop Order received', message_body, 'admin@snapshop.com', 
-             ['drpizza.x@gmail.com', 'einstein7th@gmail.com', 'xia.umd@gmail.com'], 
+    send_mail('New SnapShop Order received', message_body, 'admin@snapshop.com',
+             ['drpizza.x@gmail.com', 'einstein7th@gmail.com', 'xia.umd@gmail.com'],
              fail_silently = False)
 
     return {"success": True, "message": "Order sent successfully."}
@@ -75,7 +76,7 @@ def api_place_order(data):
 def api2_register(data):
     # return data
     # print data
- 
+
     j = simplejson.loads(data)
     email = j.get('email')
     password = j.get('password')
@@ -93,7 +94,7 @@ def api2_register(data):
             "success": False,
             "message": "User already exists"
         }
-    
+
     return response # HttpResponse(simplejson.dumps(response), mimetype='application/json')
 
 def api_register(request):
@@ -118,6 +119,6 @@ def api_register(request):
             "success": False,
             "message": "User already exists"
         }
-    
+
     return HttpResponse(simplejson.dumps(response), mimetype='application/json')
 
