@@ -1,4 +1,4 @@
-html, body {height:100%;}
+html, body {height:100%;padding-left:0px;padding-right:0px; color:#333;}
 div.splash
 {
     height:100%;
@@ -13,7 +13,7 @@ div.splash
     -webkit-box-shadow:0px 0px 10px #111;
     -moz-box-shadow:0px 0px 10px #111;
 }
-.rob-header 
+.rob-header
 {
     background-image:url("/static/img/logo.png");
     background-repeat: no-repeat;
@@ -31,20 +31,26 @@ div.splash
 .full-height {height:100%;}
 .full-width {width:100%;}
 
-ul.ingredient-list li 
-{
-    display:inline;
-    margin-right:20px;
- }
+.rob-box form {margin-bottom:0;}
 
-ul.ingredient-list li img.ingredient-thumbnail
+.ingredient-list  .ingredient-thumbnail:hover, .ingredient-list .ingredient-item.selected ingredient-thumbnail
+{
+   box-shadow:0px 0px 30px #6A6;
+   -webkit-box-shadow:0px 0px 30px #6A6;
+   -moz-box-shadow:0px 0px 30px #6A6;
+   opacity:1;
+   cursor:pointer;
+}
+
+.ingredient-list .ingredient-thumbnail
 {
    box-shadow:0px 0px 10px #CCC;
    -webkit-box-shadow:0px 0px 10px #CCC;
-   -moz-box-shadow:0px 0px 10px #CCC;   
+   -moz-box-shadow:0px 0px 10px #CCC;
+   opacity:.7
 }
 
-ul.ingredient-list 
+.ingredient-list
 {
     padding:20px;
     padding-top:5px;
@@ -58,61 +64,60 @@ ul.ingredient-list
     -webkit-box-shadow:0px 0px 10px #111;
     -moz-box-shadow:0px 0px 10px #111;
 }
-.page .page-header 
+.page .page-header
 {
     background:#EEE;
     padding:20px;
     padding-bottom:10px;
     margin-top:0;
     margin-bottom:0;
-/* IE10 Consumer Preview */ 
+/* IE10 Consumer Preview */
 background-image: -ms-linear-gradient(bottom right, #EEEEEE 0%, #FAFAFA 100%);
 
-/* Mozilla Firefox */ 
+/* Mozilla Firefox */
 background-image: -moz-linear-gradient(bottom right, #EEEEEE 0%, #FAFAFA 100%);
 
-/* Opera */ 
+/* Opera */
 background-image: -o-linear-gradient(bottom right, #EEEEEE 0%, #FAFAFA 100%);
 
-/* Webkit (Safari/Chrome 10) */ 
+/* Webkit (Safari/Chrome 10) */
 background-image: -webkit-gradient(linear, right bottom, left top, color-stop(0, #EEEEEE), color-stop(1, #FAFAFA));
 
-/* Webkit (Chrome 11+) */ 
+/* Webkit (Chrome 11+) */
 background-image: -webkit-linear-gradient(bottom right, #EEEEEE 0%, #FAFAFA 100%);
 
-/* W3C Markup, IE10 Release Preview */ 
+/* W3C Markup, IE10 Release Preview */
 background-image: linear-gradient(to top left, #EEEEEE 0%, #FAFAFA 100%);
 }
 
 .purchase-box {
-/* IE10 Consumer Preview */ 
+/* IE10 Consumer Preview */
 background-image: -ms-linear-gradient(bottom right, #EEEEEE 0%, #FAFAFA 100%);
 
-/* Mozilla Firefox */ 
+/* Mozilla Firefox */
 background-image: -moz-linear-gradient(bottom right, #EEEEEE 0%, #FAFAFA 100%);
 
-/* Opera */ 
+/* Opera */
 background-image: -o-linear-gradient(bottom right, #EEEEEE 0%, #FAFAFA 100%);
 
-/* Webkit (Safari/Chrome 10) */ 
+/* Webkit (Safari/Chrome 10) */
 background-image: -webkit-gradient(linear, right bottom, left top, color-stop(0, #EEEEEE), color-stop(1, #FAFAFA));
 
-/* Webkit (Chrome 11+) */ 
+/* Webkit (Chrome 11+) */
 background-image: -webkit-linear-gradient(bottom right, #EEEEEE 0%, #FAFAFA 100%);
 
-/* W3C Markup, IE10 Release Preview */ 
+/* W3C Markup, IE10 Release Preview */
 background-image: linear-gradient(to top left, #EEEEEE 0%, #FAFAFA 100%);
 
 }
 
-.cart-box {padding:20px;min-height:400px;border-right: solid thin #CCC;}
-.purchase-form-box {padding:20px;min-height:400px;}
-.cart-list li 
+.cart-box {padding:20px;border-right: solid thin #CCC;}
+.purchase-form-box {padding:20px;}
+.cart-list li
 {
     background:#FFF;
     font-size:200%;
     margin-bottom:10px;
-    position:relative;
     box-shadow:0px 0px 10px #CCC;
     -webkit-box-shadow:0px 0px 10px #CCC;
     -moz-box-shadow:0px 0px 10px #CCC;
@@ -155,4 +160,7 @@ border-radius: 5px;
 #cart-table .cart-actions {width:20%;}
 #cart-table thead {background:#333; color:#FFF;}
 
-p.ingredient-list-title {margin-left:10px;margin-bottom:0px;margin-top:3px;padding:bottom:0px;}
+hr.thick {border:solid thick #333;margin-top:0px;}
+
+p.ingredient-list-title {margin-right:10px;margin-bottom:0px;margin-top:3px;padding:bottom:0px;opacity:.7}
+

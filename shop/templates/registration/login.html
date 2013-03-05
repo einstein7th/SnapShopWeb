@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="splash">
+  <div class="container-fluid full-height">
+    <div class="span3">
+    </div>
+    <div class="span6 full-height">
+      <div class="well half-height rob-box">
+	<div class="rob-header">
+	</div>
+	<div class="rob-body">
+	  <form action="{% url login %}" method="POST">
+	    {% csrf_token %}
+	    <center>
+	      <input name="username" class="large-input" placeholder="Username" type="text">
+	      <br />
+	      <input type="password" name="password" class="large-input" placeholder="Password" />
+	      <p class="muted">No account? <a href="{% url sign_up %}">Sign up here.</a></p>
+	      <button type="submit" class="btn btn-primary btn-block btn-large">Login</button>
+	    </center>
+	  </form>
+	</div>
+      </div>
+      <div class="span3">
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -8,7 +8,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = patterns('',
     url(r'', include('snapshop.shop.urls')),
     url(r'^home/', 'snapshop.views.home', name='home'),
-    url(r'^login', 'snapshop.views.login', name='login'),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
     # url(r'^api/register', 'snapshop.views.api_register', name='api_register'),
     url(r'^api', 'snapshop.views.api', name='api'),
     # Examples:

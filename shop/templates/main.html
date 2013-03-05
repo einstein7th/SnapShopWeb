@@ -4,88 +4,73 @@
 <div class="splash">
   <div class="container page">
     <div class="page-header">
+      <img style="width:20%" class="pull-right" src="{{STATIC_URL}}img/logo-small.png" />
       <h1><img src="{{STATIC_URL}}img/search.png" /> Results for: <small>{{query}}</small></h1>
     </div>
     <div class="page-body">
-      {% if keywords %}
-      {% for keyword in keywords %}
-      <p class="ingredient-list-title"><span class="label">Matching: {{keyword}}</span></p>
-      <ul class="unstyled ingredient-list">
-	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
-	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
-	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
-	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
-	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
-	<li><img class="ingredient-thumbnail" src="http://placekitten.com/100/100" /></li>
-	<li class="pull-right"><img class="half-height" src="{{STATIC_URL}}img/right-arrow.png" /></li>
+      <div class="ingredient-box">
+	{% if keyword_item_map.keys %}
+	{% for keyword,shop_items in keyword_item_map.items %}
+	<p class="ingredient-list-title pull-right"><span class="label">Matching: {{keyword}}</span></p>
 	<div class="clearfix"></div>
-      </ul>
-      {% endfor %}
-      {% else %}
-      <p class="muted">No matching keywords for query {{query}}</p>
-      {% endif %}
-      <div class="purchase-box">
-	<div class="row-fluid">
-	  <div class="span6">
-	    <div class="cart-box">
-	      <div class="subpage-header">
-		<h2><img src="{{STATIC_URL}}img/cart.png" /> Ingredients Cart</h2>
-	      </div>
-	      <table id="cart-table" class="table">
-		<thead>
-		  <th class="cart-name">Name</th>
-		  <th class="cart-quantity">Quantity</th>
-		  <th class="cart-amount">Amount</th>
-		  <th class="cart-actions">Actions</th>
-		</thead>
-		<tbody>
-		  <tr>
-		    <td><img src="http://placekitten.com/24/24" /> LOLOLOL</td>
-		    <td>2</td>
-		    <td>$999</td>
-		    <td>
-		      <i class="icon-remove"></i>
-		      <i class="icon-chevron-down"></i>
-		      <i class="icon-chevron-up"></i>
-		    </td>
-		  </tr>
-		  <tr>
-		    <td><img src="http://placekitten.com/24/24" /> LOLOLOL</td>
-		    <td>2</td>
-		    <td>$999</td>
-		    <td>
-		      <i class="icon-remove"></i>
-		      <i class="icon-chevron-down"></i>
-		      <i class="icon-chevron-up"></i>
-		    </td>
-		  </tr>
-		  <tr>
-		    <td><img src="http://placekitten.com/24/24" /> LOLOLOL</td>
-		    <td>2</td>
-		    <td>$999</td>
-		    <td>
-		      <i class="icon-remove"></i>
-		      <i class="icon-chevron-down"></i>
-		      <i class="icon-chevron-up"></i>
-		    </td>
-		  </tr>
-		  <tr class="summary-row">
-		    <td><b>Total: </b></td>
-		    <td></td>
-		    <td><b>$10000</b></td>
-		    <td></td>
-		  </tr>
-		</tbody>
-	      </table>
+	<div class="ingredient-list">
+	  <div class="row-fluid">
+	    {% for item in shop_items %}
+	    <div class="span1 ingredient-item" data-item-name="{{item.item_name}}" data-item-price="{{item.item_price}}">
+	      <img class="ingredient-thumbnail tooltipped" data-title="{{item.item_name}}" src="{{item.item_thumb_medium}}" />
 	    </div>
+	    {% endfor %}
 	  </div>
-	  <div class="span6">
-	    <div class="purchase-form-box">
-	      <div class="subpage-header">
-			<h2><img src="{{STATIC_URL}}img/purchase.png" /> Purchase Form</h2>
-	      </div>
 
-	      <form id="purchase-form" class="form-horizontal" action="/main/" method="post">
+
+	</div>
+	{% endfor %}
+	{% else %}
+	<p class="muted">No matching keywords for query {{query}}</p>
+	{% endif %}
+      </div>
+      <hr class="thick"/>
+      <div class="cart-box">
+	<div class="subpage-header">
+	  <h2><img src="{{STATIC_URL}}img/cart.png" /> Ingredients Cart</h2>
+	</div>
+	<table id="cart-table" class="table">
+	  <thead>
+	    <th class="cart-name">Name</th>
+	    <th class="cart-quantity">Quantity</th>
+	    <th class="cart-amount">Amount</th>
+	    <th class="cart-actions">Actions</th>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <td><img src="http://placekitten.com/24/24" /> LOLOLOL</td>
+	      <td>2</td>
+	      <td>$999</td>
+	      <td>
+		<i class=" icon-chevron-down"></i>
+		<i class=" icon-chevron-up"></i>
+		<i class=" icon-remove"></i>
+	      </td>
+	    </tr>
+	    <tr class="summary-row">
+	      <td><b>Total: </b></td>
+	      <td></td>
+	      <td><b>$10000</b></td>
+	      <td></td>
+	    </tr>
+	  </tbody>
+	</table>
+      </div>
+    </div>
+    <hr class="thick"/>
+
+
+    <div class="purchase-form-box">
+      <div class="subpage-header">
+	<h2><img src="{{STATIC_URL}}img/purchase.png" /> Purchase Form</h2>
+      </div>
+
+	 <form id="purchase-form" class="form-horizontal" action="/main/" method="post">
 	      	{% csrf_token %}
 	      	{{ form.non_field_errors }}
 
@@ -99,24 +84,20 @@
 	      	  </div>
 	      	{% endfor %}
 
-		<!-- <div class="control-group">
-		  <label class="control-label" for="inputEmail">Phone #</label>
-		  <div class="controls">
-		    <input type="text" id="inputEmail" placeholder="617-888-0000"></input>
-		  </div>
-		</div> -->
+	<!-- <div class="control-group">
+	     <label class="control-label" for="inputEmail">Phone #</label>
+	     <div class="controls">
+	       <input type="text" id="inputEmail" placeholder="617-888-0000"></input>
+	     </div>
+	</div> -->
 
-		<div class="form-actions">
-		  <button type="submit" class="btn btn-primary"><i class="icon-white icon-home"></i> Order my Groceries</button>
-		</div>
-
-	      </form>
-	    </div>
-	  </div>
+	<div class="form-actions">
+	  <button type="submit" class="btn btn-primary"><i class="icon-white icon-home"></i> Order my Groceries</button>
 	</div>
-      </div>
+
+      </form>
+
     </div>
   </div>
 </div>
-
   {% endblock %}
