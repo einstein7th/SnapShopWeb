@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django import forms
 
 class ShopItem(models.Model):
 	item_category = models.ForeignKey('Categories')
@@ -49,3 +50,50 @@ class Customer(models.Model):
 	phone_number = models.CharField(max_length=20)
 	delivery_time = models.DateTimeField()
 	user = models.OneToOneField(User)
+
+class PurchaseForm(forms.Form):
+	DORM_CHOICES = (
+		('362 Memorial Drive', 'Baker House'),
+		('450 Memorial Drive', 'MacGregor House'),
+		('3 Ames Street', 'East Campus'),
+		('460 Beacon Street', 'Nu Delta'),
+	)
+
+	EXPIRATION_MONTH_CHOICES = (
+		('1', '01 - January'),
+		('2', '02 - February'), 
+		('3', '03 - March'), 
+		('4', '04 - April'),
+		('5', '05 - May'),
+		('6', '06 - June'),
+		('7', '07 - July'),
+		('8', '08 - August'),
+		('9', '09 - September'), 
+		('10', '10 - October'),
+		('11', '11 - November'),
+		('12', '12 - December'),
+	)
+
+	EXPIRATION_YEAR_CHOICES = (
+		('2013', '2013'),
+		('2014', '2014'), 
+		('2015', '2015'), 
+		('2016', '2016'),
+		('2017', '2017'),
+		('2018', '2018'),
+		('2019', '2019'),
+		('2020', '2020'),
+	)
+
+	name = forms.CharField(max_length=50)
+	living_group = forms.ChoiceField(DORM_CHOICES)
+	#address_2 = models.CharField(max_length=50)
+	#city = models.CharField(max_length=50)
+	#state = models.CharField(max_length=50)
+	#zip_code = models.CharField(max_length=50)
+	card_number = forms.CharField(max_length=16)
+	card_cvc = forms.CharField(max_length=4)
+	card_zip = forms.CharField(max_length=5)
+	card_expiration_month = forms.ChoiceField(EXPIRATION_MONTH_CHOICES)
+	card_expiration_year = forms.ChoiceField(EXPIRATION_YEAR_CHOICES)
+	promo_code = forms.CharField(required=False, max_length=10) # optional field
