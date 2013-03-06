@@ -8,6 +8,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import *                                       # django.contrib.auth.login is internal method used to log in user
 from django.contrib.auth import login as authLogin
 from django.forms.util import ErrorList
+import requests
+from django.conf import settings
 
 from django.core.exceptions import ValidationError
 from snapshop.shop.models import PurchaseForm
@@ -98,13 +100,13 @@ def results(request):
         form = PurchaseForm()
 
     query = request.GET.get("q","")
-    keyword_item_map = {}
-    for keyword in query.split(" "):
-        possible_items = ShopItem.objects.filter(item_name__icontains=keyword)
-        categories = Categories.objects.filter(category_name__icontains=keyword)
-        if categories:
-            possible_items.filter(item_category=categories[0])
-        keyword_item_map[keyword] = possible_items[:5]
+    res = requests.get("%s/search/%s/" % (settings.SCRAPER_ENDPOINT,query))
+    if res.status_code != 200:
+        peapod_results = []
+    else:
+        peapod_results = res.json()['results'][:10]
+
+    keyword_item_map = {query:ShopItem.objects.filter(item_name__in=peapod_results)[:5]}
 
     return render_to_response("main.html",
                               {'query':query,
