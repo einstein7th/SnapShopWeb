@@ -2,11 +2,16 @@ from django.shortcuts import render_to_response
 from django.shortcuts import render
 from django.shortcuts import HttpResponseRedirect
 from django.template import RequestContext
+from django.core.validators import validate_email
 from django.contrib.auth.models import User
+
+from django.contrib.auth.views import login
+
 from django.contrib.auth import *                                       # django.contrib.auth.login is internal method used to log in user
 from django.contrib.auth import login as authLogin
 from django.forms.util import ErrorList
 
+from django.core.exceptions import ValidationError
 from snapshop.shop.models import PurchaseForm
 from snapshop.shop.models import RegisterForm
 from shop.models import ShopItem, Categories
@@ -21,11 +26,16 @@ def sign_up(request):
 
         if form.is_valid():
             username = form.cleaned_data['username']
-            if not 'mit.edu' in username:
+
+            try:
+                validate_email(username)
+            except ValidationError:
                 errors = form._errors.setdefault("username", ErrorList())
                 errors.append(username + u' is not a valid MIT email address')
-                # can also use in place of username:
-                # django.forms.forms.NON_FIELD_ERRORS
+
+            if not username[-7:] == 'mit.edu':
+                errors = form._errors.setdefault("username", ErrorList())
+                errors.append(username + u' is not a valid MIT email address')
             else:
                 new_user = form.save()
                 new_user = authenticate(username=form.cleaned_data['username'],
