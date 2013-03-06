@@ -32,7 +32,7 @@ def sign_up(request):
                                     password=form.cleaned_data['password1'])
 
                 authLogin(request, new_user)
-                return HttpResponseRedirect("/search/")
+                return HttpResponseRedirect("/")
 
     else:
         form = RegisterForm()

@@ -98,6 +98,7 @@ class PurchaseForm(forms.Form):
     card_expiration_month = forms.ChoiceField(EXPIRATION_MONTH_CHOICES)
     card_expiration_year = forms.ChoiceField(EXPIRATION_YEAR_CHOICES)
     promo_code = forms.CharField(required=False, max_length=10) # optional field
+    # items_list = forms.TextField(widget=forms.HiddenInput())
 
 class RegisterForm(UserCreationForm):
     def __init__(self, *args, **kwargs):

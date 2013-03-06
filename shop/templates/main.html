@@ -67,29 +67,21 @@
 
     <div class="purchase-form-box">
       <div class="subpage-header">
-	<h2><img src="{{STATIC_URL}}img/purchase.png" /> Purchase Form</h2>
+        <h2><img src="{{STATIC_URL}}img/purchase.png" /> Purchase Form</h2>
       </div>
 
-	 <form id="purchase-form" class="form-horizontal" action="{% url 'results' %}" method="post">
-	      	{% csrf_token %}
-	      	{{ form.non_field_errors }}
-
-	      	{% for field in form %}
-	      	  <div class="control-group">
-	      	  	{{ field.errors }}
-	      	  	<label class="control-label" for="{{ field.html_name }}">{{ field.label }}</label>
-	      	  	<div class="controls">
-	      	  	  {{ field }}
-	      	  	</div>
-	      	  </div>
-	      	{% endfor %}
-
-	<!-- <div class="control-group">
-	     <label class="control-label" for="inputEmail">Phone #</label>
-	     <div class="controls">
-	       <input type="text" id="inputEmail" placeholder="617-888-0000"></input>
-	     </div>
-	</div> -->
+	<form id="purchase-form" class="form-horizontal" action="{% url 'results' %}" method="post">
+	{% csrf_token %}
+	{{ form.non_field_errors }}
+	{% for field in form %}
+	  <div class="control-group">
+	  	{{ field.errors }}
+	  	<label class="control-label" for="{{ field.html_name }}">{{ field.label }}</label>
+	  	<div class="controls">
+	  	  {{ field }}
+	  	</div>
+	  </div>
+	{% endfor %}
 
 	<div class="form-actions">
 	  <button type="submit" class="btn btn-primary"><i class="icon-white icon-home"></i> Order my Groceries</button>
