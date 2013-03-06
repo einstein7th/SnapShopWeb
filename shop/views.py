@@ -5,8 +5,6 @@ from django.template import RequestContext
 from django.core.validators import validate_email
 from django.contrib.auth.models import User
 
-from django.contrib.auth.views import login
-
 from django.contrib.auth import *                                       # django.contrib.auth.login is internal method used to log in user
 from django.contrib.auth import login as authLogin
 from django.forms.util import ErrorList
