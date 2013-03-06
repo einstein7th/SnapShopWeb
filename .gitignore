@@ -2,4 +2,5 @@
 *~
 *#
 myenv
+scrapod/node_modules
 local_settings.py
