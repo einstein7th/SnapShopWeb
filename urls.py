@@ -1,7 +1,6 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib.auth import login
-# from django.contrib.auth import logout # logout is unnecssary to import?
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -10,12 +9,14 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'', include('snapshop.shop.urls')),
     url(r'^home/', 'snapshop.views.home', name='home'),
-    url(r'^accounts/', include('django.contrib.auth.urls')),
 
     #url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', name='logout'),
-    url(r'^accounts/logout/$', 'django.contrib.auth.views.logout_then_login', name='logout'),
     # temporary logout fix: Otherwise directs to Django admin logout instead of
     # auth.views.logout (that would use registration/logged_out.html template)
+    url(r'^accounts/logout/$', 'django.contrib.auth.views.logout_then_login', name='logout'),
+
+    url(r'^accounts/', include('django.contrib.auth.urls')),
+    # Django auth URLs must be after logout, otherwise wil override to admin logout
 
     # Examples:
     # url(r'^$', 'snapshop.views.home', name='home'),
