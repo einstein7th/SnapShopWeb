@@ -94,7 +94,9 @@ class PurchaseForm(forms.Form):
 
     name = forms.CharField(max_length=50, widget=forms.TextInput({'placeholder':'Alyssa P. Hacker'}))
     living_group = forms.ChoiceField(DORM_CHOICES)
-    email = forms.CharField(max_length=32, widget=forms.TextInput({'placeholder':'any@mit.edu address'}))
+    room_number = forms.CharField(required=False, max_length=10, widget=forms.TextInput({'placeholder':'818'}))
+    phone_number = forms.CharField(required=False, max_length=20, widget=forms.TextInput({'placeholder':'617 555 5555'}))
+    #email = forms.CharField(max_length=32, widget=forms.TextInput({'placeholder':'any@mit.edu address'}))
     #address_2 = models.CharField(max_length=50)
     #city = models.CharField(max_length=50)
     #state = models.CharField(max_length=50)

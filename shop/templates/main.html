@@ -73,19 +73,21 @@
     {% if user.is_authenticated %}
 
       <p>Your credit card will not be charged until your groceries ship. If you have placed an order with us before, simply select your card below.</p>
+
       <form id="purchase-form" class="form-horizontal" action="{% url 'results' %}" method="post">
       {% csrf_token %}
       {{ form.non_field_errors }}
       {% for field in form.visible_fields %}
       <div class="control-group">
         {{ field.errors }}
-        <label class="control-label" for="{{ field.html_name }}">{{ field.label }}</label>
+        <label class="control-label" for="{{ field.html_name }}">
+          {{ field.label }} {% if field.field.required %}*{% endif %}</label>
         <div class="controls">
           {{ field }}
         </div>
         </div>
       {% endfor %}
-
+      <p>* fields are required</p>
       {{ form.items_list }}
       <div class="form-actions">
         <button type="submit" class="btn btn-primary"><i class="icon-white icon-home"></i> Order my   Groceries</button>
