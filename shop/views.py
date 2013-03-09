@@ -37,12 +37,13 @@ def sign_up(request):
                 validate_email(username)
             except ValidationError:
                 errors = form._errors.setdefault("username", ErrorList())
-                errors.append(username + u' is not a valid MIT email address')
+                errors.append(username + u' is not a valid email address')
 
             if not username[-7:] == 'mit.edu':
                 errors = form._errors.setdefault("username", ErrorList())
-                errors.append(username + u' is not a valid MIT email address')
+                errors.append(username + u' is not an MIT email address')
             else:
+                # TODO set email field as username.
                 new_user = form.save()
                 new_user = authenticate(username=form.cleaned_data['username'],
                                     password=form.cleaned_data['password1'])
@@ -68,17 +69,16 @@ def pretty_price(cents):
 def results(request):
     if request.method == 'POST': # Submitted the purchase form:
         form = PurchaseForm(request.POST)
-        print 'checking form validity'
+
         if not request.user.is_authenticated():
             errors = form._errors.setdefault("loggedin", ErrorList())
             errors.append("Please log in before ordering")
 
         elif form.is_valid(): # TODO if form is not valid because no items in cart, say so! item_list is hidden field so user cannot see error.
             hasError = False
+            user_email = request.user.username # form.cleaned_data['email']
+            email_html = '<p>Name: ' + form.cleaned_data['name'] + '<br />Email: ' + user_email + '<br />Address: ' + form.cleaned_data['living_group'] + '<br />Room number: ' + form.cleaned_data['room_number'] + '<br />Phone number: ' + form.cleaned_data['phone_number'] + '</p><p><b>Order:</b></p>'
 
-            email_html = '<p>Name: ' + form.cleaned_data['name'] + '<br />Email: ' + form.cleaned_data['email'] + '<br />Address: ' + form.cleaned_data['living_group'] + '</p><p><b>Order:</b></p>'
-
-            print 'Cart JSON: ', form.cleaned_data['items_list']
             cart_items = json.loads(form.cleaned_data['items_list'])
             cart_total = 0
 
@@ -117,6 +117,8 @@ def results(request):
                     customer = Customer.objects.get(user=request.user)
                     try:
                         card = CreditCard.objects.get(customer=customer)
+                        # TODO increase balance from Stripe
+
                     except CreditCard.DoesNotExist:
                         hasError = True
                         errors = form._errors.setdefault("username", ErrorList())
@@ -135,7 +137,7 @@ def results(request):
                                 description="Customer " + form.cleaned_data['name'],
                                 card=card_dictionary,
                                 account_balance=cart_total,
-                                email=form.cleaned_data['email'], #request.user.username
+                                email=user_email, #request.user.username
                             )
                 except stripe.CardError, e:
                     errors = form._errors.setdefault("username", ErrorList())
@@ -152,21 +154,22 @@ def results(request):
                         our_customer = Customer(stripe_token=stripe_customer.id, phone_number='', delivery_time=datetime.datetime(2013, 03, 16), user=request.user)
                         our_customer.save()
 
-                    print 'our customer', our_customer
                     # TODO will this create duplicate credit card entries
                     if form.cleaned_data['payment_choices'] == 'save_new':
                         card_number = form.cleaned_data['card_number']
                         our_card = CreditCard(cc_stub=card_number[-4:], cc_type=0, cc_owner=our_customer)
                         our_card.save()
 
-                        print 'our card', our_card
-
             if not hasError:
-                # send email to us.
+                # Send email to us - admins
                 admin_msg = EmailMessage('New Snapshop order!', email_html, 'no-reply@snapshopmit.com', ['snapshop@mit.edu', 'drpizza.x@gmail.com'])
                 admin_msg.content_subtype = 'html'
                 admin_msg.send(fail_silently=False)
-                print 'SENT EMAIL'
+
+                # Senc copy of email to customer
+                user_msg = EmailMessage('Thank you for your SnapShop order!', email_html, 'no-reply@snapshopmit.com', [user_email])
+                user_msg.content_subtype = 'html'
+                user_msg.send(fail_silently=False)
                 return HttpResponseRedirect('/thanks/')
 
     NO_CUSTOMER = (
@@ -179,13 +182,11 @@ def results(request):
         form.fields['payment_choices'].choices = NO_CUSTOMER
 
     if request.user.is_authenticated():
-        print 'logged in'
         try:
             customer = Customer.objects.get(user=request.user)
         except Customer.DoesNotExist:
             customer = None
 
-        print 'customer: ', customer
         if customer is None:
             form.fields['payment_choices'].choices = NO_CUSTOMER
         else:
@@ -199,6 +200,7 @@ def results(request):
                 form.fields['payment_choices'].choices = CARD_EXISTS
 
     query = request.GET.get("q","")
+    # Use Node server at :3000 to scrape Peapod's search results for answers
     res = requests.get("%s/search/%s/" % (settings.SCRAPER_ENDPOINT,query))
     if res.status_code != 200:
         peapod_results = []
@@ -206,6 +208,17 @@ def results(request):
         peapod_results = res.json()['results'][:10]
 
     keyword_item_map = {query:ShopItem.objects.filter(item_name__in=peapod_results)[:5]}
+
+    """
+    # Old primitive search method, test on local databases
+    keyword_item_map = {}
+    for keyword in query.split(","):
+        possible_items = ShopItem.objects.filter(item_name__icontains=keyword)
+        categories = Categories.objects.filter(category_name__icontains=keyword)
+        if categories:
+            possible_items.filter(item_category=categories[0])
+        keyword_item_map[keyword] = possible_items[:5]
+    """
 
     return render_to_response("main.html",
                               {'query':query,
