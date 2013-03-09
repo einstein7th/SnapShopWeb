@@ -29,7 +29,7 @@ class ShippingLabel(models.Model):
 
 class CreditCard(models.Model):
     cc_stub = models.CharField(max_length=4, default="****")
-    cc_type = models.IntegerField()
+    cc_type = models.IntegerField(default=0)
     cc_owner = models.ForeignKey('Customer')
 
 class Categories(models.Model):
@@ -53,6 +53,12 @@ class Customer(models.Model):
     user = models.OneToOneField(User)
 
 class PurchaseForm(forms.Form):
+    PAYMENT_CHOICES = (
+        ('save_new', 'Please remember my card for future orders'),
+        ('no_save', "Don't remember my card for future orders"),
+        ('use_old', 'Use my saved card'),
+    )
+
     DORM_CHOICES = (
         ('362 Memorial Drive', 'Baker House'),
         ('450 Memorial Drive', 'MacGregor House'),
@@ -88,17 +94,19 @@ class PurchaseForm(forms.Form):
 
     name = forms.CharField(max_length=50, widget=forms.TextInput({'placeholder':'Alyssa P. Hacker'}))
     living_group = forms.ChoiceField(DORM_CHOICES)
+    email = forms.CharField(max_length=32, widget=forms.TextInput({'placeholder':'any@mit.edu address'}))
     #address_2 = models.CharField(max_length=50)
     #city = models.CharField(max_length=50)
     #state = models.CharField(max_length=50)
     #zip_code = models.CharField(max_length=50)
+    payment_choices = forms.ChoiceField(choices=PAYMENT_CHOICES) # overriden in views if logged in
     card_number = forms.CharField(max_length=16, widget=forms.TextInput({'placeholder':'4012888888881881'}))
     card_cvc = forms.CharField(max_length=4, widget=forms.TextInput({'placeholder':'626'}))
     card_zip = forms.CharField(max_length=5, widget=forms.TextInput({'placeholder':'02139'}))
     card_expiration_month = forms.ChoiceField(EXPIRATION_MONTH_CHOICES)
     card_expiration_year = forms.ChoiceField(EXPIRATION_YEAR_CHOICES)
     promo_code = forms.CharField(required=False, max_length=10) # optional field
-    # items_list = forms.TextField(widget=forms.HiddenInput())
+    items_list = forms.CharField(widget=forms.HiddenInput())    # JSON object with {'item_id': 'qty'}
 
 class RegisterForm(UserCreationForm):
     def __init__(self, *args, **kwargs):

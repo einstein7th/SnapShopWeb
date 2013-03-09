@@ -16,7 +16,7 @@
 	<div class="ingredient-list">
 	  <div class="row-fluid">
 	    {% for item in shop_items %}
-	    <div class="span1 ingredient-item" data-item-name="{{item.item_name}}" data-item-price="{{item.item_price}}">
+	    <div class="span1 ingredient-item" data-item-name="{{item.item_name}}" data-item-price="{{item.item_price}}" data-item-id="{{item.pk}}">
 	      <img class="ingredient-thumbnail tooltipped" data-title="{{item.item_name}}" src="{{item.item_thumb_medium}}" />
 	    </div>
 	    {% endfor %}
@@ -70,22 +70,31 @@
         <h2><img src="{{STATIC_URL}}img/purchase.png" /> Purchase Form</h2>
       </div>
 
-	<form id="purchase-form" class="form-horizontal" action="{% url 'results' %}" method="post">
-	{% csrf_token %}
-	{{ form.non_field_errors }}
-	{% for field in form %}
-	  <div class="control-group">
-	  	{{ field.errors }}
-	  	<label class="control-label" for="{{ field.html_name }}">{{ field.label }}</label>
-	  	<div class="controls">
-	  	  {{ field }}
-	  	</div>
-	  </div>
-	{% endfor %}
+    {% if user.is_authenticated %}
 
-	<div class="form-actions">
-	  <button type="submit" class="btn btn-primary"><i class="icon-white icon-home"></i> Order my Groceries</button>
-	</div>
+      <p>Your credit card will not be charged until your groceries ship. If you have placed an order with us before, simply select your card below.</p>
+      <form id="purchase-form" class="form-horizontal" action="{% url 'results' %}" method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      {% for field in form.visible_fields %}
+      <div class="control-group">
+        {{ field.errors }}
+        <label class="control-label" for="{{ field.html_name }}">{{ field.label }}</label>
+        <div class="controls">
+          {{ field }}
+        </div>
+        </div>
+      {% endfor %}
+
+      {{ form.items_list }}
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary"><i class="icon-white icon-home"></i> Order my   Groceries</button>
+      </div>
+
+    {% else %}
+        <p>Please <a href="{% url 'login' %}">log in</a> or <a href="{% url 'sign_up' %}">sign up</a> before making a purchase</p>
+    {% endif %}
+
 
       </form>
 

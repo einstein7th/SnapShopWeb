@@ -143,6 +143,13 @@ LOGIN_URL="/accounts/login/"
 LOGOUT_URL="/accounts/logout/"
 LOGIN_REDIRECT_URL="/"
 
+# Temporary settings to use GMail for sending messages. Switch to own server's SMTP box
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'drpizza.x@gmail.com'
+EMAIL_HOST_PASSWORD = 'jcfgapymwpuikrxo'
+
 try:
     from local_settings import *
 except Exception:

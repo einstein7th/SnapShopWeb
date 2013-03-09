@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
 
 from django.contrib.auth.views import login
+#from django.contrib.auth.views import logout
 
 def home(request):
     return render_to_response("index.html",{},RequestContext(request))
