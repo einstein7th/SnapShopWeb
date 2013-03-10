@@ -44,22 +44,23 @@ function refreshSession() {
 	}
     }, function (err,response,body) {
 	console.log(response.headers);
-	cookie = response.headers['set-cookie'][0].split(";")[0];
-	session = response.headers['set-cookie'][1].split(";")[0].split("JSESSIONID=")[1];
-	peapodcookie = response.headers['set-cookie'][2].split(";")[0].split("peapodCookie20=")[1];
+	var setCookie = response.headers['set-cookie'];
+	for (var i = 0; i < setCookie.length; i++) {
+	    var curCookie =  setCookie[i].split(";")[0];
+	    if (curCookie.indexOf("JSESSIONID") != -1) {
+		session = curCookie.split("JSESSIONID=")[1];
+	    } else if (curCookie.indexOf("peapodCookie20")!= -1) {
+		peapodcookie = curCookie.split("peapodCookie20=")[1];
+	    } else {
+		cookie = curCookie;
+	    }
+	}
 
 	console.log(cookie);
 	console.log(session);
 	console.log(peapodcookie);
 	
-	if (!err && response.statusCode == 200) {
-	    console.log("success")
-            console.log(body)
-        } else {
-	    console.log("errror")
-	    console.log(err);
-	}
-	})
+	});
 }
 
 function refreshSessionContinue() {
