@@ -201,9 +201,8 @@ def results(request):
 
 
     keyword_item_map = {}
-    query = request.GET.get("q","")
-    query = query.strip().lower() # strip out whitespace and lowercase
-    keywords = query.split(",")
+    query = request.GET.get("q","").lower()
+    keywords = [k.strip() for k in query.split(",")]
     for keyword in keywords:
         keyword_item_map[keyword] = ShopItem.search(keyword)[:10]
 
