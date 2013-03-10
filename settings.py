@@ -150,6 +150,16 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'drpizza.x@gmail.com'
 EMAIL_HOST_PASSWORD = 'jcfgapymwpuikrxo'
 
+CACHES = {
+    "default": {
+        "BACKEND": "redis_cache.cache.RedisCache",
+        "LOCATION": "127.0.0.1:6379:1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "redis_cache.client.DefaultClient",
+        }
+    }
+}
+
 try:
     from local_settings import *
 except Exception:
