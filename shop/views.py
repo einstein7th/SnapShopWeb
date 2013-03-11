@@ -8,7 +8,7 @@ from django.core.mail import EmailMessage
 from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.models import User
 
-from django.contrib.auth import *                                       # django.contrib.auth.login is internal method used to log in user
+from django.contrib.auth import *
 from django.contrib.auth import login as authLogin
 from django.forms.util import ErrorList
 import requests
@@ -205,26 +205,12 @@ def results(request):
                     )
                 form.fields['payment_choices'].choices = CARD_EXISTS
 
-    query = request.GET.get("q","")
-    # Use Node server at :3000 to scrape Peapod's search results for answers
-    res = requests.get("%s/search/%s/" % (settings.SCRAPER_ENDPOINT,query))
-    if res.status_code != 200:
-        peapod_results = []
-    else:
-        peapod_results = res.json()['results'][:10]
 
-    keyword_item_map = {query:ShopItem.objects.filter(item_name__in=peapod_results)[:5]}
-
-    """
-    # Old primitive search method, test on local databases
     keyword_item_map = {}
-    for keyword in query.split(","):
-        possible_items = ShopItem.objects.filter(item_name__icontains=keyword)
-        categories = Categories.objects.filter(category_name__icontains=keyword)
-        if categories:
-            possible_items.filter(item_category=categories[0])
-        keyword_item_map[keyword] = possible_items[:5]
-    """
+    query = request.GET.get("q","").lower()
+    keywords = [k.strip() for k in query.split(",")]
+    for keyword in keywords:
+        keyword_item_map[keyword] = ShopItem.search(keyword)[:10]
 
     return render_to_response("main.html",
                               {'query':query,

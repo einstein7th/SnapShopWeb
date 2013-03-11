@@ -1,5 +1,9 @@
 from django.db import models
+from django.core.cache import cache
 from django.contrib.auth.models import User
+from django.conf import settings
+import requests
+import json
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
@@ -18,6 +22,35 @@ class ShopItem(models.Model):
     item_description_html = models.TextField()
     item_ingredients_html = models.TextField()
     item_details_html = models.TextField()
+
+    @classmethod
+    def _redis_key(cls,query):
+        return "ShopItem:::%s" % query
+
+    @classmethod
+    def search(cls,query=""):
+        results = []
+        redis_key = cls._redis_key(query)
+
+        if not cache.has_key(redis_key):
+            res = requests.get("%s/search/%s/" % (settings.SCRAPER_ENDPOINT,query))
+            if res.status_code == 200:
+                result_names = res.json()['results']
+                results = sorted(cls.objects.filter(item_name__in=result_names),
+                                 key=lambda x: result_names.index(x.item_name))
+
+            #go back to primitive search
+            if not results:
+                results = ShopItem.objects.filter(item_name__icontains(query))
+
+            #save IDs of shop items in cache
+            cache.set(redis_key,json.dumps([r.id for r in results]))
+
+        else:
+            item_ids = json.loads(cache.get(redis_key))
+            results = sorted(ShopItem.objects.filter(id__in=item_ids),key=lambda x: item_ids.index(x.id))
+
+        return results
 
 class ShippingLabel(models.Model):
     address_first_line = models.CharField(max_length=50)
