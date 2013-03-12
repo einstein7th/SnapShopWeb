@@ -17,13 +17,17 @@ function init() {
         $(this).toggleClass("selected");
         updateCart(this);
     });
+    
+    updateCart()
 }
 
 function updateCart(clickedElement) {
     var target$ = $("#cart-table tbody");
     var total = 0;
 
-    target$.html("");
+    if ($('.ingredient-list .ingredient-item.selected').length==0) {
+	target$.append("<td colspan='4'>You currently have no items in your cart")
+    }
 
     $('.ingredient-list .ingredient-item.selected').each(function(index,element) {
         // Add cart item to visible cart
