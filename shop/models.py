@@ -36,7 +36,8 @@ class ShopItem(models.Model):
             res = requests.get("%s/search/%s/" % (settings.SCRAPER_ENDPOINT,query))
             if res.status_code == 200:
                 result_names = res.json()['results']
-                results = cls.objects.filter(item_name__in=result_names)
+                results = sorted(cls.objects.filter(item_name__in=result_names),
+                                 key=lambda x: result_names.index(x.item_name))
 
             #go back to primitive search
             if not results:
@@ -47,7 +48,7 @@ class ShopItem(models.Model):
 
         else:
             item_ids = json.loads(cache.get(redis_key))
-            results = ShopItem.objects.filter(id__in=item_ids)
+            results = sorted(ShopItem.objects.filter(id__in=item_ids),key=lambda x: item_ids.index(x.id))
 
         return results
 

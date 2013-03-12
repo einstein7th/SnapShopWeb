@@ -66,6 +66,12 @@ def thanks(request):
 def pretty_price(cents):
     return '$' + str(cents / 100) + '.' + str(cents % 100)
 
+# AJAX method to save cart after each change (add/remove item, etc.)
+def save_cart(request):
+    if request.method == 'POST':
+        cart_json = request.POST['data']
+    return render_to_response("thanks.html",{},RequestContext(request))
+
 def results(request):
     if request.method == 'POST': # Submitted the purchase form:
         form = PurchaseForm(request.POST)
