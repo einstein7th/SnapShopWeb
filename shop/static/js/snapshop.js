@@ -17,6 +17,10 @@ function init() {
         $(this).toggleClass("selected");
         updateCart(this);
     });
+
+    $('.remove-ingredient-list').click(function(event) {
+	$("#"+$(this).data("containerid")).remove()
+    });
     
     updateCart()
 }

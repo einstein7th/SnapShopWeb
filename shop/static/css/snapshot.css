@@ -164,3 +164,4 @@ hr.thick {border:solid thick #333;margin-top:0px;}
 
 p.ingredient-list-title {margin-right:10px;margin-bottom:0px;margin-top:3px;padding:bottom:0px;opacity:.7}
 
+.remove-ingredient-list:hover {cursor:pointer;}
