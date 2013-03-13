@@ -17,13 +17,27 @@
 	<div id="{{keyword}}-container" class="ingredient-list-container">
 	  <p class="ingredient-list-title pull-right"><span class="label">Matching: {{keyword}}</span> | <i data-containerid="{{keyword}}-container" class="icon-remove remove-ingredient-list"></i></p>
 	  <div class="clearfix"></div>
-	  <div class="ingredient-list">
+	  <div id="ingredient-list-{{keyword}}" class="ingredient-list" data-page="0" data-keyword="{{keyword}}">
 	    <div class="row-fluid">
+	      <img class="pull-left half-height index-back" data-target="ingredient-list-{{keyword}}" src="{{STATIC_URL}}img/left-arrow.png" />
 	      {% for item in shop_items %}
+	      {% if forloop.first %}
+	      <div id="row-{{keyword}}-{{forloop.counter0}}" class="row-{{keyword}} ingredient-row">
+	      {% else %} 
+	      {% if forloop.counter0|divisibleby:10 %}
+	      </div>
+	      <div id="row-{{keyword}}-{{forloop.counter0|divide:10}}" class="hide row-{{keyword}} ingredient-row">
+	      {% endif %}
+	      {% endif %}	      
 	      <div class="span1 ingredient-item" data-item-name="{{item.item_name}}" data-item-price="{{item.item_price}}" data-item-id="{{item.pk}}">
 		<img class="ingredient-thumbnail tooltipped" data-title="{{item.item_name}} - {{item.item_price|pretty_price}}" src="{{item.item_thumb_medium}}" />
 	      </div>
+	      {% if forloop.last %}
+	      </div>
+	      {% endif %}
 	      {% endfor %}
+	      <img class="pull-right half-height index-forward" data-target="ingredient-list-{{keyword}}" src="{{STATIC_URL}}img/right-arrow.png" />
+	      <div class="clearfix"></div>
 	    </div>
 	  </div>
 	</div>

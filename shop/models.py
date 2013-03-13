@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.cache import cache
 from django.contrib.auth.models import User
+from django.core import serializers
 from django.conf import settings
 import requests
 import json
@@ -44,11 +45,10 @@ class ShopItem(models.Model):
                 results = ShopItem.objects.filter(item_name__icontains=query)
 
             #save IDs of shop items in cache
-            cache.set(redis_key,json.dumps([r.id for r in results]))
+            cache.set(redis_key,serializers.serialize("json",results),timeout=3600)
 
         else:
-            item_ids = json.loads(cache.get(redis_key))
-            results = sorted(ShopItem.objects.filter(id__in=item_ids),key=lambda x: item_ids.index(x.id))
+            results = [s.object for s in serializers.deserialize("json",cache.get(redis_key))]
 
         return results
 

@@ -240,7 +240,7 @@ def results(request):
     query = request.GET.get("q","").lower()
     keywords = [k.strip() for k in query.split(",")]
     for keyword in keywords:
-        keyword_item_map[keyword] = ShopItem.search(keyword)[:10]
+        keyword_item_map[keyword] = ShopItem.search(keyword)
 
     return render_to_response("main.html",
                               {'query':query,
