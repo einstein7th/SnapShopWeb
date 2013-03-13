@@ -1,7 +1,7 @@
 from django import template
-
 register = template.Library()
 
-@register.filter
-def pretty_price(value_in_cents):
+def format_price(value_in_cents):
     return "$%.2f" % (int(value_in_cents)/100.0)
+
+register.filter('format_price', format_price)

@@ -33,7 +33,7 @@ div.splash
 
 .rob-box form {margin-bottom:0;}
 
-.ingredient-list  .ingredient-thumbnail:hover, .ingredient-list .ingredient-item.selected ingredient-thumbnail
+.ingredient-list  .ingredient-thumbnail:hover, .ingredient-list .ingredient-item.selected .ingredient-thumbnail
 {
    box-shadow:0px 0px 30px #6A6;
    -webkit-box-shadow:0px 0px 30px #6A6;
@@ -164,3 +164,4 @@ hr.thick {border:solid thick #333;margin-top:0px;}
 
 p.ingredient-list-title {margin-right:10px;margin-bottom:0px;margin-top:3px;padding:bottom:0px;opacity:.7}
 
+.remove-ingredient-list:hover {cursor:pointer;}

@@ -203,14 +203,19 @@ def results(request):
 
         cart_total = 0
         cart_rows = []
-        for cart_item_id in cart_items:
-            # make sure JSON output in cart_item_id form field is int as saved by browser, on chrome is. Otherwise would need to cast.
-            qty = cart_items[cart_item_id]
-            item = ShopItem.objects.get(pk=cart_item_id)
-            cart_rows.append((qty, item))# send in as tuple of (qty, ShopItem)
-            cart_total += (qty * item.item_price)
-            # TODO figure out if should simply re-render cart elements in
-            # JavaScript rather than having 2 way: template and JS injection
+
+        try:
+            for cart_item_id in cart_items:
+                # make sure JSON output in cart_item_id form field is int as saved by browser, on chrome is. Otherwise would need to cast.
+                qty = cart_items[cart_item_id]
+                item = ShopItem.objects.get(pk=cart_item_id)
+                cart_rows.append((qty, item))# send in as tuple of (qty, ShopItem)
+                cart_total += (qty * item.item_price)
+                # TODO figure out if should simply re-render cart elements in
+                # JavaScript rather than having 2 way: template and JS injection
+        except TypeError:
+            cart_json = ""
+            cart_items = []
 
     if request.user.is_authenticated():
         try:
