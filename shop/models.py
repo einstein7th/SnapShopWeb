@@ -95,7 +95,7 @@ class PurchaseForm(forms.Form):
     DORM_CHOICES = (
         ('362 Memorial Drive', 'Baker House'),
         ('450 Memorial Drive', 'MacGregor House'),
-        ('3 Ames Street', 'East Campus'),
+        #('3 Ames Street', 'East Campus'),
         ('460 Beacon Street', 'Nu Delta'),
     )
 
