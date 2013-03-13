@@ -45,10 +45,10 @@ class ShopItem(models.Model):
                 results = ShopItem.objects.filter(item_name__icontains=query)
 
             #save IDs of shop items in cache
-            cache.set(redis_key,json.dumps(serializers.serialize("json",results)),timeout=3600)
+            cache.set(redis_key,serializers.serialize("json",results),timeout=3600)
 
         else:
-            results = json.loads("json",cache.get(redis_key))
+            results = [s.object for s in serializers.deserialize("json",cache.get(redis_key))]
 
         return results
 
