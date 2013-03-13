@@ -41,7 +41,7 @@ class ShopItem(models.Model):
 
             #go back to primitive search
             if not results:
-                results = ShopItem.objects.filter(item_name__icontains(query))
+                results = ShopItem.objects.filter(item_name__icontains=query)
 
             #save IDs of shop items in cache
             cache.set(redis_key,json.dumps([r.id for r in results]))
