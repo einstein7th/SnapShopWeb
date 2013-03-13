@@ -1,7 +1,12 @@
 # Django settings for snapshop project.
+from django.conf import global_settings
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
+TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
+    "django.core.context_processors.request", # used for request variable in templates
+)
 
 ADMINS = (
     # ('Eddie Xue', 'drpizza.x@gmail.com'),
@@ -149,6 +154,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'drpizza.x@gmail.com'
 EMAIL_HOST_PASSWORD = 'jcfgapymwpuikrxo'
+
+SESSION_ENGINE = 'shop.session_backend'
 
 CACHES = {
     "default": {

@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load shop_extras %}
+
 {% block body %}
 <div class="splash">
   <div class="container page">
@@ -41,22 +43,27 @@
 	    <th class="cart-amount">Amount</th>
 	    <th class="cart-actions">Actions</th>
 	  </thead>
+
 	  <tbody>
-	    <tr>
-	      <td><img src="http://placekitten.com/24/24" /> LOLOLOL</td>
-	      <td class="quantity">2</td>
-	      <td class="price">$999</td>
-	      <td>
+        {% for row in cart %}
+        <tr data-item-price="{{row.1.item_price}}" data-item-id="{{row.1.pk}}">
+          <td><img src="{{row.1.item_thumb_medium}}" width="24" height="24"/> {{row.1.item_name}}</td>
+          <td class="quantity">{{row.0}}</td>
+          <td class="price">{{row.1.item_price | pretty_price}}</td>
+          <td>
             <i class="icon-chevron-down"></i> <i class="icon-chevron-up"></i><i class="icon-remove"></i>
-	      </td>
-	    </tr>
+          </td>
+        </tr>
+        {% endfor %}
+
 	    <tr class="summary-row">
 	      <td><b>Total: </b></td>
 	      <td></td>
-	      <td><b>$10000</b></td>
+	      <td><b>{{cart_total | pretty_price}}</b></td>
 	      <td></td>
 	    </tr>
 	  </tbody>
+
 	</table>
       </div>
     </div>
@@ -69,9 +76,9 @@
       </div>
 
     {% if user.is_authenticated %}
-
+      <p>Order by Saturday, March 16 for delivery on Monday, March 18. We currently ship to the following MIT living groups: Baker House, Pi Lambda Phi, Nu Delta. Our next shipment date will be Saturday, April 6 - order by Thursday!</p>
       <p>Your credit card will not be charged until your groceries ship. If you have placed an order with us before, simply select your card below.</p>
-
+      <p><br /></p>
       <form id="purchase-form" class="form-horizontal" action="{% url 'results' %}" method="post">
       {% csrf_token %}
       {{ form.non_field_errors }}
@@ -86,13 +93,15 @@
         </div>
       {% endfor %}
       <p>* fields are required</p>
-      {{ form.items_list }}
+      <!--{{ form.items_list }}-->
+      <input type="hidden" id="id_items_list" name='item_list' value='{{cart_json}}'></input><!-- Required for saving cart -->
       <div class="form-actions">
-        <button type="submit" class="btn btn-primary"><i class="icon-white icon-home"></i> Order my   Groceries</button>
+        <button type="submit" class="btn btn-primary"><i class="icon-white icon-home"></i> Order my Groceries</button>
       </div>
 
     {% else %}
-        <p>Please <a href="{% url 'login' %}">log in</a> or <a href="{% url 'sign_up' %}">sign up</a> before making a purchase</p>
+        <p>Please <a href="{% url 'login' %}?next={{request.path}}">log in</a> or <a href="{% url 'sign_up' %}?next={{request.path}}">sign up</a> before making a purchase</p>
+        <input type="hidden" id="id_items_list" name='item_list' value='{{cart_json}}'></input><!-- Required for saving cart -->
     {% endif %}
 
 

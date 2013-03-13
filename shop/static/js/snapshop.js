@@ -17,11 +17,16 @@ function init() {
         $(this).toggleClass("selected");
         updateCart(this);
     });
+
+    updateIconListeners();
 }
 
 function getCart() {
     var cart = {}
     var cart_json = $('#id_items_list').val();
+    if (!cart_json) {
+        cart_json = ""
+    }
     if (cart_json.length > 0) {
         cart = $.parseJSON(cart_json);
         if (cart == null) {
@@ -31,41 +36,38 @@ function getCart() {
     return cart;
 }
 
-function updateCart(clickedElement) {
+function renderPrice() {
     var target$ = $("#cart-table tbody");
+    var cart = getCart();
     var total = 0;
 
-    target$.html("");
+    for (var item in cart) {
+        if (cart.hasOwnProperty(item)) {
+            var price = $('*[data-item-id="' + item + '"]').data("item-price");
+            total += price * cart[item];
+        }
+    }
 
-    $('.ingredient-list .ingredient-item.selected').each(function(index,element) {
-        // Add cart item to visible cart
-        var element$ = $(element);
-        var newRow$ = $('<tr>');
+    $("tr.summary-row").remove();
+    var summaryRow$ = $('<tr class="summary-row"><td><b>Total: </b></td><td></td><td><b id="cart_total">$' + total/100.0 + '</b></td><td></td></tr>');
+    target$.append(summaryRow$);
+}
 
-        total += element$.data("item-price");
-
-        newRow$.append("<td>" + element$.data("item-name")+"</td>");
-        newRow$.append('<td class="quantity">1</td>')
-        newRow$.append("<td>$" + parseInt(element$.data("item-price"))/100.0+ "</td>");
-        newRow$.append('<td><i class="icon-chevron-down"></i> <i class="icon-chevron-up"></i><i class="icon-remove"></i></td>')
-        newRow$.attr('data-item-id', element$.data('item-id'));
-        target$.append(newRow$);
-
-        // Add listeners for icons:
-    });
-
+function updateIconListeners() {
     $(".icon-chevron-up").click(function(event) {
         var row$ = $(this).parent().parent();
         var item_id = row$.data('item-id');
+
         var cart = getCart();
 
         if (cart.hasOwnProperty(item_id)) {
             cart[item_id] += 1;
         }
 
-        console.log(cart);
         $('#id_items_list').val(JSON.stringify(cart));
         row$.children(".quantity").html(cart['' + item_id]);
+
+        renderPrice();
     });
 
     $(".icon-chevron-down").click(function(event) {
@@ -85,9 +87,10 @@ function updateCart(clickedElement) {
 
         }
 
-        console.log(cart);
         $('#id_items_list').val(JSON.stringify(cart));
         row$.children(".quantity").html(cart['' + item_id]);
+
+        renderPrice();
     });
 
     $(".icon-remove").click(function(event) {
@@ -102,18 +105,39 @@ function updateCart(clickedElement) {
             delete cart[item_id];
         }
 
-        console.log(cart);
         $('#id_items_list').val(JSON.stringify(cart));
         row$.children(".quantity").html(cart['' + item_id]);
+
+        renderPrice();
     });
+}
+
+function updateCart(clickedElement) {
+    var target$ = $("#cart-table tbody");
+
+    // Add cart item to visible cart
+    var element$ = $(clickedElement);
+    var newRow$ = $('<tr>');
+
+    // total += element$.data("item-price");
+    // Decide whether we need to add new row
+    newRow$.append("<td>" + element$.data("item-name")+"</td>");
+    newRow$.append('<td class="quantity">1</td>')
+    newRow$.append("<td>$" + parseInt(element$.data("item-price"))/100.0+ "</td>");
+    newRow$.append('<td><i class="icon-chevron-down"></i> <i class="icon-chevron-up"></i><i class="icon-remove"></i></td>')
+    newRow$.attr('data-item-id', element$.data('item-id'));
+    target$.append(newRow$);
+
+    // Update total price
+
+    // Add listeners for icons:
+    updateIconListeners();
 
     var element$ = $(clickedElement);
     // Add cart item to purchase form, which is a hidden input field
     var cart = getCart();
 
     var item_id = element$.data("item-id");
-
-    console.log("item another item with id: " + item_id);
 
     if (cart.hasOwnProperty(item_id)) {
         // Clicking an item again toggles/removes it from cart
@@ -130,11 +154,14 @@ function updateCart(clickedElement) {
 
     // Send cart change to server, which will save it
     $.ajax({
+        type: "POST",
         url: "/save_cart/",
-        data: JSON.stringify(cart)
+        data: {'data': JSON.stringify(cart)}
     }).done(function() {
-        console.log('done saving cart')
+        //console.log('done saving cart')
     })
+
+    renderPrice();
 }
 
 $(document).ready(init);
