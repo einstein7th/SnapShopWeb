@@ -85,11 +85,11 @@ function saveCartToServer(cart) {
 function updateIconListeners() {
     // TODO Fix Hacky method of ensuring click listeners only attached
     // once even if new elements appear
-    $(".icon-chevron-up").unbind();
-    $(".icon-chevron-down").unbind();
-    $(".icon-remove").unbind();
+    $(".increase-quantity-icon").unbind();
+    $(".decrease-quantity-icon").unbind();
+    $(".remove-item-icon").unbind();
 
-    $(".icon-chevron-up").click(function(event) {
+    $(".increase-quantity-icon").click(function(event) {
         var row$ = $(this).parent().parent();
         var item_id = row$.data('item-id');
 
@@ -106,7 +106,7 @@ function updateIconListeners() {
         renderPrice();
     });
 
-    $(".icon-chevron-down").click(function(event) {
+    $(".decrease-quantity-icon").click(function(event) {
         var row$ = $(this).parent().parent();
         var item_id = row$.data('item-id');
         var cart = getCart();
@@ -130,7 +130,7 @@ function updateIconListeners() {
         renderPrice();
     });
 
-    $(".icon-remove").click(function(event) {
+    $(".remove-item-icon").click(function(event) {
         var row$ = $(this).parent().parent();
         var item_id = row$.data('item-id');
         var cart = getCart();
@@ -163,7 +163,7 @@ function updateCart(clickedElement) {
     newRow$.append("<td>" + '<img src="' + element$.children('img').attr('src') + '" width="24" height="24" />' + element$.data("item-name")+"</td>");
     newRow$.append('<td class="quantity">1</td>')
     newRow$.append("<td>$" + parseInt(element$.data("item-price"))/100.0+ "</td>");
-    newRow$.append('<td><i class="icon-chevron-down"></i> <i class="icon-chevron-up"></i><i class="icon-remove"></i></td>')
+    newRow$.append('<td><i class="icon-chevron-down decrease-quantity-icon"></i> <i class="icon-chevron-up increase-quantity-icon"></i><i class="icon-remove remove-item-icon"></i></td>')
     newRow$.attr('data-item-id', item_id);
     target$.append(newRow$);
 
