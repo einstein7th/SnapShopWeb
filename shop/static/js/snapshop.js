@@ -28,7 +28,7 @@ function init() {
 	var newIndex = Math.max(0,parseInt(listElement$.data("page"))-1)
 	listElement$.data("page",newIndex);
 	$('.row-'+keyword).hide();
-	console.log('#row-'+keyword+"-"+newIndex);
+
 	$('#row-'+keyword+"-"+newIndex).show();
     });
 
@@ -38,7 +38,7 @@ function init() {
 	var newIndex = Math.min(20,parseInt(listElement$.data("page"))+1)
 	listElement$.data("page",newIndex);
 	$('.row-'+keyword).hide();
-	console.log('#row-'+keyword+"-"+newIndex);
+
 	$('#row-'+keyword+"-"+newIndex).show();
     });
 
@@ -204,7 +204,7 @@ function updateCart(clickedElement) {
     } else {
         cart[item_id] = 1;
     }
-    // console.log(cart);
+
     saveCartToServer(cart);
     renderPrice();
 }
