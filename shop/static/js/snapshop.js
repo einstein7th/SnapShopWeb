@@ -22,6 +22,26 @@ function init() {
         $("#"+$(this).data("containerid")).remove()
     });
 
+    $('.ingredient-list .index-back').click(function(event) {
+	var listElement$ = $("#"+$(this).data("target"))
+	var keyword = listElement$.data("keyword");
+	var newIndex = Math.max(0,parseInt(listElement$.data("page"))-1)
+	listElement$.data("page",newIndex);
+	$('.row-'+keyword).hide();
+	console.log('#row-'+keyword+"-"+newIndex);
+	$('#row-'+keyword+"-"+newIndex).show();
+    });
+
+    $('.ingredient-list .index-forward').click(function(event) {
+	var listElement$ = $("#"+$(this).data("target"))
+	var keyword = listElement$.data("keyword");
+	var newIndex = Math.min(20,parseInt(listElement$.data("page"))+1)
+	listElement$.data("page",newIndex);
+	$('.row-'+keyword).hide();
+	console.log('#row-'+keyword+"-"+newIndex);
+	$('#row-'+keyword+"-"+newIndex).show();
+    });
+
     updateIconListeners();
 }
 
