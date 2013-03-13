@@ -75,9 +75,8 @@
       <div class="subpage-header">
         <h2><img src="{{STATIC_URL}}img/purchase.png" /> Purchase Form</h2>
       </div>
-
+      <p>Order by Saturday, March 16 for delivery on Monday, March 18. We currently ship to the following MIT living groups: Baker House, Pi Lambda Phi, Nu Delta. Our next shipment date will be Saturday, April 6 with more locations.</p>
     {% if user.is_authenticated %}
-      <p>Order by Saturday, March 16 for delivery on Monday, March 18. We currently ship to the following MIT living groups: Baker House, Pi Lambda Phi, Nu Delta. Our next shipment date will be Saturday, April 6 - order by Thursday!</p>
       <p>Your credit card will not be charged until your groceries ship. If you have placed an order with us before, simply select your card below.</p>
       <p><br /></p>
       <form id="purchase-form" class="form-horizontal" action="{% url 'results' %}" method="post">
