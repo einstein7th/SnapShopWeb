@@ -9,3 +9,5 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
+
+SCRAPER_ENDPOINT = 'http://107.22.147.25:3000/'

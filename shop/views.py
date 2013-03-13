@@ -13,12 +13,14 @@ from django.contrib.auth import login as authLogin
 from django.forms.util import ErrorList
 import requests
 from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
 
 from django.core.exceptions import ValidationError
 from snapshop.shop.models import PurchaseForm
 from snapshop.shop.models import RegisterForm
 from snapshop.shop.models import ShopItem
 from shop.models import ShopItem, Categories, Customer, CreditCard
+
 import stripe
 import json
 import datetime
@@ -66,10 +68,15 @@ def thanks(request):
 def pretty_price(cents):
     return '$' + str(cents / 100) + '.' + str(cents % 100)
 
+# def currency(dollars):
+#    dollars = round(float(dollars), 2)
+#    return "$%s%s" % (intcomma(int(dollars)), ("%0.2f" % dollars)[-3:])
+
 # AJAX method to save cart after each change (add/remove item, etc.)
+@csrf_exempt
 def save_cart(request):
     if request.method == 'POST':
-        cart_json = request.POST['data']
+        request.session['cart'] = request.POST['data']
     return render_to_response("thanks.html",{},RequestContext(request))
 
 def results(request):
@@ -186,6 +193,24 @@ def results(request):
     if request.method == 'GET':
         form = PurchaseForm()
         form.fields['payment_choices'].choices = NO_CUSTOMER
+        cart_items = []
+        try:
+            cart_json = request.session['cart']
+            cart_items = json.loads(request.session['cart'])
+        except KeyError:
+            cart_items = []
+            cart_json = ""
+
+        cart_total = 0
+        cart_rows = []
+        for cart_item_id in cart_items:
+            # make sure JSON output in cart_item_id form field is int as saved by browser, on chrome is. Otherwise would need to cast.
+            qty = cart_items[cart_item_id]
+            item = ShopItem.objects.get(pk=cart_item_id)
+            cart_rows.append((qty, item))# send in as tuple of (qty, ShopItem)
+            cart_total += (qty * item.item_price)
+            # TODO figure out if should simply re-render cart elements in
+            # JavaScript rather than having 2 way: template and JS injection
 
     if request.user.is_authenticated():
         try:
@@ -215,5 +240,8 @@ def results(request):
     return render_to_response("main.html",
                               {'query':query,
                                'keyword_item_map':keyword_item_map,
-                               'form': form},
+                               'form': form,
+                               'cart': cart_rows,
+                               'cart_json': cart_json,
+                               'cart_total': cart_total},
                                RequestContext(request))
