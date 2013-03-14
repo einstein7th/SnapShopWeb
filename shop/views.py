@@ -190,6 +190,8 @@ def results(request):
         ('no_save', "Don't remember my card for future orders"),
     )
 
+    cart_rows = []
+
     if request.method == 'GET':
         form = PurchaseForm()
         form.fields['payment_choices'].choices = NO_CUSTOMER
