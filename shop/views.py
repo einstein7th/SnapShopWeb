@@ -82,6 +82,7 @@ def save_cart(request):
 def results(request):
     if request.method == 'POST': # Submitted the purchase form:
         form = PurchaseForm(request.POST)
+        print 'GOT POST'
 
         if not request.user.is_authenticated():
             errors = form._errors.setdefault("loggedin", ErrorList())
@@ -94,6 +95,8 @@ def results(request):
 
             cart_items = json.loads(form.cleaned_data['items_list'])
             cart_total = 0
+
+            print 'cart items: ', cart_items
 
             for cart_item_id in cart_items:
                 # make sure JSON output in cart_item_id form field is int as saved by browser, on chrome is. Otherwise would need to cast.
@@ -180,9 +183,9 @@ def results(request):
                 admin_msg.send(fail_silently=False)
 
                 # Senc copy of email to customer
-                user_msg = EmailMessage('Thank you for your SnapShop order!', email_html, 'no-reply@snapshopmit.com', [user_email])
-                user_msg.content_subtype = 'html'
-                user_msg.send(fail_silently=False)
+                #user_msg = EmailMessage('Thank you for your SnapShop order!', email_html, 'no-reply@snapshopmit.com', [user_email])
+                #user_msg.content_subtype = 'html'
+                #user_msg.send(fail_silently=False)
                 return HttpResponseRedirect('/thanks/')
 
     NO_CUSTOMER = (
@@ -191,6 +194,8 @@ def results(request):
     )
 
     cart_rows = []
+    cart_json = ""
+    cart_total = 0
 
     if request.method == 'GET':
         form = PurchaseForm()
