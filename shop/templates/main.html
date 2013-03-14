@@ -30,7 +30,7 @@
 	      <div id="row-{{keyword}}-{{forloop.counter0|divide:10}}" class="hide row-{{keyword}} ingredient-row">
 	      {% endif %}
 	      {% endif %}
-	      <div class="span1 ingredient-item" data-item-name="{{item.item_name}}" data-item-price="{{item.item_price}}" data-item-id="{{item.pk}}">
+	      <div class="span1 ingredient-item" data-item-name="{{item.item_name}}" data-item-price="{{item.item_price}}" data-item-id="{{item.pk}}" data-item-size="{{item.item_size}}">
 		<img class="ingredient-thumbnail tooltipped" data-title="{{item.item_name}} ({{item.item_size}}) - {{item.item_price|pretty_price}}" src="{{item.item_thumb_medium}}" />
 	      </div>
 	      {% if forloop.last %}
@@ -63,7 +63,7 @@
 	  <tbody>
         {% for row in cart %}
         <tr data-item-price="{{row.1.item_price}}" data-item-id="{{row.1.pk}}">
-          <td><img src="{{row.1.item_thumb_medium}}" width="24" height="24"/> {{row.1.item_name}}</td>
+          <td><img src="{{row.1.item_thumb_medium}}" width="24" height="24"/> {{row.1.item_name}} ({{row.1.item_size}})</td>
           <td class="quantity">{{row.0}}</td>
           <td class="price">{{row.1.item_price | pretty_price}}</td>
           <td>

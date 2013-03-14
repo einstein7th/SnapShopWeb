@@ -180,7 +180,7 @@ function updateCart(clickedElement) {
 
     var cart = getCart();
 
-    newRow$.append("<td>" + '<img src="' + element$.children('img').attr('src') + '" width="24" height="24" />' + element$.data("item-name")+"</td>");
+    newRow$.append("<td>" + '<img src="' + element$.children('img').attr('src') + '" width="24" height="24" />' + element$.data("item-name") + " (" + element$.data("item-size") + ")</td>");
     newRow$.append('<td class="quantity">1</td>')
     newRow$.append("<td>$" + (parseInt(element$.data("item-price"))/100.0).toFixed(2) + "</td>");
     newRow$.append('<td><i class="icon-chevron-down decrease-quantity-icon"></i> <i class="icon-chevron-up increase-quantity-icon"></i><i class="icon-remove remove-item-icon"></i></td>')
