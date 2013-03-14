@@ -23,12 +23,12 @@
 	      {% for item in shop_items %}
 	      {% if forloop.first %}
 	      <div id="row-{{keyword}}-{{forloop.counter0}}" class="row-{{keyword}} ingredient-row">
-	      {% else %} 
+	      {% else %}
 	      {% if forloop.counter0|divisibleby:10 %}
 	      </div>
 	      <div id="row-{{keyword}}-{{forloop.counter0|divide:10}}" class="hide row-{{keyword}} ingredient-row">
 	      {% endif %}
-	      {% endif %}	      
+	      {% endif %}
 	      <div class="span1 ingredient-item" data-item-name="{{item.item_name}}" data-item-price="{{item.item_price}}" data-item-id="{{item.pk}}">
 		<img class="ingredient-thumbnail tooltipped" data-title="{{item.item_name}} - {{item.item_price|pretty_price}}" src="{{item.item_thumb_medium}}" />
 	      </div>
@@ -89,7 +89,7 @@
       <div class="subpage-header">
         <h2><img src="{{STATIC_URL}}img/purchase.png" /> Purchase Form</h2>
       </div>
-      <p>Order by Saturday, March 16 for delivery on Monday, March 18. We currently ship to the following MIT living groups: Baker House, Pi Lambda Phi, Nu Delta. Our next shipment date will be Saturday, April 6 with more locations.</p>
+      <p>Order by 5PM Saturday, March 16 for delivery on Sunday, March 17. We currently ship to the following MIT living groups: Baker House, Pi Lambda Phi, Nu Delta. Our next shipment date will be Saturday, April 6 with more locations.</p>
     {% if user.is_authenticated %}
       <p>Your credit card will not be charged until your groceries ship. If you have placed an order with us before, simply select your card below.</p>
       <p><br /></p>
