@@ -148,6 +148,10 @@ background-image: linear-gradient(to top left, #EEEEEE 0%, #FAFAFA 100%);
     font-size:200%;
 }
 
+.results-query-form {
+    display:inline;
+}
+
 .rounded {
 -webkit-border-radius: 5px;
 -moz-border-radius: 5px;
