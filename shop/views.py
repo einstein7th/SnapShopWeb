@@ -132,7 +132,7 @@ def results(request):
                 try:
                     customer = Customer.objects.get(user=request.user)
                     try:
-                        card = CreditCard.objects.get(customer=customer)
+                        card = CreditCard.objects.get(cc_owner=customer)
                         # TODO increase balance from Stripe
 
                     except CreditCard.DoesNotExist:
@@ -155,12 +155,15 @@ def results(request):
                                 account_balance=cart_total,
                                 email=user_email, #request.user.username
                             )
+                    print stripe_customer
                 except stripe.CardError, e:
-                    errors = form._errors.setdefault("username", ErrorList())
-                    errors.append("Card error: #{err['message']}\n")
+                    print e
+                    errors = form._errors.setdefault("card_number", ErrorList())
+                    errors.append("Card error: " + e.message)
                     hasError = True
                 except stripe.StripeError, e:
-                    errors = form._errors.setdefault("username", ErrorList())
+                    print e
+                    errors = form._errors.setdefault("card_number", ErrorList())
                     errors.append("A stripe error has ocurred. Please contact the site administrator")
                     hasError = True
                 if not hasError:
@@ -245,7 +248,10 @@ def results(request):
 
     keyword_item_map = {}
     query = request.GET.get("q","").lower()
+
     keywords = [k.strip() for k in query.split(",")]
+    if len(query) == 0:
+        keywords = []
     for keyword in keywords:
         keyword_item_map[keyword] = ShopItem.search(keyword)
 

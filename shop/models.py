@@ -93,10 +93,11 @@ class PurchaseForm(forms.Form):
     )
 
     DORM_CHOICES = (
-        ('362 Memorial Drive', 'Baker House'),
-        ('450 Memorial Drive', 'MacGregor House'),
+        #('362 Memorial Drive', 'Baker House'),
+        #('450 Memorial Drive', 'MacGregor House'),
         #('3 Ames Street', 'East Campus'),
         ('460 Beacon Street', 'Nu Delta'),
+        ('450 Beacon Street', 'Pi Lambda Phi'),
     )
 
     EXPIRATION_MONTH_CHOICES = (
@@ -135,9 +136,9 @@ class PurchaseForm(forms.Form):
     #state = models.CharField(max_length=50)
     #zip_code = models.CharField(max_length=50)
     payment_choices = forms.ChoiceField(choices=PAYMENT_CHOICES) # overriden in views if logged in
-    card_number = forms.CharField(max_length=16, widget=forms.TextInput({'placeholder':'4012888888881881'}))
-    card_cvc = forms.CharField(max_length=4, widget=forms.TextInput({'placeholder':'626'}))
-    card_zip = forms.CharField(max_length=5, widget=forms.TextInput({'placeholder':'02139'}))
+    card_number = forms.CharField(required=False, max_length=16, widget=forms.TextInput({'placeholder':'4012888888881881'}))
+    card_cvc = forms.CharField(required=False, max_length=4, widget=forms.TextInput({'placeholder':'626'}))
+    card_zip = forms.CharField(required=False, max_length=5, widget=forms.TextInput({'placeholder':'02139'}))
     card_expiration_month = forms.ChoiceField(EXPIRATION_MONTH_CHOICES)
     card_expiration_year = forms.ChoiceField(EXPIRATION_YEAR_CHOICES)
     promo_code = forms.CharField(required=False, max_length=10) # optional field
