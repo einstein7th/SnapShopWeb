@@ -136,12 +136,12 @@ class PurchaseForm(forms.Form):
     #state = models.CharField(max_length=50)
     #zip_code = models.CharField(max_length=50)
     payment_choices = forms.ChoiceField(choices=PAYMENT_CHOICES) # overriden in views if logged in
-    card_number = forms.CharField(required=False, max_length=16, widget=forms.TextInput({'placeholder':'4012888888881881'}))
+    card_number = forms.CharField(required=False, max_length=20, widget=forms.TextInput({'placeholder':'4012888888881881'}))
     card_cvc = forms.CharField(required=False, max_length=4, widget=forms.TextInput({'placeholder':'626'}))
     card_zip = forms.CharField(required=False, max_length=5, widget=forms.TextInput({'placeholder':'02139'}))
     card_expiration_month = forms.ChoiceField(EXPIRATION_MONTH_CHOICES)
     card_expiration_year = forms.ChoiceField(EXPIRATION_YEAR_CHOICES)
-    promo_code = forms.CharField(required=False, max_length=10) # optional field
+    # promo_code = forms.CharField(required=False, max_length=10) # optional field
     items_list = forms.CharField(widget=forms.HiddenInput())    # JSON object with {'item_id': 'qty'}
 
 class RegisterForm(UserCreationForm):

@@ -91,7 +91,7 @@ def results(request):
         elif form.is_valid(): # TODO if form is not valid because no items in cart, say so! item_list is hidden field so user cannot see error.
             hasError = False
             user_email = request.user.username # form.cleaned_data['email']
-            email_html = '<p>Name: ' + form.cleaned_data['name'] + '<br />Email: ' + user_email + '<br />Address: ' + form.cleaned_data['living_group'] + '<br />Room number: ' + form.cleaned_data['room_number'] + '<br />Phone number: ' + form.cleaned_data['phone_number'] + '</p><p><b>Order:</b></p>'
+            email_html = '<p>Name: ' + form.cleaned_data['name'] + '<br />Email: ' + user_email + '<br />Address: ' + form.cleaned_data['living_group'] + '<br />Room number: ' + form.cleaned_data['room_number'] + '<br />Phone number: ' + form.cleaned_data['phone_number'] + '</p><p><b>Delivery date: Sunday, March 17, 2013</b></p><p><b>Order:</b></p>'
 
             cart_items = json.loads(form.cleaned_data['items_list'])
             cart_total = 0
@@ -186,9 +186,9 @@ def results(request):
                 admin_msg.send(fail_silently=False)
 
                 # Senc copy of email to customer
-                #user_msg = EmailMessage('Thank you for your SnapShop order!', email_html, 'no-reply@snapshopmit.com', [user_email])
-                #user_msg.content_subtype = 'html'
-                #user_msg.send(fail_silently=False)
+                user_msg = EmailMessage('Thank you for your SnapShop order!', email_html, 'snapshopmit@gmail.com', [user_email])
+                user_msg.content_subtype = 'html'
+                user_msg.send(fail_silently=True)
                 return HttpResponseRedirect('/thanks/')
 
     NO_CUSTOMER = (
@@ -196,6 +196,7 @@ def results(request):
         ('no_save', "Don't remember my card for future orders"),
     )
 
+    # TODO Cart less janky
     cart_rows = []
     cart_json = ""
     cart_total = 0

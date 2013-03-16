@@ -152,8 +152,8 @@ LOGIN_REDIRECT_URL="/"
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'drpizza.x@gmail.com'
-EMAIL_HOST_PASSWORD = 'jcfgapymwpuikrxo'
+EMAIL_HOST_USER = 'snapshopmit@gmail.com'
+EMAIL_HOST_PASSWORD = 'SheNian2013'
 
 SESSION_ENGINE = 'shop.session_backend'
 
