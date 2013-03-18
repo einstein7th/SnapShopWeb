@@ -27,6 +27,7 @@ function init() {
 	var keyword = listElement$.data("keyword");
 	var newIndex = Math.max(0,parseInt(listElement$.data("page"))-1)
 	listElement$.data("page",newIndex);
+	$('#'+keyword+'-index').html(newIndex+1);
 	$('.row-'+keyword).hide();
 
 	$('#row-'+keyword+"-"+newIndex).show();
@@ -36,6 +37,7 @@ function init() {
 	var listElement$ = $("#"+$(this).data("target"))
 	var keyword = listElement$.data("keyword");
 	var newIndex = Math.min(20,parseInt(listElement$.data("page"))+1)
+	$('#'+keyword+'-index').html(newIndex+1);
 	listElement$.data("page",newIndex);
 	$('.row-'+keyword).hide();
 
