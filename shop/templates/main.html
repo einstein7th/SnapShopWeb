@@ -5,22 +5,40 @@
 
 {% block body %}
 <div class="splash">
-  <div class="container page">
-    <div class="page-header">
-      <a href="{% url 'search' %}"><img style="width:20%" class="pull-right" src="{{STATIC_URL}}img/logo-small.png" /></a>
-      <h1><img src="{{STATIC_URL}}img/search.png" /> Results for:
-        <small><form action="{% url 'results' %}" method="GET" class="results-query-form"><input name="q" type="text" value="{{query}}"/></form></small></h1>
+  <div class="navbar navbar-fixed-top navbar-inverse">
+    <div class="navbar-inner">
+      <div class="container">
+      <ul class="nav">
+	<li><a href="#"><img src="{{STATIC_URL}}img/logo-thumb.png" /></a></li>
+	<li>
+	  <form class="navbar-search pull-left">
+	    <input type="text" class="search-query input-xxlarge" placeholder="Search...">
+	</form>
+	</li>
+      </ul>
+      </div>
     </div>
+  </div>
+  <div class="container page">
     <div class="page-body">
       <div class="ingredient-box" >
 	{% if keyword_item_map.keys %}
 	{% for keyword,shop_items in keyword_item_map.items %}
 	<div id="{{keyword}}-container" class="ingredient-list-container">
-	  <p class="ingredient-list-title pull-right"><span class="label">Matching: {{keyword}}</span> | <i data-containerid="{{keyword}}-container" class="icon-remove remove-ingredient-list"></i></p>
-	  <div class="clearfix"></div>
+	  <div class="navbar">
+	    <div class="navbar-inner">
+	      <a class="brand" href="#">{{keyword}}</a>
+	      <ul class="nav pull-right">
+		<li><a href="#"><i data-containerid="{{keyword}}-container" class="icon-chevron-left index-back" data-target="ingredient-list-{{keyword}}"></i></a></li>
+		<li><a href="#">1</a></li>
+		<li><a href="#"><i data-containerid="{{keyword}}-container" class="icon-chevron-right index-forward" data-target="ingredient-list-{{keyword}}"></i></a></li>
+		<li class="divider"></li>
+		<li><a><i data-containerid="{{keyword}}-container" class="icon-remove remove-ingredient-list"></i></a></li>
+	      </ul>
+	    </div>
+	  </div>
 	  <div id="ingredient-list-{{keyword}}" class="ingredient-list" data-page="0" data-keyword="{{keyword}}">
 	    <div class="row-fluid">
-	      <img class="pull-left half-height index-back" data-target="ingredient-list-{{keyword}}" src="{{STATIC_URL}}img/left-arrow.png" />
 	      {% for item in shop_items %}
 	      {% if forloop.first %}
 	      <div id="row-{{keyword}}-{{forloop.counter0}}" class="row-{{keyword}} ingredient-row">
@@ -38,8 +56,6 @@
 	      </div>
 	      {% endif %}
 	      {% endfor %}
-	      <img class="pull-right half-height index-forward" data-target="ingredient-list-{{keyword}}" src="{{STATIC_URL}}img/right-arrow.png" />
-	      <div class="clearfix"></div>
 	    </div>
 	  </div>
 	</div>
@@ -64,7 +80,7 @@
 	  <tbody>
         {% for row in cart %}
         <tr data-item-price="{{row.1.item_price}}" data-item-id="{{row.1.pk}}">
-          <td><img src="{{row.1.item_thumb_medium}}" width="24" height="24"/> {{row.1.item_name}} ({{row.1.item_size}})</td>
+          <td><img src="{{row.1.item_thumb_medium}}" width="24" height="24"/> {{row.1.item_name}} ({{row.1.item_size}}) <i class="icon-search view-item-icon"></i></td>
           <td class="quantity">{{row.0}}</td>
           <td class="price">{{row.1.item_price | pretty_price}}</td>
           <td>

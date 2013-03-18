@@ -1,4 +1,5 @@
 from django.shortcuts import render_to_response
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.shortcuts import HttpResponseRedirect
 from django.template import RequestContext
@@ -264,3 +265,8 @@ def results(request):
                                'cart_json': cart_json,
                                'cart_total': cart_total},
                                RequestContext(request))
+
+
+def view_item(request,item_id):
+    item = get_object_or_404(ShopItem,pk=item_id)
+    return render_to_response("item_modal.html",{"item":item},RequestContext(request))

@@ -22,7 +22,7 @@ function init() {
         $("#"+$(this).data("containerid")).remove()
     });
 
-    $('.ingredient-list .index-back').click(function(event) {
+    $('.index-back').click(function(event) {
 	var listElement$ = $("#"+$(this).data("target"))
 	var keyword = listElement$.data("keyword");
 	var newIndex = Math.max(0,parseInt(listElement$.data("page"))-1)
@@ -32,7 +32,7 @@ function init() {
 	$('#row-'+keyword+"-"+newIndex).show();
     });
 
-    $('.ingredient-list .index-forward').click(function(event) {
+    $('.index-forward').click(function(event) {
 	var listElement$ = $("#"+$(this).data("target"))
 	var keyword = listElement$.data("keyword");
 	var newIndex = Math.min(20,parseInt(listElement$.data("page"))+1)
@@ -108,6 +108,7 @@ function updateIconListeners() {
     $(".increase-quantity-icon").unbind();
     $(".decrease-quantity-icon").unbind();
     $(".remove-item-icon").unbind();
+    $(".view-item-icon").unbind();
 
     $(".increase-quantity-icon").click(function(event) {
         var row$ = $(this).parent().parent();
@@ -168,6 +169,17 @@ function updateIconListeners() {
         saveCartToServer(cart);
         renderPrice();
     });
+
+    $('.view-item-icon').click(function(event) {
+	event.preventDefault();
+        var row$ = $(this).parent().parent();
+        var item_id = row$.data('item-id');
+	$.ajax({'url':'/view-item/'+item_id+'/',
+		'success': function(data) {
+		    $('#preview-modal-container').html(data);
+		    $('#preview-modal-container .modal').modal();
+		}});
+    });
 }
 
 function updateCart(clickedElement) {
@@ -180,7 +192,7 @@ function updateCart(clickedElement) {
 
     var cart = getCart();
 
-    newRow$.append("<td>" + '<img src="' + element$.children('img').attr('src') + '" width="24" height="24" />' + element$.data("item-name") + " (" + element$.data("item-size") + ")</td>");
+    newRow$.append("<td>" + '<img src="' + element$.children('img').attr('src') + '" width="24" height="24" />' + element$.data("item-name") + " (" + element$.data("item-size") + ") " + "<i class='icon-search view-item-icon'></i></td>");
     newRow$.append('<td class="quantity">1</td>')
     newRow$.append("<td>$" + (parseInt(element$.data("item-price"))/100.0).toFixed(2) + "</td>");
     newRow$.append('<td><i class="icon-chevron-down decrease-quantity-icon"></i> <i class="icon-chevron-up increase-quantity-icon"></i><i class="icon-remove remove-item-icon"></i></td>')
