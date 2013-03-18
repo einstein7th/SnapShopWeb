@@ -12,20 +12,19 @@
 	  </div>
 	  <div class="rob-body">
 	    <form action="{% url 'results' %}" method="GET">
-	    <center>
-	      <p class="muted">
-	      {% if user.is_authenticated %}
-	      Welcome {{user.username}}! How is your day? <a href="{% url 'logout' %}">Logout</a>
-	      {% else %}
-	      Not logged in? <a href="{% url 'login' %}">Login here</a>.  or no account? <a href="{% url 'sign_up' %}">Sign up</a>
-	      {% endif %}
-	      </p>
-          <p class="muted">Order by 5PM Saturday, March 16 for delivery on March 17 to: Nu Delta, Pi Lambda Phi.</p>
-	      <div class="input-append full-width">
-		<input name="q" class="xlarge-input" placeholder="Enter a list e.g.: apple, granola bar, whole milk" type="text">
-
-		<button class="btn btn-large btn-primary"><i class="icon-white icon-search"></i></button>
-	      </div>
+	      <center>
+		<p class="muted">
+		  {% if user.is_authenticated %}
+		  Welcome {{user.username}}! How is your day? <a href="{% url 'logout' %}">Logout</a>
+		  {% else %}
+		  Not logged in? <a href="{% url 'login' %}">Login here</a>.  or no account? <a href="{% url 'sign_up' %}">Sign up</a>
+		  {% endif %}
+		</p>
+		<p class="muted">Order by 5PM Saturday, March 16 for delivery on March 17 to: Nu Delta, Pi Lambda Phi.</p>
+		<select name="q" data-placeholder="Enter a list e.g.: apple, granola bar, whole milk" multiple class="chzn-select full-width">
+		</select>
+		<button class="submit btn btn-primary"><i class="icon-shopping-cart icon-white"></i>Find your groceries</button>
+		
 	    </center>
 	    </form>
 	  </div>

@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import *
 from django.contrib.auth import login as authLogin
 from django.forms.util import ErrorList
+from django.http import Http404
 import requests
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
@@ -249,16 +250,13 @@ def results(request):
 
 
     keyword_item_map = {}
-    query = request.GET.get("q","").lower()
+    keywords = [k.lower().strip() for k in request.GET.getlist("q")]
 
-    keywords = [k.strip() for k in query.split(",")]
-    if len(query) == 0:
-        keywords = []
     for keyword in keywords:
         keyword_item_map[keyword] = ShopItem.search(keyword)
 
     return render_to_response("main.html",
-                              {'query':query,
+                              {'query':", ".join(keywords),
                                'keyword_item_map':keyword_item_map,
                                'form': form,
                                'cart': cart_rows,

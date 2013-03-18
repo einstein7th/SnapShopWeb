@@ -60,7 +60,7 @@ div.splash
 
 .page {
     background:#FFF;
-    margin-top:45px;
+    margin-top:54px;
     box-shadow:0px 0px 10px #111;
     -webkit-box-shadow:0px 0px 10px #111;
     -moz-box-shadow:0px 0px 10px #111;
@@ -125,7 +125,7 @@ background-image: linear-gradient(to top left, #EEEEEE 0%, #FAFAFA 100%);
 }
 .lightweight {font-weight:300;}
 
-.large-input[type="text"], .large-input[type="password"] {
+.large-input[type="text"], .large-input[type="password"] , .chzn-choices input {
     font-weight:300;
     height:25px;
     font-size:150%;
@@ -172,3 +172,5 @@ p.ingredient-list-title {margin-right:10px;margin-bottom:0px;margin-top:3px;padd
 .remove-ingredient-list:hover {cursor:pointer;}
 .ingredient-row {margin-left:60px;}
 .ingredient-badge {position:absolute;}
+.navbar .chzn-container-multi {margin-top:-2px;height:28px;}
+.navbar .btn {margin-top:0px;}

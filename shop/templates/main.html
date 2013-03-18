@@ -8,18 +8,31 @@
   <div class="navbar navbar-fixed-top navbar-inverse">
     <div class="navbar-inner">
       <div class="container">
-      <ul class="nav">
-	<li><a href="#"><img src="{{STATIC_URL}}img/logo-thumb.png" /></a></li>
-	<li>
-	  <form class="navbar-search pull-left">
-	    <input type="text" class="search-query input-xxlarge" placeholder="Search...">
+	<form>	    
+	  <ul class="nav">
+	    <li><a href="#"><img src="{{STATIC_URL}}img/logo-thumb.png" /></a></li>
+	    
+	    <li><a href="#">
+	      <select name="q" class="chzn-select" style="width:600px" data-placeholder="Search..." multiple>
+		{% for keyword,shop_items in keyword_item_map.items %}
+		<option selected value="{{keyword}}">{{keyword}}</option>
+		{% endfor %}
+	      </select>
+	      </a>
+	      
+	    </li>
+	    <li> 
+	      <a href="#"><button class="submit btn btn-primary btn-small"><i class="icon-shopping-cart icon-white"></i>Find your groceries</button></a>
+	    </li>
+	  </ul>
 	</form>
-	</li>
-      </ul>
       </div>
     </div>
   </div>
   <div class="container page">
+    <div class="page-header">
+      <h2 class="lightweight">Here's what we've found for you...</h2>
+    </div>
     <div class="page-body">
       <div class="ingredient-box" >
 	{% if keyword_item_map.keys %}

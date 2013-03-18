@@ -13,6 +13,29 @@ function init() {
 
     });
 
+
+    //chosen.js doesn't support dynamic adding of tokens. 
+    //This will do it for us now
+    $('.chzn-select').chosen({no_results_text: "Add: "});
+    $('.chzn-select').each(function() {
+	chosen$ = $(this);
+	var chosen_chzn$ = $("#"+chosen$.attr("id")+"_chzn");
+	$('input',chosen_chzn$).first().keyup(function(event) {
+	    var k = event.which;
+	    if (k!=13) {
+		return;
+	    }
+	    event.preventDefault();
+	    var options = $('option',chosen$).map(function(i,e) {return e.value}).toArray();
+	    var currentValue = $(this).val();
+	    a = options;
+	    if (options.indexOf(currentValue)==-1) {
+		chosen$.append("<option selected value='"+currentValue+"'>"+currentValue+"</option>")
+	    }
+	    chosen$.trigger("liszt:updated");
+	});
+    });
+
     $('.ingredient-list .ingredient-item').click(function(event) {
         $(this).toggleClass("selected");
         updateCart(this);
