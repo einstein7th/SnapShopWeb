@@ -170,3 +170,4 @@ p.ingredient-list-title {margin-right:10px;margin-bottom:0px;margin-top:3px;padd
 
 .remove-ingredient-list:hover {cursor:pointer;}
 .ingredient-row {margin-left:60px;}
+.ingredient-badge {position:absolute;}

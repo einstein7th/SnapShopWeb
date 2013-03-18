@@ -31,6 +31,7 @@
 	      {% endif %}
 	      {% endif %}
 	      <div class="span1 ingredient-item" data-item-name="{{item.item_name}}" data-item-price="{{item.item_price}}" data-item-id="{{item.pk}}" data-item-size="{{item.item_size}}">
+		<span class="ingredient-badge badge badge-success">{{item.item_price|pretty_price}}</span>
 		<img class="ingredient-thumbnail tooltipped" data-title="{{item.item_name}} ({{item.item_size}}) - {{item.item_price|pretty_price}}" src="{{item.item_thumb_medium}}" />
 	      </div>
 	      {% if forloop.last %}
