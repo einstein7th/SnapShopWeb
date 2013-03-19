@@ -1,0 +1,34 @@
+{% extends  "base.html" %}
+
+
+{% block body %}
+<div class="splash">
+  <div class="navbar navbar-fixed-top navbar-inverse">
+    <div class="navbar-inner">
+      <div class="container">
+	<form>	    
+	  <ul class="nav">
+	    <li><a href="{% url 'search' %}"><img src="{{STATIC_URL}}img/logo-thumb.png" /></a></li>	    
+	    <li><a href="#">
+		<select name="q" class="chzn-select" style="width:600px" data-placeholder="Search..." multiple>
+		{% for keyword,shop_items in keyword_item_map.items %}
+		<option selected value="{{keyword}}">{{keyword}}</option>
+		{% endfor %}
+	      </select>
+	      </a>
+	    </li>
+	    <li> 
+	      <a href="#"><button class="submit btn btn-primary btn-small"><i class="icon-shopping-cart icon-white"></i>Find your groceries</button></a>
+	    </li>	    
+	  </ul>
+	  <ul class="nav pull-right">
+	    <li><a href="{% url 'account' %}"><i class="icon-user icon-white"></i> {{user.username}}</a></li>
+	  </ul>
+	</form>
+      </div>
+    </div>
+  </div>
+  {% block content %}
+  {% endblock %}
+</div>
+{% endblock %}

@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import *
 from django.contrib.auth import login as authLogin
 from django.forms.util import ErrorList
+from django.contrib.auth.decorators import login_required
 from django.http import Http404
 import requests
 from django.conf import settings
@@ -268,3 +269,8 @@ def results(request):
 def view_item(request,item_id):
     item = get_object_or_404(ShopItem,pk=item_id)
     return render_to_response("item_modal.html",{"item":item},RequestContext(request))
+
+@login_required
+def account(request):
+    return render_to_response("account.html",{'user':request.user},RequestContext(request))
+    

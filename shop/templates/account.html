@@ -1,0 +1,140 @@
+{% extends "basepage.html" %}
+
+{% block content %}
+<div class="container page">
+  <div class="page-header">
+    <h2 class="lightweight"><img src="{{STATIC_URL}}img/user.png" /> My Account</h2>
+  </div>
+  <div class="page-body">
+    <div class="tabbable tabs-left">
+      <ul class="nav nav-tabs">
+	<li class="active">
+	  <a href="#basic-information" data-toggle="tab">Basic Information</a>
+	</li>
+	<li>
+	  <a href="#payments" data-toggle="tab">Payments</a>
+	</li>
+      </ul>
+      <div class="tab-content">
+	<div class="tab-pane active" id="basic-information">
+	  <h3 class="lightweight">Basic Information</h3>
+	  <hr />
+	  <div class="row-fluid">
+	    <div class="span6">
+	      <h4>Recent Orders</h4>
+	      <table class="table table-striped">
+		<thead>
+		  <th>Order Name</th>
+		  <th>ETA</th>
+		  <th>Location</th>
+		</thead>
+		<tbody>
+		  <tr>
+		    <td>My Order #1 <a href="#"><i class="icon-search"></i></td>
+		    <td>March 27th, 8 p.m.</td>
+		    <td>Burton Conner</td>
+		  </tr>
+		  <tr>
+		    <td>My Order #2 <a href="#"><i class="icon-search"></i></td>
+		    <td>April 1st, 8 p.m.</td>
+		    <td>Burton Conner</td>
+		  </tr>
+		  <tr>
+		    <td>My Order #3 <a href="#"><i class="icon-search"></i></td>
+		    <td>April 4th, 8 p.m.</td>
+		    <td>Burton Conner</td>
+		  </tr>
+		</tbody>		    
+	      </table>
+	    </div>
+	    <div class="span5">
+	      <div class="well well-small">
+		<h4>User Information <small><a href="#">(edit)</a></small></h4>
+		<table class="table">
+		  <tr>
+		    <td><b>Name: </b></td>
+		    <td>{{user.username}}</td>
+		  </tr>
+		  <tr>
+		    <td><b>Dorm: </b></td>
+		    <td>Burton Conner</td>
+		  </tr>
+		  <tr>
+		    <td><b>Email Address: </b></td>
+		    <td>rob@mopub.com</td>
+		  </tr>
+		  <tr>
+		    <td><b>Phone Number: </b></td>
+		    <td>999-999-9999</td>
+		  </tr>
+		</table>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<div class="tab-pane" id="payments">
+	  <h3 class="lightweight">Payments</h3>
+	  <hr />
+	  <div class="row-fluid">
+	    <div class="span5">
+	      <h4>Current Payment Method <small><a href="#">(update)</a></small></h4>
+	      <table class="table table-striped">
+		<tr>
+		  <td>Card Type</td>
+		  <td>Visa</td>
+		</tr>
+		<tr>
+		  <td>Card #</td>
+		  <td>*********2234</td>
+		</tr>
+		<tr>
+		  <td>Card Expiry</td>
+		  <td>10/14</td>
+		</tr>
+		<tr>
+		  <td>Billing Address</td>
+		  <td>
+		    <address>
+		      <strong>Twitter, Inc.</strong><br>
+		      795 Folsom Ave, Suite 600<br>
+		      San Francisco, CA 94107<br>
+		      <abbr title="Phone">P:</abbr> (123) 456-7890
+		    </address>
+		  </td>
+		</tr>
+	      </table>
+	    </div>
+	    <div class="span6">
+	      <h4>Order History</h4>
+	      <table class="table">
+		<thead>
+		  <th>Date</th>
+		  <th>Name</th>
+		  <th>Amount</th>
+		</thead>
+		<tbody>
+		  <tr>
+		    <td>12/13/12</td>
+		    <td>Carrots and Onions</td>
+		    <td>$13</td>
+		  </tr>
+		  <tr>
+		    <td>12/17/12</td>
+		    <td>Carrots and Onions</td>
+		    <td>$13</td>
+		  </tr>
+		  <tr>
+		    <td>12/21/12</td>
+		    <td>Carrots and Onions</td>
+		    <td>$13</td>
+		  </tr>
+		</tbody>
+	      </table>
+	    </div>
+	  </div>	      
+	</div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

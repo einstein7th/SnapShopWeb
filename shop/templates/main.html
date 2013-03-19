@@ -1,64 +1,38 @@
-{% extends "base.html" %}
+{% extends "basepage.html" %}
 {% load snapshop_tags %}
-
 {% load shop_extras %}
 
-{% block body %}
-<div class="splash">
-  <div class="navbar navbar-fixed-top navbar-inverse">
-    <div class="navbar-inner">
-      <div class="container">
-	<form>	    
-	  <ul class="nav">
-	    <li><a href="#"><img src="{{STATIC_URL}}img/logo-thumb.png" /></a></li>
-	    
-	    <li><a href="#">
-	      <select name="q" class="chzn-select" style="width:600px" data-placeholder="Search..." multiple>
-		{% for keyword,shop_items in keyword_item_map.items %}
-		<option selected value="{{keyword}}">{{keyword}}</option>
-		{% endfor %}
-	      </select>
-	      </a>
-	      
-	    </li>
-	    <li> 
-	      <a href="#"><button class="submit btn btn-primary btn-small"><i class="icon-shopping-cart icon-white"></i>Find your groceries</button></a>
-	    </li>
-	  </ul>
-	</form>
-      </div>
-    </div>
+{% block content %}
+<div class="container page">
+  <div class="page-header">
+    <h2 class="lightweight">Here's what we've found for you...</h2>
   </div>
-  <div class="container page">
-    <div class="page-header">
-      <h2 class="lightweight">Here's what we've found for you...</h2>
-    </div>
-    <div class="page-body">
-      <div class="ingredient-box" >
-	{% if keyword_item_map.keys %}
-	{% for keyword,shop_items in keyword_item_map.items %}
-	<div id="{{keyword}}-container" class="ingredient-list-container">
-	  <div class="navbar">
-	    <div class="navbar-inner">
-	      <a class="brand" href="#">{{keyword}}</a>
-	      <ul class="nav pull-right">
-		<li><a href="#"><i data-containerid="{{keyword}}-container" class="icon-chevron-left index-back" data-target="ingredient-list-{{keyword}}"></i></a></li>
-		<li><a href="#" id="{{keyword}}-index">1</a></li>
-		<li><a href="#"><i data-containerid="{{keyword}}-container" class="icon-chevron-right index-forward" data-target="ingredient-list-{{keyword}}"></i></a></li>
-		<li class="divider"></li>
-		<li><a><i data-containerid="{{keyword}}-container" class="icon-remove remove-ingredient-list"></i></a></li>
-	      </ul>
-	    </div>
+  <div class="page-body">
+    <div class="ingredient-box" >
+      {% if keyword_item_map.keys %}
+      {% for keyword,shop_items in keyword_item_map.items %}
+      <div id="{{keyword}}-container" class="ingredient-list-container">
+	<div class="navbar">
+	  <div class="navbar-inner">
+	    <a class="brand" href="#">{{keyword}}</a>
+	    <ul class="nav pull-right">
+	      <li><a href="#"><i data-containerid="{{keyword}}-container" class="icon-chevron-left index-back" data-target="ingredient-list-{{keyword}}"></i></a></li>
+	      <li><a href="#" id="{{keyword}}-index">1</a></li>
+	      <li><a href="#"><i data-containerid="{{keyword}}-container" class="icon-chevron-right index-forward" data-target="ingredient-list-{{keyword}}"></i></a></li>
+	      <li class="divider"></li>
+	      <li><a><i data-containerid="{{keyword}}-container" class="icon-remove remove-ingredient-list"></i></a></li>
+	    </ul>
 	  </div>
-	  <div id="ingredient-list-{{keyword}}" class="ingredient-list" data-page="0" data-keyword="{{keyword}}">
-	    <div class="row-fluid">
-	      {% for item in shop_items %}
-	      {% if forloop.first %}
-	      <div id="row-{{keyword}}-{{forloop.counter0}}" class="row-{{keyword}} ingredient-row">
+	</div>
+	<div id="ingredient-list-{{keyword}}" class="ingredient-list" data-page="0" data-keyword="{{keyword}}">
+	  <div class="row-fluid">
+	    {% for item in shop_items %}
+	    {% if forloop.first %}
+	    <div id="row-{{keyword}}-{{forloop.counter0}}" class="row-{{keyword}} ingredient-row">
 	      {% else %}
 	      {% if forloop.counter0|divisibleby:10 %}
-	      </div>
-	      <div id="row-{{keyword}}-{{forloop.counter0|divide:10}}" class="hide row-{{keyword}} ingredient-row">
+	    </div>
+	    <div id="row-{{keyword}}-{{forloop.counter0|divide:10}}" class="hide row-{{keyword}} ingredient-row">
 	      {% endif %}
 	      {% endif %}
 	      <div class="span1 ingredient-item" data-item-name="{{item.item_name}}" data-item-price="{{item.item_price}}" data-item-id="{{item.pk}}" data-item-size="{{item.item_size}}">
@@ -66,65 +40,65 @@
 		<img class="ingredient-thumbnail tooltipped" data-title="{{item.item_name}} ({{item.item_size}}) - {{item.item_price|pretty_price}}" src="{{item.item_thumb_medium}}" />
 	      </div>
 	      {% if forloop.last %}
-	      </div>
-	      {% endif %}
-	      {% endfor %}
 	    </div>
+	    {% endif %}
+	    {% endfor %}
 	  </div>
 	</div>
-	{% endfor %}
-	{% else %}
-	<p class="muted">No matching keywords for query {{query}}</p>
-	{% endif %}
       </div>
-      <hr class="thick"/>
-      <div class="cart-box">
-	<div class="subpage-header">
-	  <h2><img src="{{STATIC_URL}}img/cart.png" /> Ingredients Cart</h2>
-	</div>
-	<table id="cart-table" class="table">
-	  <thead>
-	    <th class="cart-name">Name</th>
-	    <th class="cart-quantity">Quantity</th>
-	    <th class="cart-amount">Amount</th>
-	    <th class="cart-actions">Actions</th>
-	  </thead>
-
-	  <tbody>
-        {% for row in cart %}
-        <tr data-item-price="{{row.1.item_price}}" data-item-id="{{row.1.pk}}">
-          <td><img src="{{row.1.item_thumb_medium}}" width="24" height="24"/> {{row.1.item_name}} ({{row.1.item_size}}) <i class="icon-search view-item-icon"></i></td>
-          <td class="quantity">{{row.0}}</td>
-          <td class="price">{{row.1.item_price | pretty_price}}</td>
-          <td>
-            <i class="icon-chevron-down decrease-quantity-icon"></i> <i class="icon-chevron-up increase-quantity-icon"></i><i class="icon-remove remove-item-icon"></i>
-          </td>
-        </tr>
-        {% endfor %}
-
-	    <tr class="summary-row">
-	      <td><b>Total: </b></td>
-	      <td></td>
-	      <td><b>{{cart_total | pretty_price}}</b></td>
-	      <td></td>
-	    </tr>
-	  </tbody>
-
-	</table>
-      </div>
+      {% endfor %}
+      {% else %}
+      <p class="muted">No matching keywords for query {{query}}</p>
+      {% endif %}
     </div>
     <hr class="thick"/>
-
-
-    <div class="purchase-form-box">
+    <div class="cart-box">
       <div class="subpage-header">
-        <h2><img src="{{STATIC_URL}}img/purchase.png" /> Purchase Form</h2>
+	<h2><img src="{{STATIC_URL}}img/cart.png" /> Ingredients Cart</h2>
       </div>
-      <p>Order by 5PM Saturday, March 16 for delivery on Sunday, March 17. We currently ship to the following MIT living groups: Pi Lambda Phi, Nu Delta. Our next shipment date will be Saturday, April 6 with more locations.</p>
+      <table id="cart-table" class="table">
+	<thead>
+	  <th class="cart-name">Name</th>
+	  <th class="cart-quantity">Quantity</th>
+	  <th class="cart-amount">Amount</th>
+	  <th class="cart-actions">Actions</th>
+	</thead>
+
+	<tbody>
+          {% for row in cart %}
+          <tr data-item-price="{{row.1.item_price}}" data-item-id="{{row.1.pk}}">
+            <td><img src="{{row.1.item_thumb_medium}}" width="24" height="24"/> {{row.1.item_name}} ({{row.1.item_size}}) <i class="icon-search view-item-icon"></i></td>
+            <td class="quantity">{{row.0}}</td>
+            <td class="price">{{row.1.item_price | pretty_price}}</td>
+            <td>
+              <i class="icon-chevron-down decrease-quantity-icon"></i> <i class="icon-chevron-up increase-quantity-icon"></i><i class="icon-remove remove-item-icon"></i>
+            </td>
+          </tr>
+          {% endfor %}
+
+	  <tr class="summary-row">
+	    <td><b>Total: </b></td>
+	    <td></td>
+	    <td><b>{{cart_total | pretty_price}}</b></td>
+	    <td></td>
+	  </tr>
+	</tbody>
+
+      </table>
+    </div>
+  </div>
+  <hr class="thick"/>
+
+
+  <div class="purchase-form-box">
+    <div class="subpage-header">
+      <h2><img src="{{STATIC_URL}}img/purchase.png" /> Purchase Form</h2>
+    </div>
+    <p>Order by 5PM Saturday, March 16 for delivery on Sunday, March 17. We currently ship to the following MIT living groups: Pi Lambda Phi, Nu Delta. Our next shipment date will be Saturday, April 6 with more locations.</p>
     {% if user.is_authenticated %}
-      <p>Your credit card will not be charged until your groceries ship. If you have placed an order with us before, simply select your card below.</p>
-      <p><br /></p>
-      <form id="purchase-form" class="form-horizontal" action="{% url 'results' %}" method="post">
+    <p>Your credit card will not be charged until your groceries ship. If you have placed an order with us before, simply select your card below.</p>
+    <p><br /></p>
+    <form id="purchase-form" class="form-horizontal" action="{% url 'results' %}" method="post">
       {% csrf_token %}
       {{ form.non_field_errors }}
       {% for field in form.visible_fields %}
@@ -135,7 +109,7 @@
         <div class="controls">
           {{ field }}
         </div>
-        </div>
+      </div>
       {% endfor %}
       <p>* fields are required</p>
       <!--{{ form.items_list }}-->
@@ -144,15 +118,14 @@
         <button type="submit" class="btn btn-primary"><i class="icon-white icon-home"></i> Order my Groceries</button>
       </div>
 
-    {% else %}
-        <p>Please <a href="{% url 'login' %}?next={{request.path}}">log in</a> or <a href="{% url 'sign_up' %}?next={{request.path}}">sign up</a> before making a purchase</p>
-        <input type="hidden" id="id_items_list" name='item_list' value='{{cart_json}}'></input><!-- Required for saving cart -->
-    {% endif %}
+      {% else %}
+      <p>Please <a href="{% url 'login' %}?next={{request.path}}">log in</a> or <a href="{% url 'sign_up' %}?next={{request.path}}">sign up</a> before making a purchase</p>
+      <input type="hidden" id="id_items_list" name='item_list' value='{{cart_json}}'></input><!-- Required for saving cart -->
+      {% endif %}
 
 
-      </form>
+    </form>
 
-    </div>
   </div>
 </div>
-  {% endblock %}
+{% endblock %}
