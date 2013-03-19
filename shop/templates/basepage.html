@@ -6,7 +6,7 @@
   <div class="navbar navbar-fixed-top navbar-inverse">
     <div class="navbar-inner">
       <div class="container">
-	<form>	    
+	<form id="navbar-form">	    
 	  <ul class="nav">
 	    <li><a href="{% url 'search' %}"><img src="{{STATIC_URL}}img/logo-thumb.png" /></a></li>	    
 	    <li><a href="#">
@@ -18,7 +18,7 @@
 	      </a>
 	    </li>
 	    <li> 
-	      <a href="#"><button class="submit btn btn-primary btn-small"><i class="icon-shopping-cart icon-white"></i>Find your groceries</button></a>
+	      <a id="submit-navbar-form" href="#"><button class="submit btn btn-primary btn-small"><i class="icon-shopping-cart icon-white"></i>Find your groceries</button></a>
 	    </li>	    
 	  </ul>
 	  <ul class="nav pull-right">

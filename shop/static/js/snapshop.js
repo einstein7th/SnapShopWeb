@@ -13,6 +13,14 @@ function init() {
 
     });
 
+    $('.ingredient-list-container .navbar').click(function(event) {
+	$(this).next().toggle();
+    });
+
+    $('#submit-navbar-form').click(function() {
+	$('#navbar-form').submit();
+    });
+
 
     //chosen.js doesn't support dynamic adding of tokens. 
     //This will do it for us now

@@ -174,3 +174,4 @@ p.ingredient-list-title {margin-right:10px;margin-bottom:0px;margin-top:3px;padd
 .ingredient-badge {position:absolute;}
 .navbar .chzn-container-multi {margin-top:-2px;height:28px;}
 .navbar .btn {margin-top:0px;}
+.brand [class^="icon-"], [class*=" icon-"] {position:relative;top:3px;}

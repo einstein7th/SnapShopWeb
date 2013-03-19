@@ -5,34 +5,34 @@
 {% block content %}
 <div class="container page">
   <div class="page-header">
-    <h2 class="lightweight">Here's what we've found for you...</h2>
+    <h2 class="lightweight"><img src="{{STATIC_URL}}img/search.png" /> Here's what we've found for you...</h2>
   </div>
   <div class="page-body">
     <div class="ingredient-box" >
       {% if keyword_item_map.keys %}
       {% for keyword,shop_items in keyword_item_map.items %}
-      <div id="{{keyword}}-container" class="ingredient-list-container">
+      <div id="{{keyword|idify}}-container" class="ingredient-list-container">
 	<div class="navbar">
 	  <div class="navbar-inner">
-	    <a class="brand" href="#">{{keyword}}</a>
+	    <a class="brand" href="#"><i class="icon-tags"></i> {{keyword}}</a>
 	    <ul class="nav pull-right">
-	      <li><a href="#"><i data-containerid="{{keyword}}-container" class="icon-chevron-left index-back" data-target="ingredient-list-{{keyword}}"></i></a></li>
-	      <li><a href="#" id="{{keyword}}-index">1</a></li>
-	      <li><a href="#"><i data-containerid="{{keyword}}-container" class="icon-chevron-right index-forward" data-target="ingredient-list-{{keyword}}"></i></a></li>
+	      <li><a href="#"><i data-containerid="{{keyword|idify}}-container" class="icon-chevron-left index-back" data-target="ingredient-list-{{keyword|idify}}"></i></a></li>
+	      <li><a href="#" id="{{keyword|idify}}-index">1</a></li>
+	      <li><a href="#"><i data-containerid="{{keyword|idify}}-container" class="icon-chevron-right index-forward" data-target="ingredient-list-{{keyword|idify}}"></i></a></li>
 	      <li class="divider"></li>
-	      <li><a><i data-containerid="{{keyword}}-container" class="icon-remove remove-ingredient-list"></i></a></li>
+	      <li><a><i data-containerid="{{keyword|idify}}-container" class="icon-remove remove-ingredient-list"></i></a></li>
 	    </ul>
 	  </div>
 	</div>
-	<div id="ingredient-list-{{keyword}}" class="ingredient-list" data-page="0" data-keyword="{{keyword}}">
+	<div id="ingredient-list-{{keyword|idify}}" class="ingredient-list" data-page="0" data-keyword="{{keyword|idify}}">
 	  <div class="row-fluid">
 	    {% for item in shop_items %}
 	    {% if forloop.first %}
-	    <div id="row-{{keyword}}-{{forloop.counter0}}" class="row-{{keyword}} ingredient-row">
+	    <div id="row-{{keyword|idify}}-{{forloop.counter0}}" class="row-{{keyword|idify}} ingredient-row">
 	      {% else %}
 	      {% if forloop.counter0|divisibleby:10 %}
 	    </div>
-	    <div id="row-{{keyword}}-{{forloop.counter0|divide:10}}" class="hide row-{{keyword}} ingredient-row">
+	    <div id="row-{{keyword|idify}}-{{forloop.counter0|divide:10}}" class="hide row-{{keyword|idify}} ingredient-row">
 	      {% endif %}
 	      {% endif %}
 	      <div class="span1 ingredient-item" data-item-name="{{item.item_name}}" data-item-price="{{item.item_price}}" data-item-id="{{item.pk}}" data-item-size="{{item.item_size}}">
