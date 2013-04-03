@@ -1,14 +1,24 @@
 {% extends  "base.html" %}
 
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-39854714-1', 'snapshopmit.com');
+  ga('send', 'pageview');
+
+</script>
 
 {% block body %}
 <div class="splash">
   <div class="navbar navbar-fixed-top navbar-inverse">
     <div class="navbar-inner">
       <div class="container">
-	<form id="navbar-form">	    
+	<form id="navbar-form">
 	  <ul class="nav">
-	    <li><a href="{% url 'search' %}"><img src="{{STATIC_URL}}img/logo-thumb.png" /></a></li>	    
+	    <li><a href="{% url 'search' %}"><img src="{{STATIC_URL}}img/logo-thumb.png" /></a></li>
 	    <li><a href="#">
 		<select name="q" class="chzn-select" style="width:600px" data-placeholder="Search..." multiple>
 		{% for keyword,shop_items in keyword_item_map.items %}
@@ -17,9 +27,9 @@
 	      </select>
 	      </a>
 	    </li>
-	    <li> 
+	    <li>
 	      <a id="submit-navbar-form" href="#"><button class="submit btn btn-primary btn-small"><i class="icon-shopping-cart icon-white"></i>Find your groceries</button></a>
-	    </li>	    
+	    </li>
 	  </ul>
 	  <ul class="nav pull-right">
 	    <li><a href="{% url 'account' %}"><i class="icon-user icon-white"></i> {{user.username}}</a></li>
