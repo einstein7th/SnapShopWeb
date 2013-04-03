@@ -79,6 +79,7 @@ class CartItem(models.Model):
 class ShoppingCart(models.Model):
     cart_owner = models.OneToOneField('Customer')
 
+# Should create upon registration, along with shipping ShippingLabel
 class Customer(models.Model):
     stripe_token = models.CharField(max_length=20)
     phone_number = models.CharField(max_length=20)

@@ -94,7 +94,7 @@ def results(request):
         elif form.is_valid(): # TODO if form is not valid because no items in cart, say so! item_list is hidden field so user cannot see error.
             hasError = False
             user_email = request.user.username # form.cleaned_data['email']
-            email_html = '<p>Name: ' + form.cleaned_data['name'] + '<br />Email: ' + user_email + '<br />Address: ' + form.cleaned_data['living_group'] + '<br />Room number: ' + form.cleaned_data['room_number'] + '<br />Phone number: ' + form.cleaned_data['phone_number'] + '</p><p><b>Delivery date: Sunday, March 17, 2013</b></p><p><b>Order:</b></p>'
+            email_html = '<p>Name: ' + form.cleaned_data['name'] + '<br />Email: ' + user_email + '<br />Address: ' + form.cleaned_data['living_group'] + '<br />Room number: ' + form.cleaned_data['room_number'] + '<br />Phone number: ' + form.cleaned_data['phone_number'] + '</p><p><b>Delivery date: Saturday, April 6, 2013</b></p><p><b>Order:</b></p>'
 
             cart_items = json.loads(form.cleaned_data['items_list'])
             cart_total = 0
@@ -270,7 +270,21 @@ def view_item(request,item_id):
     item = get_object_or_404(ShopItem,pk=item_id)
     return render_to_response("item_modal.html",{"item":item},RequestContext(request))
 
+def category_view(request):
+    all_categories = Categories.objects.all()
+    # Filter for top categories only
+
+    categories_top = []
+
+    for cat in all_categories:
+        if cat.category_parent == None:
+            print cat.category_name
+            categories_top.append(cat)
+
+    print categories_top
+    return render_to_response("category.html",{'categories_top': categories_top}, RequestContext(request))
+
 @login_required
 def account(request):
     return render_to_response("account.html",{'user':request.user},RequestContext(request))
-    
+
