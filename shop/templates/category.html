@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="splash">
+  <div class="container-fluid full-height">
+    <div class="row-fluid full-height">
+      <div class="span3">
+      </div>
+      <div class="span6 full-height">
+    <div class="well half-height rob-box">
+      <div class="rob-header">
+      </div>
+      <div class="rob-body">
+
+        <!-- left column, for all categories -->
+        <table>
+
+        {% for category in categories_top %}
+          <tr> <td id="{{ category.category_cnid }}">
+            <!-- category.image TODO need to find/scrape -->
+            {{ category.category_name }}
+          </td></tr>
+        {% endfor %}
+
+        </table>
+
+
+      </div>
+    </div>
+      </div>
+      <div class="span3">
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
